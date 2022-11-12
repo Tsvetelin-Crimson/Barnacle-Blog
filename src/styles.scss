@@ -126,3 +126,22 @@ a {
     top: 0;
     width: 100%;
   }
+
+button{
+    background-color: rgb(2, 98, 137);
+    height: 30px;
+    width: 55px;
+    color: white;
+    border: 2px;
+    border-style: solid;
+    border-radius: 1rem;
+    border-color: rgb(1, 62, 86);
+}
+
+.form {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+} 

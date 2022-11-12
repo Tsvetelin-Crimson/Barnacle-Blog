@@ -1,1 +1,15 @@
 <p>login works!</p>
+<form class="form">
+<div class="form-item">
+    <label for="username"></label>
+    <input type="text" name="username" required [value]="username">
+</div>
+
+<!-- [username]="usernameTemp" -->
+<div class="form-item">
+    <label for="password"></label>
+    <input type="password" name="password" [value]="password">
+</div>
+
+<button (click)="login($event)" class="button-item">Submit</button>
+</form>
