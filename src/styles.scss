@@ -11,10 +11,6 @@ body {
     background-color: rgb(49, 49, 49);
     height: 100%;
     width: 100%;
-    
-    display: flex;
-    flex-direction: column;
-    //justify-content: space-between;
 }
 
 ul {
@@ -28,84 +24,31 @@ a {
 
 }
 
+input {
+    background-color: rgb(1, 62, 86);
+    color: antiquewhite;
+    height: 20px;
+    width: 300px;
+}
+
+
+button{
+    background-color: rgb(2, 98, 137);
+    height: 30px;
+    width: 55px;
+    color: white;
+    border: 2px;
+    border-style: solid;
+    border-radius: 1rem;
+    border-color: rgb(1, 62, 86);
+}
+
 .all-content {
     display: flex;
     flex-direction: column;
     min-height: 10%; // this is the only one that works with height, others work with width bcs flex column
     width: 100%;
     justify-content: space-between;
-}
-
-.navigation {
-    background: rgb(17,156,252);
-    background: linear-gradient(0deg, rgba(17,156,252,1) 0%, rgba(4,54,168,1) 50%, rgba(57,31,254,1) 100%); 
-    width: 100%;
-    min-height: 10%;
-    flex: 0 0 auto;
-}
-
-.nav-container {
-    margin-left: 5%;
-    display: flex;
-    flex-direction: row;
-    //width: 100%; // causes a bug, takes too much space and adds a scrollbar at the bottom
-    height: 100%;
-    //justify-content: center; // will put the items in the center of the width
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.nav-item {
-    margin-right: 4px;
-}
-
-.nav-home {
-    justify-self: baseline;
-    font-size: 30px;
-}
-
-.main-container {
-    width: 80%;
-}
-
-.main-content:first-child {
-    margin-left: 4%;
-    height: 100%;
-}
-
-.footer {
-    min-width: 10%; // works as height bcs of flex column
-    width: 100%;
-    align-self: flex-end;
-    align-items: center;
-    justify-content: center;
-    margin-top: auto;
-
-    background: rgb(17,156,252);
-    background: linear-gradient(180deg, rgba(17,156,252,1) 0%, rgba(4,54,168,1) 50%, rgba(57,31,254,1) 100%);
-}
-
-.footer-items {
-    margin-left: 8%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    height: 100%;
-}
-
-.footer-end-links {
-    justify-self: flex-end;
-
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    flex-basis: auto;
-    
-    margin-left: 2px;
-    margin-right: 8%;
-    // flex: 2 1 0%;
 }
 
 .button-item {
@@ -127,20 +70,11 @@ a {
     width: 100%;
   }
 
-button{
-    background-color: rgb(2, 98, 137);
-    height: 30px;
-    width: 55px;
-    color: white;
-    border: 2px;
-    border-style: solid;
-    border-radius: 1rem;
-    border-color: rgb(1, 62, 86);
-}
-
 .form {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 60%;
     align-items: center;
     justify-items: center;
     justify-content: center;

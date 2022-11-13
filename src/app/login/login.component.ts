@@ -7,9 +7,10 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  username?: string;
+  username = new FormControl<string>('');
   //fullForm = new FormGroup('');
-  password?: string;
+  isUsernameValid: boolean = true;
+  password = new FormControl<string>('');
   constructor() {
 
    }
@@ -17,7 +18,6 @@ export class LoginComponent implements OnInit {
   login($event: MouseEvent): void {
     $event.preventDefault();
     console.log(this.username, this.password);
-    
   }
 
   ngOnInit(): void {
