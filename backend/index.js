@@ -1,5 +1,16 @@
 const express = require('express');
 
-const app = express();
+const databaseSetup = require('./setup/database');
+const middlewaresSetup = require('./setup/middlewares');
+const routesSetup = require('./setup/routes');
 
-//TODO: add routes for user creation and other models 
+run();
+
+async function run(){
+    const app = express();
+
+    await databaseSetup(app);
+    middlewaresSetup(app);
+    routesSetup(app);
+    app.listen(3000, () => console.log('Server started on port 3000.'));
+}
