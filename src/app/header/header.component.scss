@@ -8,12 +8,14 @@
 }
 
 .nav-container {
-    margin-left: 5%;
+    width: 100%;
+    margin: 0px 10%;
     display: flex;
     flex-direction: row;
     height: 100%;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .nav-item {
@@ -21,6 +23,8 @@
 }
 
 .nav-home {
-    justify-self: baseline;
+    justify-self: flex-start;
+    margin: auto;
+    margin-left: 0;
     font-size: 30px;
 }

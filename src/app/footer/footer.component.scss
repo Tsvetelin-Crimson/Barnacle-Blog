@@ -1,4 +1,5 @@
 .footer {
+    min-height: 14%;
     width: 100%;
     align-self: flex-end;
     align-items: center;
@@ -9,7 +10,7 @@
 }
 
 .footer-items {
-    margin-left: 8%;
+    margin: 0 10%;
     display: flex;
     flex-direction: row;
     align-items: center;

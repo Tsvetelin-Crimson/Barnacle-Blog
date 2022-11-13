@@ -1,0 +1,31 @@
+<form class="form">
+    <p style="align-self: center;">Register</p>
+
+    <label for="username" class="form-label">Username</label>
+    <div class="form-item ">
+        <input type="text" name="username" class="form-input" required #usernameElement [formControl]="username">
+    </div>
+    <div class="form-item" *ngIf="username.touched && usernameElement.value.length < 3">
+        <span class="error-text">Password is required with a minimum of length 3 symbols</span>
+    </div>
+
+    <label for="password" class="form-label">Password</label>
+    <div class="form-item">
+        <input type="password" name="password" required #passwordElement [formControl]="password">
+    </div>
+    <div class="form-item" *ngIf="password.touched && passwordElement.value.length < 5">
+        <span class="error-text">Password is required with a minimum of length 5 symbols!</span>
+    </div>
+
+    <label for="repass" class="form-label">Repeat Password</label>
+    <div class="form-item">
+        <input type="password" name="repass" required #repassElement [formControl]="repass">
+    </div>
+    <div class="form-item" *ngIf="password.touched && repass.touched && passwordElement.value !== repassElement.value">
+        <span class="error-text">Passwords don't match!</span>
+    </div>
+
+    <div class="form-item">
+        <button (click)="register($event)" class="button-item">Submit</button>
+    </div>
+</form>
