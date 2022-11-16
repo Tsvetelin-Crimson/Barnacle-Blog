@@ -2,20 +2,22 @@
     <p style="align-self: center;">Login!</p>
     <label for="username" class="form-label">Username</label>
     <div class="form-item ">
-        <input type="text" name="username" class="form-input" required #usernameElement [formControl]="username">
+        <input type="text" name="username" class="form-input" required #usernameElement [(ngModel)]='username' [formControl]="usernameComp">
     </div>
-    <div class="form-item" *ngIf="username.touched && usernameElement.value.length < 3">
+    <div class="form-item" *ngIf="usernameComp.touched&& usernameElement.value.length < 3">
         <span class="error-text">Password is required with a minimum of length 3 symbols</span>
     </div>
 
     <label for="password" class="form-label">Password</label>
     <div class="form-item">
-        <input type="password" name="password" required #passwordElement [formControl]="password">
+        <input type="password" name="password" required #passwordElement [(ngModel)]='password' [formControl]="passwordComp">
     </div>
-    <div class="form-item" *ngIf="password.touched && passwordElement.value.length < 5">
+    <div class="form-item" *ngIf="passwordComp.touched && passwordElement.value.length < 5">
         <span class="error-text">Password is required with a minimum of length 5 symbols!</span>
     </div>
     <div class="form-item">
     <button (click)="login($event)" class="button-item">Submit</button>
 </div>
 </form>
+Username: {{username}} 
+Password: {{password}}
