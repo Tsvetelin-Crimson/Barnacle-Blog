@@ -1,6 +1,20 @@
 # Barnacle-Blog
 This is a blog for games I'm making for a school assignment. 
 
+
+
+# How to run the project
+You will need 2 consoles open on the base of the project (where this file is)
+On one console run: npm start. This will run the frontend aka Angular.
+On the second console run: npm startBE. This will run the backedn (Node.js in this case)
+
+The route for he front end is http://localhost:4200/.
+For the backend is http://localhost:3000/
+TODO: Add endpoints file
+
+
+# DEV STUFF WILL BE REMOVED BEFORE FINISHING THE PROJECT
+
 # BarnacleBlog
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.8.
