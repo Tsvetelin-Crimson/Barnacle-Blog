@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from '../services/auth/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -13,16 +14,20 @@ export class LoginComponent implements OnInit {
   //fullForm = new FormGroup('');
   isUsernameValid: boolean = true;
   password = ''; // = new FormControl<string>('');
-  constructor() {
+  constructor(private authService: AuthService) {
 
    }
 
   login($event: MouseEvent): void {
     $event.preventDefault();
     console.log(this.username, this.password);
-    this.username = "Wrong";
-    this.password = "Fool"
-    console.log(this.username, this.password);
+    // this.username = "Wrong";
+    // this.password = "Fool"
+    // console.log(this.username, this.password);
+    this.authService.login(this.username, this.password)
+      .subscribe((token) => {
+        console.log(`The auth token is: ${token.token}`)
+      })
   }
 
   ngOnInit(): void {
