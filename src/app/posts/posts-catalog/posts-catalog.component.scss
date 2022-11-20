@@ -1,0 +1,23 @@
+.title {
+    display: inline-block;
+    font-size: 25px;
+}
+
+.content {
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+
+.separator {
+    width: 100%;
+    border: 1px;
+    background-color: rgb(118, 118, 118);
+    border-style: solid;
+    border-color: rgb(118, 118, 118);
+}

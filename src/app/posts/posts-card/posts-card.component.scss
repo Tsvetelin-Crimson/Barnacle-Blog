@@ -1,0 +1,22 @@
+.post-card {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    margin-right: 10px;
+    // background-color: ;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    margin-left: 5px;
+}
+
+.category {
+    font-size: 13px;
+    font-style: italic;
+    color: rgb(178, 178, 178);
+}

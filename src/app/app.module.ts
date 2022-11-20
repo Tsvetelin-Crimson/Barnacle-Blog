@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { LayoutPartsModule } from './layout-parts/layout-parts.module';
+import { PostsModule } from './posts/posts.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { LayoutPartsModule } from './layout-parts/layout-parts.module';
   imports: [
     BrowserModule,
     AuthenticationModule,
-    LayoutPartsModule
+    LayoutPartsModule,
+    PostsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
