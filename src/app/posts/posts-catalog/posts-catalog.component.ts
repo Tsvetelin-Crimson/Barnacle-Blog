@@ -9,10 +9,15 @@ import { PostsService } from '../services/postsService';
 })
 export class PostsCatalogComponent implements OnInit {
 
-  posts: IPost[] | null = null;
-  
+  posts: IPost[] | null = null; // TODO: replace with Observable<IPost[]>
+
   constructor(private postsService: PostsService) {
-    this.posts = this.postsService.getPosts();
+    this.postsService.getPosts()
+      .subscribe(posts => {
+        console.log(posts);
+        
+        this.posts = posts;
+      });
    }
 
   ngOnInit(): void {
