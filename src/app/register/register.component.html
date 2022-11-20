@@ -1,12 +1,21 @@
 <form class="form">
     <p style="align-self: center;">Register</p>
+    <p *ngIf="error != ''" class="error-text">{{error}}</p>
 
     <label for="username" class="form-label">Username</label>
     <div class="form-item ">
         <input type="text" name="username" class="form-input" required #usernameElement [formControl]="username">
     </div>
     <div class="form-item" *ngIf="username.touched && usernameElement.value.length < 3">
-        <span class="error-text">Password is required with a minimum of length 3 symbols</span>
+        <span class="error-text">Username is required with a minimum of length 3 symbols</span>
+    </div>
+
+    <label for="email" class="form-label">Email</label>
+    <div class="form-item ">
+        <input type="email" name="email" class="form-input" required #emailElement [formControl]="email">
+    </div>
+    <div class="form-item" *ngIf="email.touched && emailElement.value.length < 3">
+        <span class="error-text">Email is required and must be a valid email!</span>
     </div>
 
     <label for="password" class="form-label">Password</label>

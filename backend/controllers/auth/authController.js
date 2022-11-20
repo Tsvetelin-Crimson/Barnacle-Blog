@@ -1,23 +1,48 @@
-const { login } = require('../../services/auth/authService');
+const { login, register, verifyToken } = require('../../services/auth/authService');
 
 const authController = require('express').Router();
 
-authController.get('/register', (req, res) => {
-    res.json([{
-        username: 'someusername',
-        hashedpass: 'somepass',
-    }]);
-});
-
-authController.get('/login', async (req, res) => {
+authController.post('/register', async (req, res) => {
     try {
-        // const { username, password } = req.body;
-        const token = await login('someUsername', 'pass')
+        // console.log(req.body);
+        const { username, email, password, repass } = req.body;
+
+        const token = await register(username, email, password, repass)
         
         res.json({token}); 
     } catch (error) {
-        res.status(404).json({ error: error.message })
+        // TODO: add back util for error handling
+        res.status(400).json({ error: error.message })
     }
 });
+
+authController.post('/login', async (req, res) => {
+    try {
+        // console.log(req.body);
+        // console.log(req.headers);
+        const { username, password } = req.body;
+
+        const token = await login(username, password)
+        
+        res.json({token}); 
+    } catch (error) {
+        // TODO: add back util for error handling
+        res.status(400).json({ error: error.message })
+    }
+});
+
+authController.post('/validateToken', (req, res) => {
+    try {
+        const { token } = req.body;
+
+        const isValid = verifyToken(token)
+        
+        res.json({isValid}); 
+    } catch (error) {
+        // TODO: add back util for error handling
+        res.status(400).json({ error: error.message })
+    }
+});
+
 
 module.exports = authController;

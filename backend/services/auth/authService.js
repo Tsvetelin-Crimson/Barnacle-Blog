@@ -3,43 +3,45 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../../models/auth/User')
 
+// TODO: extract value in environment variable (as of right now this is local so no problems just leaving it here)
+// dev one can be visible, prod one - cannot (or just randomly generate one, problem being if the backend stops randomly it will make everyone need to login again)
 const jwtSecret = 'aghauhgsy2723yug2324rwgs';
 
 async function login(username, password) {
     //TODO: Uncomment and add othe validation if needed
-    // const user = await User.findOne({ username });
-    // if(!user) {
-    //     throw new Error('Username or password is incorrect!');
-    // }
+    const user = await User.findOne({ username });
+    testFor(!user, 'Username or password is incorrect!');
 
-    // const passwordsAreSame = await bcrypt.compare(password, user.hashedPassword);
+    const passwordsAreSame = await bcrypt.compare(password, user.hashedPassword);
 
-    // if(!passwordsAreSame)
-    // {
-    //     throw new Error('Username or password is incorrect!');
+    testFor(!passwordsAreSame, 'Username or password is incorrect!');
+    // let user = {
+    //     username, password
     // }
-    let user = {
-        username, password
-    }
     const token = createToken(user);
 
     return token;
 }
 
-async function register(username, password, repass) {
+async function register(username, email, password, repass) {
+    testFor(password != repass, 'Passwords must match!');
+    
+    var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    console.log(email);
+    console.log(emailRegex.test(email));
+    testFor(!emailRegex.test(email), 'Email is not an email!');
+
     const exists = await User.findOne({ username: username });
-    if(exists) {
-        throw new Error('Username is taken!');
-    }
+    testFor(exists, 'Username is taken!')
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
         username,
+        email,
         hashedPassword: hashedPassword
     });
 
-    //TODO: Check to see if user needs to logged after registering
     const token = createToken(user);
 
     return token;
@@ -65,3 +67,9 @@ module.exports = {
     verifyToken,
     createToken,
 };
+// TODO: extract to utils file
+function testFor(isNotValid, errormessage){
+    if (isNotValid) {
+        throw new Error(errormessage);
+    }
+}

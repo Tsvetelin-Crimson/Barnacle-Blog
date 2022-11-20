@@ -7,6 +7,7 @@ var cors = require('cors')
 module.exports = (app) => {
     //app.use('/static', express.static('static'));
     app.use(express.urlencoded({ extended: true }));
+    app.use(express.json());
     app.use(cors())
     // app.use(addSession());
     // app.use(trimBody('password'));

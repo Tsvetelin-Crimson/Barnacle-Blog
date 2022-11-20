@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const databaseName = 'mindblog';
+const databaseName = 'barnacleBlog';
 const DB_CONNECTION_STRING = `mongodb://localhost:27017/${databaseName}`;
 
 module.exports = async (app) => {
