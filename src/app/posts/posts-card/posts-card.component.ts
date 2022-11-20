@@ -15,6 +15,11 @@ export class PostsCardComponent implements OnInit {
   title!: string;
   @Input()
   category: string = 'Unknown category';
+  @Input()
+  preview: string = '...';
+  @Input()
+  likes: number = 0;
+
 
   constructor() { }
 

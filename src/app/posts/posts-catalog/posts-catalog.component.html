@@ -1,16 +1,18 @@
 <div class="content">
-    <div class="title">Posts</div>
-    <app-posts-card username="Peter" postLink="/" category="Category" title="Title"></app-posts-card>
-    <br/>
-    <div class="separator"></div>
-    <br/>
-    <app-posts-card username="Peter4" postLink="/" category="Category" title="Title"></app-posts-card>
-    <br/>
-    <div class="separator"></div>
-    <br/>
-    <app-posts-card username="Peter3" postLink="/" category="Category" title="Title"></app-posts-card>
-    <br/>
-    <div class="separator"></div>
-    <br/>
-    <app-posts-card username="Peter2" postLink="/" category="Category" title="Title"></app-posts-card>
+    <div class="title">Recent Posts</div>
+
+    <div *ngFor="let post of posts" class="card">
+        <app-posts-card 
+            username="{{post.ownerName}}"
+            postLink="/"
+            category="{{post.category}}"
+            title="{{post.title}}"
+            preview="{{post.preview}}"
+            ></app-posts-card>
+        <br/>
+        <div class="separator"></div>
+        <br/>
+    </div>
+    <!-- <app-posts-card username="Peter4" postLink="/" category="Category" title="Title"></app-posts-card> -->
+    
 </div>

@@ -11,12 +11,37 @@
     flex-direction: column;
 }
 
-.content {
-    margin-left: 5px;
-}
-
 .category {
-    font-size: 13px;
+    font-size: 12px;
     font-style: italic;
     color: rgb(178, 178, 178);
+}
+
+.title {
+    font-size: 25px;
+}
+
+
+.content {
+    margin-left: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-size: 20px;
+}
+
+.card-footer {
+    margin-top: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user-details {
+    font-size: 14px;
+}
+
+.likes {
+    // align-self: flex-end;
+    margin-right: 2%;
+    font-size: 13px;
 }
