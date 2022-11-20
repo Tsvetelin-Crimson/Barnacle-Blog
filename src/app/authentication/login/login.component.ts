@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { catchError, EMPTY, pipe } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { catchError, EMPTY } from 'rxjs';
 import { AuthService } from '../services/auth/auth-service.service';
 
 @Component({

@@ -29,7 +29,7 @@ async function register(username, email, password, repass) {
     var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     console.log(email);
     console.log(emailRegex.test(email));
-    testFor(!emailRegex.test(email), 'Email is not an email!');
+    testFor(!emailRegex.test(email), `${email} is not an email!`);
 
     const exists = await User.findOne({ username: username });
     testFor(exists, 'Username is taken!')
