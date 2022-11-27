@@ -19,7 +19,6 @@ export class AuthService {
     }
     // TODO: make api endpoints file
     // TODO: add error handling (pipe() with catch error)
-    // maybe doing something like enpoints['login'].value would be better?
     return this.http.post<Token>(`${environment.apiUrlBase}${enpoints['login']}`, body);
   }
 
@@ -32,7 +31,6 @@ export class AuthService {
     }
     // TODO: make api endpoints file
     // TODO: add error handling (pipe() with catch error)
-    // maybe doing something like enpoints['login'].value would be better?
     return this.http.post<Token>(`${environment.apiUrlBase}${enpoints['register']}`, body);
   }
 

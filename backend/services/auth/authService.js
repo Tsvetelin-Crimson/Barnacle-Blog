@@ -8,16 +8,13 @@ const User = require('../../models/auth/User')
 const jwtSecret = 'aghauhgsy2723yug2324rwgs';
 
 async function login(username, password) {
-    //TODO: Uncomment and add othe validation if needed
     const user = await User.findOne({ username });
     testFor(!user, 'Username or password is incorrect!');
 
     const passwordsAreSame = await bcrypt.compare(password, user.hashedPassword);
 
     testFor(!passwordsAreSame, 'Username or password is incorrect!');
-    // let user = {
-    //     username, password
-    // }
+    
     const token = createToken(user);
 
     return token;

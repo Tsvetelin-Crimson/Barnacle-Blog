@@ -15,7 +15,7 @@ export class PostsCatalogComponent implements OnInit {
     this.postsService.getPosts()
       .subscribe(posts => {
         console.log(posts);
-        
+
         this.posts = posts;
       });
    }

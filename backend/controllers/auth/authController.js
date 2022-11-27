@@ -4,7 +4,6 @@ const authController = require('express').Router();
 
 authController.post('/register', async (req, res) => {
     try {
-        // console.log(req.body);
         const { username, email, password, repass } = req.body;
 
         const token = await register(username, email, password, repass)
@@ -18,8 +17,6 @@ authController.post('/register', async (req, res) => {
 
 authController.post('/login', async (req, res) => {
     try {
-        // console.log(req.body);
-        // console.log(req.headers);
         const { username, password } = req.body;
 
         const token = await login(username, password)

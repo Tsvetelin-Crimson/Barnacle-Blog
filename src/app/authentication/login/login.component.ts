@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   login($event: MouseEvent): void {
     $event.preventDefault();
-    // console.log(this.username, this.password);
+    
     this.usernameComp.value;
     this.passwordComp.value;
     this.authService.login(this.usernameComp.value, this.passwordComp.value)

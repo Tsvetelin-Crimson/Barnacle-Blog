@@ -23,7 +23,6 @@ export class AppComponent {
         {
           return from([false]);
         })
-      // switchMap(value => )
     )
     .subscribe(route => {
       this.isAuthenticated = route;
