@@ -29,6 +29,10 @@
     font-size: 20px;
 }
 
+.logout {
+    cursor: pointer;
+}
+
 @media (max-width: 480px) {
     .nav-container {
         flex-direction: column;
