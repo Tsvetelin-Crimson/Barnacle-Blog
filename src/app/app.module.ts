@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { LayoutPartsModule } from './layout-parts/layout-parts.module'; // Should be renamed to core
 import { PostsModule } from './posts/posts.module';
 import { RouterModule } from '@angular/router';
 
@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     BrowserModule,
     AuthenticationModule,
-    LayoutPartsModule,
+    CoreModule,
     PostsModule,
     RouterModule.forRoot([
       {

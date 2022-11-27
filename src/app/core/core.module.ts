@@ -34,4 +34,4 @@ const routes: Routes = [
     AboutComponent
   ]
 })
-export class LayoutPartsModule { }
+export class CoreModule { }

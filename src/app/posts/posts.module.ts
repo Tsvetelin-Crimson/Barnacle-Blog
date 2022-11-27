@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PostsCardComponent } from './posts-card/posts-card.component';
 import { PostsCatalogComponent } from './posts-catalog/posts-catalog.component';
 import { RouterModule, Routes } from '@angular/router';
-import { IsLoggedInGuard } from '../global guards/is-logged-in.guard';
+import { IsLoggedInGuard } from '../globalGuards/is-logged-in.guard';
 
 const routes: Routes = [
   {
