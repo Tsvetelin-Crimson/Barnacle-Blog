@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const User = require('../../models/auth/User')
+const User = require('../../models/auth/User');
+const { testFor } = require('../../utils/validation');
 
 // TODO: extract value in environment variable (as of right now this is local so no problems just leaving it here)
 // dev one can be visible, prod one - cannot (or just randomly generate one, problem being if the backend stops randomly it will make everyone need to login again)
@@ -14,7 +15,7 @@ async function login(username, password) {
     const passwordsAreSame = await bcrypt.compare(password, user.hashedPassword);
 
     testFor(!passwordsAreSame, 'Username or password is incorrect!');
-    
+
     const token = createToken(user);
 
     return token;
@@ -64,9 +65,3 @@ module.exports = {
     verifyToken,
     createToken,
 };
-// TODO: extract to utils file
-function testFor(isNotValid, errormessage){
-    if (isNotValid) {
-        throw new Error(errormessage);
-    }
-}

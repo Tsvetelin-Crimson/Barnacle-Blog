@@ -21,4 +21,28 @@ export class PostsService {
             })
         );
     }
+
+    createPost(
+        title: string,
+        preview: string | null,
+        content: string,
+        categoryId: string,
+        userId: string
+        ): Observable<string> {
+        const body = {
+            title,
+            preview,
+            content,
+            categoryId,
+            userId
+        }
+
+        return this.http.post<string>(`${environment.apiUrlBase}${enpoints['createPost']}`, body)
+        .pipe(
+            catchError(err => {
+                console.log(err);
+                return EMPTY;
+            })
+        );
+    }
 }

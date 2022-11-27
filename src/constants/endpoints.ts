@@ -3,6 +3,7 @@ export const enpoints = {
     register: 'auth/register',
     validateToken: 'auth/validateToken',
     allPosts: 'posts',
+    createPost: 'posts/create',
 
     // {
     //     endpointName: 'login',
