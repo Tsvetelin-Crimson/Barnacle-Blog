@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { AuthService } from '../authentication/services/auth/auth-service.service';
+import { UserService } from '../common/services/user-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +9,13 @@ import { AuthService } from '../authentication/services/auth/auth-service.servic
 export class IsLoggedInGuard implements CanActivate {
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private router: Router) {  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authService.checkAuthentication()
+    return this.userService.checkAuthentication()
     .pipe(
       tap(value => {
         if (!value) {

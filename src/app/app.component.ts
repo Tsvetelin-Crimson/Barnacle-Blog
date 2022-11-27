@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, from, map, switchMap } from 'rxjs';
-import { AuthService } from './authentication/services/auth/auth-service.service';
+import { UserService } from './common/services/user-service.service';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +13,12 @@ export class AppComponent {
 
   isAuthenticated = false;
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private router: Router
     ) {
     this.router.events
     .pipe(
-      switchMap(_ => this.authService.checkAuthentication()),
+      switchMap(_ => this.userService.checkAuthentication()),
       catchError(_ =>
         {
           return from([false]);
@@ -28,11 +28,4 @@ export class AppComponent {
       this.isAuthenticated = route;
     });
   }
-
-  checkAuthentication(): void {
-    this.authService.checkAuthentication()
-    .subscribe(isAuth => {
-      this.isAuthenticated = isAuth;
-    })
-   }
 }
