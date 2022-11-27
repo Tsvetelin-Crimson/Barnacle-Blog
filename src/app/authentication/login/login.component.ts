@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit {
 
   login($event: MouseEvent): void {
     $event.preventDefault();
-    
-    this.usernameComp.value;
-    this.passwordComp.value;
+
+    // this.usernameComp.value;
+    // this.passwordComp.value;
     this.authService.login(this.usernameComp.value, this.passwordComp.value)
       .pipe(
         catchError(err => {
@@ -36,7 +36,8 @@ export class LoginComponent implements OnInit {
       )
       .subscribe((token) => {
         localStorage.setItem('jwt', token.token);
-        console.log(`The auth token is: ${token.token}`)
+        localStorage.setItem('username', this.usernameComp.value ?? '');
+        console.log(`The auth token is: ${token.token}`);
         this.router.navigateByUrl('home');
         //TODO: redirect also do the same as register
 

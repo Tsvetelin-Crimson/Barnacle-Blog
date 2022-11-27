@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { PostsService } from '../services/postsService';
 
 @Component({
@@ -9,10 +9,10 @@ import { PostsService } from '../services/postsService';
 })
 export class PostCreateComponent implements OnInit {
   error = '';
-  titleControl = new FormControl<string>('');
+  titleControl = new FormControl<string>('', Validators.required);
   previewControl = new FormControl<string>('');
-  contentControl = new FormControl<string>('');
-  categoryControl = new FormControl<number>(0);
+  contentControl = new FormControl<string>('', Validators.required);
+  categoryControl = new FormControl<number>(0, Validators.required);
 
   constructor(private postService: PostsService) { }
 
@@ -22,8 +22,12 @@ export class PostCreateComponent implements OnInit {
   createPost($event: MouseEvent): void {
     $event.preventDefault();
 
-    // TODO: actually implement this
-    //this.postService.createPost();
+    this.postService.createPost(
+      "" + this.titleControl.value,
+      this.previewControl.value,
+      "" + this.contentControl.value,
+      "" + this.categoryControl.value,
+      "" + localStorage.getItem('username'));
   }
 
 }

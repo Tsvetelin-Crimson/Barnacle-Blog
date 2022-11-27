@@ -38,6 +38,8 @@ export class RegisterComponent implements OnInit {
       .subscribe(token => {
         if (token != null && token.token != '') {
         localStorage.setItem('jwt', token.token);
+        // TODO: make control fields consistent
+        localStorage.setItem('username', this.username.value ?? '');
         console.log(`The auth token is: ${token.token}`);
         this.router.navigateByUrl('home');
         return;
