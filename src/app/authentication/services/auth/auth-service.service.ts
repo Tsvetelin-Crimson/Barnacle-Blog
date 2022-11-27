@@ -35,4 +35,13 @@ export class AuthService {
     // maybe doing something like enpoints['login'].value would be better?
     return this.http.post<Token>(`${environment.apiUrlBase}${enpoints['register']}`, body);
   }
+
+  logOut(): void {
+    localStorage.removeItem('jwt');
+  }
+
+  checkAuthentication(): Observable<boolean> {
+    const token = localStorage.getItem('jwt');
+    return this.http.post<boolean>(`${environment.apiUrlBase}${enpoints['validateToken']}`, {token})
+  }
 }

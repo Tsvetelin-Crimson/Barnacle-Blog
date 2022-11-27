@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 import { AuthService } from '../services/auth/auth-service.service';
 
@@ -15,7 +16,10 @@ export class RegisterComponent implements OnInit {
   password = new FormControl<string>('');
   repass = new FormControl<string>('');
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
   }
@@ -35,7 +39,7 @@ export class RegisterComponent implements OnInit {
         if (token != null && token.token != '') {
         localStorage.setItem('jwt', token.token);
         console.log(`The auth token is: ${token.token}`);
-        //TODO: redirect
+        this.router.navigateByUrl('home');
         return;
         }
         this.error == 'An unexpected error occured please try again';

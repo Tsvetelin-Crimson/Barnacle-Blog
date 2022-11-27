@@ -34,10 +34,19 @@ authController.post('/login', async (req, res) => {
 authController.post('/validateToken', (req, res) => {
     try {
         const { token } = req.body;
-
-        const isValid = verifyToken(token)
+        let isValid = false;
+        if (!token) {
+            res.json(isValid);
+            return;
+        }
+        try {
+            verifyToken(token);
+            isValid = true;
+            res.json(isValid); 
+        } catch (error) {
+            res.json(isValid);
+        }
         
-        res.json({isValid}); 
     } catch (error) {
         // TODO: add back util for error handling
         res.status(400).json({ error: error.message })

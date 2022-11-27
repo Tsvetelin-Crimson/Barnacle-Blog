@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 import { AuthService } from '../services/auth/auth-service.service';
 
@@ -15,8 +16,10 @@ export class LoginComponent implements OnInit {
   passwordComp =  new FormControl<string>('');
   isUsernameValid: boolean = true;
   // password = ''; // = new FormControl<string>('');
-  constructor(private authService: AuthService) {
-
+  constructor(
+    private authService: AuthService,
+    private router: Router
+    ) {
    }
 
   login($event: MouseEvent): void {
@@ -34,6 +37,7 @@ export class LoginComponent implements OnInit {
       .subscribe((token) => {
         localStorage.setItem('jwt', token.token);
         console.log(`The auth token is: ${token.token}`)
+        this.router.navigateByUrl('home');
         //TODO: redirect also do the same as register
 
       })

@@ -1,16 +1,19 @@
     <nav class="navigation" id="header">
         <ul class="nav-container">
           <li class="nav-home nav-li-item">
-            <a class="nav-item button-item" href="/">Barnacle Blog</a>
+            <a class="nav-item button-item" routerLink="/">Barnacle Blog</a>
           </li>
-          <li class="nav-li-item">
-            <a class="nav-item button-item" href="/login">Login</a>
+          <li class="nav-li-item" *ngIf="!isAuthenticated">
+            <a class="nav-item button-item" routerLink="/login">Login</a>
           </li>
-          <li class="nav-li-item">
-            <a class="nav-item button-item" href="/register">Register</a>
+          <li class="nav-li-item" *ngIf="!isAuthenticated">
+            <a class="nav-item button-item" routerLink="/register">Register</a>
           </li>
-          <li class="nav-li-item">
-            <a class="nav-item button-item" href="/login">All Blogs</a>
+          <li class="nav-li-item" *ngIf="isAuthenticated">
+            <a class="nav-item button-item" routerLink="/catalog">All Blogs</a>
+          </li>
+          <li class="nav-li-item" *ngIf="isAuthenticated">
+            <a class="nav-item button-item" (click)="logOut()">Logout</a>
           </li>
         </ul>
       </nav>
