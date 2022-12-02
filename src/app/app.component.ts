@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError, from, map, of, switchMap } from 'rxjs';
+import { Router, Scroll } from '@angular/router';
+import { catchError, EMPTY, from, switchMap } from 'rxjs';
 import { UserService } from './common/services/user-service.service';
 
 @Component({
@@ -18,9 +18,16 @@ export class AppComponent {
     ) {
     this.router.events
     .pipe(
-      switchMap(_ => 
+      switchMap(route => 
         {
-          return this.userService.checkAuthentication();
+          // for some reason Scroll is the last event triggered not NavigationEnd
+          if(route instanceof Scroll) {
+            console.log(route);
+            return this.userService.checkAuthentication();
+          }
+          console.log(route);
+          
+          return EMPTY;
         }),
       catchError(_ =>
         {
