@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     top: 0;
-    font-size: 16px;
+    font-size: 32px;
     color: antiquewhite;
 
     background-color: rgb(49, 49, 49);
@@ -26,15 +26,20 @@ a {
 input {
     background-color: rgb(1, 62, 86);
     color: antiquewhite;
-    height: 20px;
-    width: 300px;
+    font-size: 40px;
+    height: auto;
+    width: auto;
+    line-height: 40px;
 }
 
 
 button{
+    font-size: 40px;
     background-color: rgb(2, 98, 137);
-    height: 30px;
-    width: 55px;
+    // height: 30px;
+    // width: 55px;
+    height: 65px;
+    width: 150px;
     color: white;
     border: 2px;
     border-style: solid;
@@ -84,3 +89,7 @@ button{
     justify-items: center;
     justify-content: center;
 } 
+
+.host-element {
+    width: 100%;
+}

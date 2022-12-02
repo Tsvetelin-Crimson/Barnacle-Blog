@@ -1,10 +1,9 @@
 <form class="form" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-    <p style="align-self: center;">Login!</p>
-    <p *ngIf="error != ''" class="error-text">{{error}}</p>
+    <h2 style="align-self: center;">Login</h2>
+    <h5 *ngIf="error != ''" class="error-text">{{error}}</h5>
     <label for="username" class="form-label">Username</label>
     <div class="form-item ">
         <input type="text" name="username" class="form-input" required ngModel #usernameElement="ngModel" >  <!-- [ngModel]="usernameComp" unneeded -->
-        
     </div>
     <div class="form-item" *ngIf="usernameElement.touched && usernameElement.value.length < 3">
         <span class="error-text">Password is required with a minimum of length 3 symbols</span>
@@ -12,7 +11,7 @@
 
     <label for="password" class="form-label">Password</label>
     <div class="form-item">
-        <input type="password" name="password" ngModel required #passwordElement="ngModel">
+        <input type="password" name="password" class="form-input" ngModel required #passwordElement="ngModel">
     </div>
     <div class="form-item" *ngIf="passwordElement.touched && passwordElement.value.length < 5">
         <span class="error-text">Password is required with a minimum of length 5 symbols!</span>

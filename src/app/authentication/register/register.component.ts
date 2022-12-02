@@ -7,7 +7,10 @@ import { AuthService } from '../services/auth/auth-service.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  host: {
+    class: 'host-element'
+  }
 })
 export class RegisterComponent implements OnInit {
   error = '';

@@ -1,7 +1,7 @@
 
 <form class="form" #registerForm="ngForm" (ngSubmit)="register(registerForm)" ><!-- [formGroup]="form" -->
-    <p style="align-self: center;">Register</p>
-    <p *ngIf="error != ''" class="error-text">{{error}}</p>
+    <h2 style="align-self: center;">Register</h2>
+    <h5 *ngIf="error != ''" class="error-text">{{error}}</h5>
 
     <label for="username" class="form-label">Username</label>
     <div class="form-item ">

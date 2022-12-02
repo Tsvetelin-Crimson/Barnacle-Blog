@@ -7,7 +7,10 @@ import { AuthService } from '../services/auth/auth-service.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  host: {
+    class: 'host-element'
+  }
 })
 export class LoginComponent implements OnInit {
   error = '';
