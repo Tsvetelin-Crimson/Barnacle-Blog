@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, from, map, switchMap } from 'rxjs';
+import { catchError, from, map, of, switchMap } from 'rxjs';
 import { UserService } from './common/services/user-service.service';
 
 @Component({
@@ -18,7 +18,10 @@ export class AppComponent {
     ) {
     this.router.events
     .pipe(
-      switchMap(_ => this.userService.checkAuthentication()),
+      switchMap(_ => 
+        {
+          return this.userService.checkAuthentication();
+        }),
       catchError(_ =>
         {
           return from([false]);

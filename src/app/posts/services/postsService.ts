@@ -27,14 +27,14 @@ export class PostsService {
         preview: string | null,
         content: string,
         categoryId: string,
-        userId: string
+        jwtToken: string
         ): Observable<string> {
         const body = {
             title,
             preview,
             content,
             categoryId,
-            userId
+            jwtToken
         }
 
         return this.http.post<string>(`${environment.apiUrlBase}${enpoints['createPost']}`, body)

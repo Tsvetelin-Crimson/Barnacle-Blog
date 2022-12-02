@@ -25,8 +25,6 @@ async function register(username, email, password, repass) {
     testFor(password != repass, 'Passwords must match!');
     
     var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    console.log(email);
-    console.log(emailRegex.test(email));
     testFor(!emailRegex.test(email), `${email} is not an email!`);
 
     const exists = await User.findOne({ username: username });
@@ -45,10 +43,11 @@ async function register(username, email, password, repass) {
     return token;
 }
 
-function createToken({ _id, username }) {
+function createToken({ _id, username, roles }) {
     const payload = {
         _id,
-        username
+        username,
+        roles
     };
 
     const token = jwt.sign(payload, jwtSecret);

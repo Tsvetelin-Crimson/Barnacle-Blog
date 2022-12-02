@@ -1,28 +1,28 @@
-<form class="form">
+<form class="form" [formGroup]="postForm" (ngSubmit)="createPost()">
     <p style="align-self: center;">Create post!</p>
     <p *ngIf="error != ''" class="error-text">{{error}}</p>
 
     <label for="title" class="form-label">Title</label>
     <div class="form-item ">
-        <input type="text" name="title" class="form-input" required #titleElement [formControl]="titleControl">
+        <input type="text" name="title" class="form-input" formControlName="title">
     </div>
-    <div class="form-item" *ngIf="titleControl.touched && titleElement.value.length < 5 && titleElement.value.length > 30">
+    <div class="form-item" *ngIf="postForm.get('title')?.touched && postForm.get('title')?.errors !== undefined">
         <span class="error-text">Title is required with a minimum length of 5 letters and a maximum of 30!</span>
     </div>
 
     <label for="preview" class="form-label">Preview</label>
     <div class="form-item ">
-        <input type="text" name="preview" class="form-input" #previewElement [formControl]="previewControl">
+        <input type="text" name="preview" class="form-input"  formControlName="preview">
     </div>
-    <div class="form-item" *ngIf="previewControl.touched && previewElement.value.length > 30">
+    <div class="form-item" *ngIf="postForm.get('preview')?.touched && postForm.get('preview')?.errors !== undefined">
         <span class="error-text">Preview must be at most 30 letters long!</span>
     </div>
 
     <label for="content" class="form-label">Content</label>
     <div class="form-item ">
-        <textarea name="content" class="form-input" required #contentElement [formControl]="contentControl"></textarea>
+        <textarea name="content" class="form-input" formControlName="content"></textarea>
     </div>
-    <div class="form-item" *ngIf="contentControl.touched && contentElement.value.length < 10">
+    <div class="form-item" *ngIf="postForm.get('content')?.touched && postForm.get('content')?.errors !== undefined">
         <span class="error-text">Content is required with a minimum length of 10 symbols!</span>
     </div>
 
@@ -30,15 +30,15 @@
     <div class="form-item ">
         <!-- TODO: MAKE OPTIONS -->
         <!-- <textarea name="category" class="form-input" required #categotyElement [formControl]="categoryControl"></textarea> -->
-        <select name="category" id="" required #categotyElement [formControl]="categoryControl">
+        <select name="category" id="" formControlName="category">
             <option value="someid">some value</option>
         </select>
     </div>
-    <div class="form-item" *ngIf="categoryControl.touched">
+    <div class="form-item" *ngIf="postForm.get('category')?.touched && postForm.get('category')?.errors !== undefined">
         <span class="error-text">Category is required!</span>
     </div>
 
     <div class="form-item">
-        <button (click)="createPost($event)" class="button-item">Submit</button>
+        <button class="button-item">Submit</button>
     </div>
 </form>

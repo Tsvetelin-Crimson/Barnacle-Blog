@@ -1,40 +1,41 @@
-<form class="form">
+
+<form class="form" #registerForm="ngForm" (ngSubmit)="register(registerForm)" ><!-- [formGroup]="form" -->
     <p style="align-self: center;">Register</p>
     <p *ngIf="error != ''" class="error-text">{{error}}</p>
 
     <label for="username" class="form-label">Username</label>
     <div class="form-item ">
-        <input type="text" name="username" class="form-input" required #usernameElement [formControl]="username">
+        <input type="text" name="username" class="form-input" required ngModel #usernameElement="ngModel" >
     </div>
-    <div class="form-item" *ngIf="username.touched && usernameElement.value.length < 3">
+    <div class="form-item" *ngIf="usernameElement.touched && usernameElement.value.length < 3">
         <span class="error-text">Username is required with a minimum of length 3 symbols</span>
     </div>
 
     <label for="email" class="form-label">Email</label>
     <div class="form-item ">
-        <input type="email" name="email" class="form-input" required #emailElement [formControl]="email">
+        <input type="email" name="email" class="form-input" required ngModel #emailElement="ngModel">
     </div>
-    <div class="form-item" *ngIf="email.touched && emailElement.value.length < 3">
+    <div class="form-item" *ngIf="emailElement.touched && emailElement.value.length < 3">
         <span class="error-text">Email is required and must be a valid email!</span>
     </div>
 
     <label for="password" class="form-label">Password</label>
     <div class="form-item">
-        <input type="password" name="password" required #passwordElement [formControl]="password">
+        <input type="password" name="password" required ngModel #passwordElement="ngModel">
     </div>
-    <div class="form-item" *ngIf="password.touched && passwordElement.value.length < 5">
+    <div class="form-item" *ngIf="passwordElement.touched && passwordElement.value.length < 5">
         <span class="error-text">Password is required with a minimum of length 5 symbols!</span>
     </div>
 
     <label for="repass" class="form-label">Repeat Password</label>
     <div class="form-item">
-        <input type="password" name="repass" required #repassElement [formControl]="repass">
+        <input type="password" name="repass" required ngModel #repassElement="ngModel">
     </div>
-    <div class="form-item" *ngIf="password.touched && repass.touched && passwordElement.value !== repassElement.value">
+    <div class="form-item" *ngIf="passwordElement.touched && repassElement.touched && passwordElement.value !== repassElement.value">
         <span class="error-text">Passwords don't match!</span>
     </div>
 
     <div class="form-item">
-        <button (click)="register($event)" class="button-item">Submit</button>
+        <button class="button-item">Submit</button>
     </div>
 </form>

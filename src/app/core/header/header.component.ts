@@ -10,7 +10,7 @@ import { UserService } from 'src/app/common/services/user-service.service';
 export class HeaderComponent implements OnInit {
 
   @Input()
-  isAuthenticated = false;
+  isAuthenticated: boolean = false;
 
   constructor(
     private userService: UserService,

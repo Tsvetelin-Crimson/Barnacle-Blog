@@ -1,6 +1,6 @@
-import Category from "../models/Category";
+const Category = require("../models/Category");
 
-export async function seedCategories() {
+async function seedCategories() {
     const curCategories = await Category.find({});
     if (curCategories.length > 0) {
         return;
@@ -8,16 +8,17 @@ export async function seedCategories() {
 
     const categories = [{
         value: 'Gaming',
-        creatorId: 'default',
     },
     {
         value: 'News',
-        creatorId: 'default',
     },
     {
         value: 'Politics',
-        creatorId: 'default',
     },
     ]
     Category.create(categories);
+}
+
+module.exports = {
+    seedCategories
 }

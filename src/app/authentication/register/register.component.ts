@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
 import { AuthService } from '../services/auth/auth-service.service';
@@ -11,24 +11,34 @@ import { AuthService } from '../services/auth/auth-service.service';
 })
 export class RegisterComponent implements OnInit {
   error = '';
-  username = new FormControl<string>('');
-  email = new FormControl<string>('');
-  password = new FormControl<string>('');
-  repass = new FormControl<string>('');
-
+  // EXAMPLE
+  // form = this.fb.group({
+  //   username: ['', Validators.required],
+  //   email: ['', Validators.required, Validators.email],
+  //   password: ['', Validators.required],
+  //   repass: ['', Validators.required],
+  // });
+  // registerForm = this.fb.group({
+  //   username: ['', Validators.required],
+  //   email: ['', Validators.required, Validators.email],
+  //   password: ['', Validators.required],
+  //   repass: ['', Validators.required],
+  // });
+  // // @ViewChild('registerForm', { static: true })
+  // // registerForm!: NgForm;
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
     ) { }
 
   ngOnInit(): void {
   }
 
-  register($event: MouseEvent){
-    $event.preventDefault();
-    console.log(this.username, this.email, this.password, this.repass);
-    
-    this.authService.register(this.username.value, this.email.value, this.password.value, this.repass.value)
+  register(form: NgForm) {
+    // console.log(this.username, this.email, this.password, this.repass);
+    const values: { username:string, email: string, password:string, repass: string } = form.value;
+
+    this.authService.register(values.username, values.email, values.password, values.repass)
       .pipe(
         catchError(err => {
           this.error = err.error.error;
@@ -39,8 +49,8 @@ export class RegisterComponent implements OnInit {
         if (token != null && token.token != '') {
         localStorage.setItem('jwt', token.token);
         // TODO: make control fields consistent
-        localStorage.setItem('username', this.username.value ?? '');
-        console.log(`The auth token is: ${token.token}`);
+        localStorage.setItem('username', values.username ?? '');
+        // console.log(`The auth token is: ${token.token}`);
         this.router.navigateByUrl('home');
         return;
         }
