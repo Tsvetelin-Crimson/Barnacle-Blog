@@ -6,37 +6,134 @@ const { testFor } = require("../utils/validation");
 
 
 async function getAllPosts() {
-    //TODO: add actual logic
-    return [
-        {
-            title: 'Title',
-            category: 'Category',
-            preview: 'Some preview Content',
-            likes: 1,
-            ownerName: 'User Peter'
-        },
-        {
-            title: 'Title1',
-            category: 'Category1',
-            preview: 'Some preview Content1',
-            likes: 2,
-            ownerName: 'User Peter1'
-        },
-        {
-            title: 'Title2',
-            category: 'Category2',
-            preview: 'Some preview Content2',
-            likes: 3,
-            ownerName: 'User Peter2'
-        },
-        {
-            title: 'Title4',
-            category: 'Category4',
-            preview: 'Some preview Content4',
-            likes: 5,
-            ownerName: 'User Peter4'
-        },
-    ]
+    let posts = await Post.find({});
+     
+    //TODO: remove when i have posts
+    if(posts.length == 0) {
+        posts = [
+            {
+                title: 'Title',
+                category: 'Category',
+                preview: 'Some preview Content',
+                likes: 1,
+                ownerName: 'User Peter'
+            },
+            {
+                title: 'Title1',
+                category: 'Category1',
+                preview: 'Some preview Content1',
+                likes: 2,
+                ownerName: 'User Peter1'
+            },
+            {
+                title: 'Title2',
+                category: 'Category2',
+                preview: 'Some preview Content2',
+                likes: 3,
+                ownerName: 'User Peter2'
+            },
+            {
+                title: 'Title4',
+                category: 'Category4',
+                preview: 'Some preview Content4',
+                likes: 5,
+                ownerName: 'User Peter4'
+            },
+        ];
+    }
+    console.log(posts.length);
+    return posts;
+}
+
+async function getRecentPosts(take) {
+    if(!take || typeof take !== 'number') {
+        take = 10;
+    }
+    let posts = await Post.find({})
+        .limit(take)
+        .sort({ createdOn: 'desc' });
+
+    //TODO: remove when i have posts
+    if(posts.length == 0) {
+        posts = [
+            {
+                title: 'Title',
+                category: 'Category',
+                preview: 'Some preview Content',
+                likes: 1,
+                ownerName: 'User Peter'
+            },
+            {
+                title: 'Title1',
+                category: 'Category1',
+                preview: 'Some preview Content1',
+                likes: 2,
+                ownerName: 'User Peter1'
+            },
+            {
+                title: 'Title2',
+                category: 'Category2',
+                preview: 'Some preview Content2',
+                likes: 3,
+                ownerName: 'User Peter2'
+            },
+            {
+                title: 'Title4',
+                category: 'Category4',
+                preview: 'Some preview Content4',
+                likes: 5,
+                ownerName: 'User Peter4'
+            },
+        ];
+    }
+
+    return posts;
+}
+
+async function getPopularPosts(take) {
+    if(!take || typeof take !== 'number') {
+        take = 10;
+    }
+
+    let posts = await Post.find({})
+        .limit(take)
+        .sort({ createdOn: 'desc' });
+
+    //TODO: remove when i have posts
+    if(posts.length == 0) {
+        posts = [
+            {
+                title: 'Title',
+                category: 'Category',
+                preview: 'Some preview Content',
+                likes: 1,
+                ownerName: 'User Peter'
+            },
+            {
+                title: 'Title1',
+                category: 'Category1',
+                preview: 'Some preview Content1',
+                likes: 2,
+                ownerName: 'User Peter1'
+            },
+            {
+                title: 'Title2',
+                category: 'Category2',
+                preview: 'Some preview Content2',
+                likes: 3,
+                ownerName: 'User Peter2'
+            },
+            {
+                title: 'Title4',
+                category: 'Category4',
+                preview: 'Some preview Content4',
+                likes: 5,
+                ownerName: 'User Peter4'
+            },
+        ];
+    }
+
+    return posts;
 }
 
 async function createPost(title, preview, content, categoryId, userId) {
@@ -52,7 +149,6 @@ async function createPost(title, preview, content, categoryId, userId) {
     const category = await Category.findById(categoryId);
     testFor(!category, 'Category does not exist!');
 
-    //TODO: add actual logic
     const post = await Post.create({
                 title,
                 preview,
@@ -67,5 +163,8 @@ async function createPost(title, preview, content, categoryId, userId) {
 
 module.exports = {
     getAllPosts,
-    createPost
+    createPost,
+    getRecentPosts,
+    getPopularPosts,
+
 };

@@ -56,6 +56,10 @@ button{
     border-color: rgb(1, 62, 86);
 }
 
+button:disabled{
+    opacity: 0.3;
+}
+
 .all-content {
     display: flex;
     flex-direction: column;

@@ -22,7 +22,7 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     AboutComponent,
-    ContactUsComponent
+    ContactUsComponent,
   ],
   imports: [
     CommonModule,
