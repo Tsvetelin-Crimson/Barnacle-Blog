@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { PostsModule } from './posts/posts.module';
 import { RouterModule } from '@angular/router';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: '**',
-        component: HomeComponent // TODO: add 404 page, maybe to core
+        component: NotFoundPageComponent // TODO: add 404 page, maybe to core
       },
     ])
   ],
