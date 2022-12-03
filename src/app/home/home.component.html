@@ -1,8 +1,46 @@
 <div class="content">
-    <p>home works!</p>
+    <div class="most-recent-wrapper">
+        <h2>Recent Posts</h2>
+        <div class="most-recent">
+            <div class="post-card"  *ngFor="let post of recentPosts">
+                <a href="posts/details/{{post.id}}">
+                    <h5 class="post-title" title="{{post.title}}">
+                        <i>{{post.title}}</i>
+                    </h5>
+                    <div class="post-content"> {{post.preview}}</div>
+                    <div class="post-footer">
+                        <div>
+                            <i>{{post.category}}</i>
+                        </div>
+                        <div>
+                            Likes: {{post.likes}}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <div> ADD SOME POSTS, MOST RECENT, MOST LIKED ETC</div>
-    <!-- <app-login></app-login>
-    <app-register></app-register> -->
-    <!-- <app-about></app-about> -->
+    <div class="most-popular-wrapper">
+        <h2>Most Popular</h2>
+
+        <div class="most-recent">
+            <div class="post-card" *ngFor="let post of recentPosts">
+                <a href="posts/details/{{post.id}}">
+                    <h5 class="post-title" title="{{post.title}}">
+                        <i>{{post.title}}</i>
+                    </h5>
+                    <div class="post-content"> {{post.preview}}</div>
+                    <div class="post-footer">
+                        <div>
+                            <i>{{post.category}}</i>
+                        </div>
+                        <div>
+                            Likes: {{post.likes}}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

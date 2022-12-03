@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, EMPTY, Observable } from "rxjs";
+import { catchError, EMPTY, Observable, tap } from "rxjs";
 import { enpoints } from "src/constants/endpoints";
 import { environment } from "src/environments/environment";
 import { IPost } from "../models/post";
@@ -15,6 +15,28 @@ export class PostsService {
     getPosts(): Observable<IPost[]> {
         return this.http.get<IPost[]>(`${environment.apiUrlBase}${enpoints['allPosts']}`)
         .pipe(
+            catchError(err => {
+                console.log(err);
+                return EMPTY;
+            })
+        );
+    }
+
+    getRecentPosts(take: number = 10): Observable<IPost[]> {
+        return this.http.get<IPost[]>(`${environment.apiUrlBase}${enpoints['recentPosts']}?take=${take}`)
+            .pipe(
+                tap(posts => console.log(posts)),
+                catchError(err => {
+                    console.log(err);
+                    return EMPTY;
+                })
+            );
+    }
+
+    getPopularPosts(take: number = 10): Observable<IPost[]> {
+        return this.http.get<IPost[]>(`${environment.apiUrlBase}${enpoints['popularPosts']}?take=${take}`)
+        .pipe(
+            tap(posts => console.log(posts)),
             catchError(err => {
                 console.log(err);
                 return EMPTY;

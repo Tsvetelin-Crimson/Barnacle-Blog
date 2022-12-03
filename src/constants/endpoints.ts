@@ -4,19 +4,9 @@ export const enpoints = {
     validateToken: 'auth/validateToken',
     allPosts: 'posts',
     createPost: 'posts/create',
-
-    // {
-    //     endpointName: 'login',
-    //     value: 'auth/login'
-    // },
-    // {
-    //     endpointName: 'register',
-    //     value: 'auth/register'
-    // },
-    // {
-    //     endpointName: 'logout',
-    //     value: 'logout'
-    // },
+    recentPosts: 'posts/recent',
+    popularPosts: 'posts/popular',
+    categories: 'categories',
 };
 
 interface IEndpoint {

@@ -14,6 +14,11 @@ const routes: Routes = [
     canActivate: [IsLoggedInGuard],
     component: PostsCatalogComponent,
   },
+  {
+    path: 'posts/create',
+    canActivate: [IsLoggedInGuard],
+    component: PostCreateComponent,
+  },
 ];
 
 @NgModule({

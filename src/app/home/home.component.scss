@@ -1,5 +1,77 @@
+
+
 .content { // might be unneeded
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
+
+.most-recent-wrapper, .most-popular-wrapper {
+    // this just doesnt like me
+    // margin: 1%, 5%, 0%, 5%;
+    width: 90%;
+    margin-top: 1%;
+    margin-right: 5%;
+    margin-left: 5%;
+    padding: 0;
+}
+
+.most-popular-wrapper {
+    margin-bottom: 5%;
+}
+
+.most-recent {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.post-card {
+    flex: 1 1 auto;
+
+    margin: 5px;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 5px;
+    border: 1px;
+    border-style: ridge;
+    border-radius: 10px;
+    min-width: 30%;
+    width: auto;
+    flex-grow: 1;
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 2px 2px 2px 1px rgba(256, 256, 256, 0.2);
+}
+
+.post-title {
+    margin: 0;
+    padding: 0;
+    overflow-wrap: anywhere;
+}
+
+.post-content {
+    margin-left: 10px;
+    overflow-wrap: anywhere;
+}
+
+.post-footer {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    overflow-wrap: anywhere;
+}
+
+
+
+@media (max-width: 780px) {
+
+    .post-card {
+        width: auto;
+    }
+  }

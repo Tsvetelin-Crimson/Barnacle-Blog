@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { PostsService } from '../services/postsService';
+import { Observable } from 'rxjs';
+import { Category } from '../models/category';
+import { CategoryService } from '../services/category.service';
+import { PostsService } from '../services/posts.service';
 
 type stringArray = string[];
 
@@ -11,24 +14,23 @@ type stringArray = string[];
 })
 export class PostCreateComponent implements OnInit {
   error = '';
-  titleControl = new FormControl<string>('', Validators.required);
-  previewControl = new FormControl<string>('');
-  contentControl = new FormControl<string>('', Validators.required);
-  categoryControl = new FormControl<number>(0, Validators.required);
+  categories?: Observable<Category[]>;
 
   constructor(
     private postService: PostsService,
-    private fb: FormBuilder
-    ) { }
+    private categoryService: CategoryService,
+    private fb: FormBuilder,
+    ) {
+      this.categories = this.categoryService.getAllCategories();
+     }
 
-    // EXAMPLE
     postForm = this.fb.group({
-      //  && postForm.get('title')?.value?.length < 5 && titleElement.value.length > 30
-      title: ['', Validators.required],
-      //  && previewElement.value.length > 30
-      preview: ['', Validators.required, Validators.email],
+      //  && postForm.get('title')?.value?.length < 5 min && titleElement.value.length > 50 max
+      title: ['', Validators.required, Validators.minLength(5), Validators.maxLength(50)],
+      //  && previewElement.value.length > 50 max
+      preview: ['', Validators.maxLength(50)],
       //  && contentElement.value.length < 10
-      content: ['', Validators.required],
+      content: ['', Validators.required, Validators.minLength(10)],
       category: ['' , Validators.required],
     });
 
@@ -36,11 +38,11 @@ export class PostCreateComponent implements OnInit {
   }
 
   createPost(): void {
+    this.postForm.value.title;
 
-    this.postForm.value.title
     this.postService.createPost(
       "" + this.postForm.value.title,
-      this.previewControl.value,
+      "" + this.postForm.value.preview,
       "" + this.postForm.value.content,
       "" + this.postForm.value.category,
       "" + localStorage.getItem('jwt'));

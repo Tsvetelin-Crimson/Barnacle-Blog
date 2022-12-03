@@ -6,10 +6,28 @@
 }
 
 .error-text {
-    font-size: small;
     color: rgb(255, 0, 0);
+    font-size: 30px;
 }
 .form-label {
     display: block;
-    font-size: medium;
+    font-size: 40px;
+}
+
+.post-category {
+    font-size: 30px;
+    background-color: rgb(1, 62, 86);
+    color: antiquewhite;
+    
+    height: auto;
+    width: auto;
+}
+.post-select {
+
+    background-color: rgb(1, 62, 86);
+    color: antiquewhite;
+    height: auto;
+    width: auto;
+    line-height: 40px;
+        font-size: 30px;
 }
