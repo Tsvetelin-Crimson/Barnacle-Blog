@@ -3,14 +3,14 @@
         <h2>Recent Posts</h2>
         <div class="most-recent">
             <div class="post-card"  *ngFor="let post of recentPosts">
-                <a routerLink="posts/details/{{post._id}}">
+                <a routerLink="/posts/details/{{post._id}}">
                     <h5 class="post-title" title="{{post.title}}">
                         <i>{{post.title}}</i>
                     </h5>
                     <div class="post-content"> {{post.preview}}</div>
                     <div class="post-footer">
-                        <div>
-                            <i>{{post.category}}</i>
+                        <div class="post-category">
+                            {{post.category.value}}
                         </div>
                         <div>
                             Likes: {{post.likes}}
@@ -32,8 +32,8 @@
                     </h5>
                     <div class="post-content"> {{post.preview}}</div>
                     <div class="post-footer">
-                        <div>
-                            <i>{{post.category}}</i>
+                        <div class="post-category">
+                            <i>{{post.category.value}}</i>
                         </div>
                         <div>
                             Likes: {{post.likes}}

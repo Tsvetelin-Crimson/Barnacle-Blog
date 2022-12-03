@@ -3,7 +3,7 @@ const { Schema, model, Types: { ObjectId } } = require('mongoose');
 const postSchema = new Schema({
     title: { type: String, required: true},
     category: { type: ObjectId, ref: 'Category', required: true},
-    description: { type: String },
+    content: { type: String },
     preview: { type: String, required: true },
     likes: { type: Number, default: 0 },
     createdOn: { type: Date, default: new Date() ,required: true },

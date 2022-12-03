@@ -7,6 +7,7 @@ import { IsLoggedInGuard } from '../globalGuards/is-logged-in.guard';
 import { PostCreateComponent } from './post-create/post-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PostDetailsComponent } from './post-details/post-details.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,12 @@ const routes: Routes = [
     component: PostsCatalogComponent,
   },
   {
+    path: 'posts/details/:id',
+    component: PostDetailsComponent,
+  },
+  {
     path: 'posts/create',
+    pathMatch: 'full',
     canActivate: [IsLoggedInGuard],
     component: PostCreateComponent,
   },
@@ -25,7 +31,8 @@ const routes: Routes = [
   declarations: [
     PostsCardComponent,
     PostsCatalogComponent,
-    PostCreateComponent
+    PostCreateComponent,
+    PostDetailsComponent
   ],
   imports: [
     CommonModule,

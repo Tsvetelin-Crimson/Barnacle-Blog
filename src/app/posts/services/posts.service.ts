@@ -12,18 +12,31 @@ export class PostsService {
 
     constructor(private http: HttpClient) { }
 
-    getPosts(): Observable<IPost[]> {
-        return this.http.get<IPost[]>(`${environment.apiUrlBase}${enpoints['allPosts']}`)
-        .pipe(
-            catchError(err => {
-                console.log(err);
-                return EMPTY;
-            })
-        );
+    getAll(): Observable<IPost[]> {
+        return this.http
+            .get<IPost[]>(`${environment.apiUrlBase}${enpoints['allPosts']}`)
+            .pipe(
+                catchError(err => {
+                    console.log(err);
+                    return EMPTY;
+                })
+            );
     }
 
-    getRecentPosts(take: number = 10): Observable<IPost[]> {
-        return this.http.get<IPost[]>(`${environment.apiUrlBase}${enpoints['recentPosts']}?take=${take}`)
+    getById(id: string): Observable<IPost> {
+        return this.http
+            .get<IPost>(`${environment.apiUrlBase}${enpoints['postById']}?id=${id}`)
+            .pipe(
+                catchError(err => {
+                    console.log(err);
+                    return EMPTY;
+                })
+            );
+    }
+
+    getRecent(take: number = 10): Observable<IPost[]> {
+        return this.http
+            .get<IPost[]>(`${environment.apiUrlBase}${enpoints['recentPosts']}?take=${take}`)
             .pipe(
                 tap(posts => console.log(posts)),
                 catchError(err => {
@@ -33,15 +46,16 @@ export class PostsService {
             );
     }
 
-    getPopularPosts(take: number = 10): Observable<IPost[]> {
-        return this.http.get<IPost[]>(`${environment.apiUrlBase}${enpoints['popularPosts']}?take=${take}`)
-        .pipe(
-            tap(posts => console.log(posts)),
-            catchError(err => {
-                console.log(err);
-                return EMPTY;
-            })
-        );
+    getPopular(take: number = 10): Observable<IPost[]> {
+        return this.http
+            .get<IPost[]>(`${environment.apiUrlBase}${enpoints['popularPosts']}?take=${take}`)
+            .pipe(
+                tap(posts => console.log(posts)),
+                catchError(err => {
+                    console.log(err);
+                    return EMPTY;
+                })
+            );
     }
 
     createPost(
@@ -59,12 +73,13 @@ export class PostsService {
             jwtToken
         }
 
-        return this.http.post<string>(`${environment.apiUrlBase}${enpoints['createPost']}`, body)
-        .pipe(
-            catchError(err => {
-                console.log(err);
-                return EMPTY;
-            })
-        );
+        return this.http
+            .post<string>(`${environment.apiUrlBase}${enpoints['createPost']}`, body)
+            .pipe(
+                catchError(err => {
+                    console.log(err);
+                    return EMPTY;
+                })
+            );
     }
 }

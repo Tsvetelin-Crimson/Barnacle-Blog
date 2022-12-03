@@ -8,7 +8,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-
+  
+  isAuthenticated = false;
   constructor(private http: HttpClient) { }
 
   
@@ -22,6 +23,21 @@ export class UserService {
     if (token === null) {
       return of(false);
     }
-    return this.http.post<boolean>(`${environment.apiUrlBase}${enpoints['validateToken']}`, {token})
+    return this.http
+      .post<boolean>(`${environment.apiUrlBase}${enpoints['validateToken']}`, {token})
+  }
+
+  isPostOwner(postId: string): Observable<boolean> {
+    if(!this.isAuthenticated) {
+      return of(false);
+    }
+    const userjwt = localStorage.getItem('jwt');
+
+    const body = {
+      userjwt,
+      postId
+    };
+    return this.http
+      .post<boolean>(`${environment.apiUrlBase}${enpoints['postOwnership']}`, body);
   }
 }

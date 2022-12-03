@@ -6,7 +6,7 @@ const { testFor } = require("../utils/validation");
 
 
 async function getAllPosts() {
-    let posts = await Post.find({});
+    let posts = await Post.find({}).populate('category');
      
     //TODO: remove when i have posts
     if(posts.length == 0) {
@@ -41,8 +41,12 @@ async function getAllPosts() {
             },
         ];
     }
-    console.log(posts.length);
+    console.log(posts);
     return posts;
+}
+
+async function getPostById(id) {
+    return await Post.findById(id).populate('category');
 }
 
 async function getRecentPosts(take) {
@@ -50,42 +54,9 @@ async function getRecentPosts(take) {
         take = 10;
     }
     let posts = await Post.find({})
+        .populate('category')
         .limit(take)
         .sort({ createdOn: 'desc' });
-
-    //TODO: remove when i have posts
-    if(posts.length == 0) {
-        posts = [
-            {
-                title: 'Title',
-                category: 'Category',
-                preview: 'Some preview Content',
-                likes: 1,
-                ownerName: 'User Peter'
-            },
-            {
-                title: 'Title1',
-                category: 'Category1',
-                preview: 'Some preview Content1',
-                likes: 2,
-                ownerName: 'User Peter1'
-            },
-            {
-                title: 'Title2',
-                category: 'Category2',
-                preview: 'Some preview Content2',
-                likes: 3,
-                ownerName: 'User Peter2'
-            },
-            {
-                title: 'Title4',
-                category: 'Category4',
-                preview: 'Some preview Content4',
-                likes: 5,
-                ownerName: 'User Peter4'
-            },
-        ];
-    }
 
     return posts;
 }
@@ -96,42 +67,9 @@ async function getPopularPosts(take) {
     }
 
     let posts = await Post.find({})
+        .populate('category')
         .limit(take)
         .sort({ createdOn: 'desc' });
-
-    //TODO: remove when i have posts
-    if(posts.length == 0) {
-        posts = [
-            {
-                title: 'Title',
-                category: 'Category',
-                preview: 'Some preview Content',
-                likes: 1,
-                ownerName: 'User Peter'
-            },
-            {
-                title: 'Title1',
-                category: 'Category1',
-                preview: 'Some preview Content1',
-                likes: 2,
-                ownerName: 'User Peter1'
-            },
-            {
-                title: 'Title2',
-                category: 'Category2',
-                preview: 'Some preview Content2',
-                likes: 3,
-                ownerName: 'User Peter2'
-            },
-            {
-                title: 'Title4',
-                category: 'Category4',
-                preview: 'Some preview Content4',
-                likes: 5,
-                ownerName: 'User Peter4'
-            },
-        ];
-    }
 
     return posts;
 }
@@ -163,6 +101,7 @@ async function createPost(title, preview, content, categoryId, userId) {
 
 module.exports = {
     getAllPosts,
+    getPostByID: getPostById,
     createPost,
     getRecentPosts,
     getPopularPosts,

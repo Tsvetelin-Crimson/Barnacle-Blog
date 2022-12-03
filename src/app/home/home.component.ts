@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../common/services/user-service.service';
 import { IPost } from '../posts/models/post';
 import { PostsService } from '../posts/services/posts.service';
 
@@ -16,14 +17,17 @@ export class HomeComponent implements OnInit {
   popularPosts: IPost[] = [];
 
   constructor(
-    private postService: PostsService
+    private postService: PostsService,
+    private userService: UserService,
   ) {
-    this.postService.getPopularPosts()
+    this.postService.getPopular()
       .subscribe(posts => {
         this.popularPosts = posts;
+        console.log(this.userService.isAuthenticated);
+        
       })
 
-    this.postService.getRecentPosts()
+    this.postService.getRecent()
       .subscribe(posts => {
         this.recentPosts = posts;
       })

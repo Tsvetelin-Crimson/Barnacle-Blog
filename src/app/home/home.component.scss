@@ -57,6 +57,11 @@
     overflow-wrap: anywhere;
 }
 
+.post-category {
+    color: rgb(178, 178, 178);
+    font-style: italic;
+}
+
 .post-footer {
     margin: 0;
     padding: 0;
@@ -66,7 +71,6 @@
 
     overflow-wrap: anywhere;
 }
-
 
 
 @media (max-width: 780px) {

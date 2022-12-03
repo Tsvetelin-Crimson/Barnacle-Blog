@@ -1,8 +1,10 @@
+import { ICategory } from "./category";
+
 export interface IPost {
     _id: string,
     title: string,
-    category: string,
-    description?: string,
+    content?: string,
+    category: ICategory,
     preview: string,
     likes: number,
     ownerName: string

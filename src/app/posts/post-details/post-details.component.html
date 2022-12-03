@@ -1,0 +1,17 @@
+<div *ngIf="isAuthencticated" class="controls">
+    <a routerLink="/post/edit/{{post?._id}}" class="button-item edit-button">Edit</a>
+    <a routerLink="/post/delete/{{post?._id}}" class="button-item delete-button">Delete</a>
+    <a routerLink="/post/edit/{{post?._id}}" class="button-item like-button">Like</a>
+</div>
+
+<div class="content">
+    <div class="post-header">
+        <h1 class="title">{{post?.title}}</h1>
+        <div class="category">{{post?.category?.value}}</div>
+    </div>
+    <div class="post-content">
+        {{post?.content}}
+    </div>
+
+</div>
+

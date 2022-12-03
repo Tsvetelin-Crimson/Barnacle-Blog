@@ -4,8 +4,8 @@
     <div *ngFor="let post of posts" class="card">
         <app-posts-card 
             username="{{post.ownerName}}"
-            postLink="/"
-            category="{{post.category}}"
+            postLink="/posts/details/{{post._id}}"
+            category="{{post.category.value}}"
             title="{{post.title}}"
             preview="{{post.preview}}"
             ></app-posts-card>
@@ -13,6 +13,4 @@
         <div class="separator"></div>
         <br/>
     </div>
-    <!-- <app-posts-card username="Peter4" postLink="/" category="Category" title="Title"></app-posts-card> -->
-    
 </div>

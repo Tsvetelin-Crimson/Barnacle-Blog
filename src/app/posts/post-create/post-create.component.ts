@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Category } from '../models/category';
+import { ICategory } from '../models/category';
 import { CategoryService } from '../services/category.service';
 import { PostsService } from '../services/posts.service';
 
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
-  styleUrls: ['./post-create.component.scss']
+  styleUrls: ['./post-create.component.scss'],
+  host: {
+    class: 'host-element'
+  }
 })
 export class PostCreateComponent implements OnInit {
   error = '';
-  categories?: Category[];
+  categories?: ICategory[];
 
   constructor(
     private postService: PostsService,

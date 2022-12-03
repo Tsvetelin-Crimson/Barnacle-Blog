@@ -22,10 +22,8 @@ export class AppComponent {
         {
           // for some reason Scroll is the last event triggered not NavigationEnd
           if(route instanceof Scroll) {
-            console.log(route);
             return this.userService.checkAuthentication();
           }
-          console.log(route);
           
           return EMPTY;
         }),
@@ -34,8 +32,11 @@ export class AppComponent {
           return from([false]);
         })
     )
-    .subscribe(route => {
-      this.isAuthenticated = route;
+    .subscribe(authenticaded => {
+      if (authenticaded !== null) {
+        this.isAuthenticated = authenticaded;
+        this.userService.isAuthenticated = authenticaded;
+      }
     });
   }
 }
