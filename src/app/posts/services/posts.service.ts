@@ -42,7 +42,7 @@ export class PostsService {
         return this.http
             .get<IPost[]>(`${environment.apiUrlBase}${enpoints['recentPosts']}?take=${take}`)
             .pipe(
-                tap(posts => console.log(posts)),
+                // tap(posts => console.log(posts)),
                 catchError(err => {
                     console.log(err);
                     return EMPTY;
@@ -54,8 +54,11 @@ export class PostsService {
         return this.http
             .get<IPost[]>(`${environment.apiUrlBase}${enpoints['popularPosts']}?take=${take}`)
             .pipe(
-                tap(posts => console.log(posts)),
+                // tap(posts => console.log(posts)),
                 catchError(err => {
+                    if(err.status == 401) {
+                        this.router.navigateByUrl('login')
+                    }
                     console.log(err);
                     return EMPTY;
                 })
@@ -81,8 +84,8 @@ export class PostsService {
             .post<string>(`${environment.apiUrlBase}${enpoints['createPost']}`, body)
             .pipe(
                 catchError(err => {
-                    if (err.statis == 401) {
-                        this.router.navigateByUrl('auth/login');
+                    if (err.status == 401) {
+                        this.router.navigateByUrl('login');
                         return EMPTY;
                     }
                     this.router.navigateByUrl(err.status);

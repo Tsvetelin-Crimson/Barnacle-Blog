@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/common/services/user-service.service';
+import { UserService } from 'src/app/common/services/user.service';
 import { IPost } from '../models/post';
 import { PostsService } from '../services/posts.service';
 

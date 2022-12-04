@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, Scroll } from '@angular/router';
 import { catchError, EMPTY, from, switchMap } from 'rxjs';
-import { UserService } from './common/services/user-service.service';
+import { UserService } from './common/services/user.service';
 
 @Component({
   selector: 'app-root',

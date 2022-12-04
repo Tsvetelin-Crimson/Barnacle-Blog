@@ -43,6 +43,15 @@ async function register(username, email, password, repass) {
     return token;
 }
 
+async function verifyAdmin(userId) {
+    const user = User.findById(userId);
+    if (!user) {
+        throw new Error('User does not exist');
+    }
+
+    return user.roles.includes('admin');
+}
+
 function createToken({ _id, username, roles }) {
     const payload = {
         _id,
@@ -61,6 +70,7 @@ function verifyToken(token) {
 module.exports = {
     login,
     register,
+    verifyAdmin,
     verifyToken,
     createToken,
 };

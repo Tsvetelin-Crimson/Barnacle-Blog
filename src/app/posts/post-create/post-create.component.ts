@@ -57,8 +57,8 @@ export class PostCreateComponent implements OnInit {
         "" + this.postForm.get('category')?.value,
         "" + localStorage.getItem('jwt'))
       .subscribe(postId => {
-        if (postId !== undefined) {
-          this.router.navigateByUrl('home');
+        if (postId) {
+        this.router.navigateByUrl('home');
         }
       });
   }

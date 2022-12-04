@@ -13,7 +13,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsername(): string | null {
-    return localStorage.getItem('username');
+    const username = localStorage.getItem('username');
+    return username;
   }
   
   logOut(): void {

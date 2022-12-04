@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('jwt', token.token);
         localStorage.setItem('username', values.username ?? '');
         this.router.navigateByUrl('home');
-        //TODO: redirect also do the same as register
-
+        return;
       })
   }
 
