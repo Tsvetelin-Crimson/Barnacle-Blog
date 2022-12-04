@@ -31,10 +31,10 @@ export class UserService {
     if(!this.isAuthenticated) {
       return of(false);
     }
-    const userjwt = localStorage.getItem('jwt');
+    const jwtToken = localStorage.getItem('jwt');
 
     const body = {
-      userjwt,
+      jwtToken,
       postId
     };
     return this.http

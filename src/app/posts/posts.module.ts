@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
+import { IsPostOwnerGuard } from './guards/is-post-owner.guard';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'post/edit/:id',
+    canActivate: [IsLoggedInGuard, IsPostOwnerGuard],
     component: PostEditComponent,
   },
   

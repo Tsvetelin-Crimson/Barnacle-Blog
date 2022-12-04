@@ -8,11 +8,13 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { PostsModule } from './posts/posts.module';
 import { RouterModule } from '@angular/router';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    UnauthorizedPageComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,10 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'
+      },
+      {
+        path: '403',
+        component: UnauthorizedPageComponent
       },
       {
         path: '**',
