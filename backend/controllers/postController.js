@@ -1,5 +1,5 @@
 const { verifyToken } = require('../services/auth/authService');
-const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostById, isPostOwner, updatePost, deletePost } = require('../services/postService');
+const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostById, isPostOwner, updatePost, deletePost, likePost } = require('../services/postService');
 
 const postsController = require('express').Router();
 // TODO: add correct response status
@@ -13,6 +13,7 @@ postsController.get('/', async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 });
+
 postsController.get('/id', async (req, res) => {
     try {
         const { id } = req.query;
@@ -57,7 +58,8 @@ postsController.post('/create', async (req, res) => {
             const decodedToken = verifyToken(jwtToken);
             _id = decodedToken._id; 
         } catch (error) {
-            res.status(401).json({error: 'You must be loggied in!'});            
+            res.status(401).json({error: 'You must be loggied in!'});   
+            return;         
         }
         const postId = await createPost(title, preview, content, categoryId, _id);
         
@@ -80,7 +82,7 @@ postsController.post('/update', async (req, res) => {
         }
 
         try {
-            const isOwner = isPostOwner(postId, userId);
+            const isOwner = await isPostOwner(postId, userId);
 
             if (!isOwner) {
                 throw new Error('You are not the owner.');
@@ -98,7 +100,6 @@ postsController.post('/update', async (req, res) => {
     }
 });
 
-
 postsController.post('/delete', async (req, res) => {
     try {
         const { postId, jwtToken } = req.body;
@@ -111,7 +112,7 @@ postsController.post('/delete', async (req, res) => {
         }
 
         try {
-            const isOwner = isPostOwner(postId, userId);
+            const isOwner = await isPostOwner(postId, userId);
 
             if (!isOwner) {
                 throw new Error('You are not the owner.');
@@ -141,8 +142,8 @@ postsController.post('/like', async (req, res) => {
         }
 
         try {
-            const isOwner = isPostOwner(postId, userId);
-
+            const isOwner = await isPostOwner(postId, userId);
+            console.log(isOwner);
             if (isOwner) {
                 throw new Error('You are the owner.');
             }
@@ -159,9 +160,29 @@ postsController.post('/like', async (req, res) => {
     }
 });
 
+postsController.post('/validateOwnership', async (req, res) => {
+    try {
+        const { postId, jwtToken } = req.body;
+        let userId = '';
+        try {
+            userId = getUserDecodedToken(jwtToken)._id;
+        } catch (error) {
+            res.status(401).json({error: 'You must be loggied in!'});
+            return;   
+        }
+
+        const isOwner = await isPostOwner(postId, userId);
+        
+        res.json(isOwner); 
+    } catch (error) {
+        // TODO: add back util for error handling
+        res.status(400).json({ error: error.message })
+    }
+});
+
 
 function getUserDecodedToken(token) {
-    const decodedToken = verifyToken(jwtToken);
+    const decodedToken = verifyToken(token);
     return decodedToken;
 }
 

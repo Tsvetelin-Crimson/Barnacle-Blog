@@ -5,9 +5,11 @@ export const enpoints = {
     allPosts: 'posts',
     postById: 'posts/id',
     createPost: 'posts/create',
-    updatePost: 'posts/update',
     recentPosts: 'posts/recent',
     popularPosts: 'posts/popular',
+    updatePost: 'posts/update',
+    deletePost: 'posts/delete',
+    likePost: 'posts/like',
     postOwnership: 'posts/validateOwnership',
     categories: 'categories',
 };

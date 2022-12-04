@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
   login(form: NgForm): void {
 
     const values: { username:string, password: string } = form.value;
-    // console.log(values.username);
-    // console.log(values.password);
     
     this.authService.login(values.username, values.password)
       .pipe(
@@ -37,7 +35,6 @@ export class LoginComponent implements OnInit {
       .subscribe((token) => {
         localStorage.setItem('jwt', token.token);
         localStorage.setItem('username', values.username ?? '');
-        console.log(`The auth token is: ${token.token}`);
         this.router.navigateByUrl('home');
         //TODO: redirect also do the same as register
 

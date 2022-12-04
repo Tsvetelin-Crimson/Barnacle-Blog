@@ -12,6 +12,9 @@ export class UserService {
   isAuthenticated = false;
   constructor(private http: HttpClient) { }
 
+  getUsername(): string | null {
+    return localStorage.getItem('username');
+  }
   
   logOut(): void {
     localStorage.removeItem('jwt');

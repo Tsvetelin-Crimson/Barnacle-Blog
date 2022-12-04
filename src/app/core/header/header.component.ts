@@ -11,12 +11,13 @@ export class HeaderComponent implements OnInit {
 
   @Input()
   isAuthenticated: boolean = false;
-
+  username: string | null = null;
   constructor(
     private userService: UserService,
     private router: Router) {
    }
   ngOnInit(): void {
+    this.username = this.userService.getUsername();
   }
 
   logOut(): void{

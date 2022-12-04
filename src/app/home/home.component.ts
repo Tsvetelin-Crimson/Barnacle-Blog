@@ -22,9 +22,7 @@ export class HomeComponent implements OnInit {
   ) {
     this.postService.getPopular()
       .subscribe(posts => {
-        this.popularPosts = posts;
-        console.log(this.userService.isAuthenticated);
-        
+        this.popularPosts = posts;        
       })
 
     this.postService.getRecent()

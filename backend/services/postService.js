@@ -41,7 +41,6 @@ async function getAllPosts() {
             },
         ];
     }
-    console.log(posts);
     return posts;
 }
 
@@ -143,7 +142,7 @@ async function isPostOwner(postId, userId) {
     if(!post) {
         throw new Error('Post does not exist...');
     }
-    
+    console.log(post.ownerId.toString() == userId)
     return post.ownerId.toString() == userId;
 }
 

@@ -38,7 +38,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register(form: NgForm) {
-    // console.log(this.username, this.email, this.password, this.repass);
     const values: { username:string, email: string, password:string, repass: string } = form.value;
 
     this.authService.register(values.username, values.email, values.password, values.repass)
@@ -53,7 +52,6 @@ export class RegisterComponent implements OnInit {
         localStorage.setItem('jwt', token.token);
         // TODO: make control fields consistent
         localStorage.setItem('username', values.username ?? '');
-        // console.log(`The auth token is: ${token.token}`);
         this.router.navigateByUrl('home');
         return;
         }

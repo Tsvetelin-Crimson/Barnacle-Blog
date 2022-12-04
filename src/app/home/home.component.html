@@ -23,9 +23,8 @@
 
     <div class="most-popular-wrapper">
         <h2>Most Popular</h2>
-
-        <div class="most-recent">
-            <div class="post-card" *ngFor="let post of recentPosts">
+        <div class="most-popular">
+            <div class="post-card" *ngFor="let post of popularPosts">
                 <a routerLink="post/details/{{post._id}}">
                     <h5 class="post-title" title="{{post.title}}">
                         <i>{{post.title}}</i>

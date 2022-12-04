@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { catchError, EMPTY, Observable, tap } from "rxjs";
 import { enpoints } from "src/constants/endpoints";
 import { environment } from "src/environments/environment";
@@ -10,7 +11,10 @@ import { IPost } from "../models/post";
 })
 export class PostsService {
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private router: Router
+        ) { }
 
     getAll(): Observable<IPost[]> {
         return this.http
@@ -64,7 +68,7 @@ export class PostsService {
         content: string,
         categoryId: string,
         jwtToken: string
-        ): Observable<string> {
+    ): Observable<string> {
         const body = {
             title,
             preview,
@@ -77,7 +81,11 @@ export class PostsService {
             .post<string>(`${environment.apiUrlBase}${enpoints['createPost']}`, body)
             .pipe(
                 catchError(err => {
-                    console.log(err);
+                    if (err.statis == 401) {
+                        this.router.navigateByUrl('auth/login');
+                        return EMPTY;
+                    }
+                    this.router.navigateByUrl(err.status);
                     return EMPTY;
                 })
             );
@@ -90,7 +98,7 @@ export class PostsService {
         content: string,
         categoryId: string,
         jwtToken: string
-        ): Observable<string> {
+    ): Observable<string> {
         const body = {
             postId,
             title,
@@ -104,7 +112,41 @@ export class PostsService {
             .post<string>(`${environment.apiUrlBase}${enpoints['updatePost']}`, body)
             .pipe(
                 catchError(err => {
-                    console.log(err);
+                    this.router.navigateByUrl(err.status);
+                    return EMPTY;
+                })
+            );
+    }
+
+    deletePost(postId: string) {
+        const jwtToken = localStorage.getItem('jwt');
+
+        const body = {
+            jwtToken,
+            postId
+        };
+        return this.http
+            .post<boolean>(`${environment.apiUrlBase}${enpoints['deletePost']}`, body)
+            .pipe(
+                catchError(err => {
+                    this.router.navigateByUrl(err.status);
+                    return EMPTY;
+                })
+            );
+    }
+
+    likePost(postId: string) {
+        const jwtToken = localStorage.getItem('jwt');
+
+        const body = {
+            jwtToken,
+            postId
+        };
+        return this.http
+            .post<boolean>(`${environment.apiUrlBase}${enpoints['likePost']}`, body)
+            .pipe(
+                catchError(err => {
+                    this.router.navigateByUrl(err.status);
                     return EMPTY;
                 })
             );

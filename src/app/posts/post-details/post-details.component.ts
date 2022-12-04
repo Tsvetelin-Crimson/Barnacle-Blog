@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/common/services/user-service.service';
 import { IPost } from '../models/post';
 import { PostsService } from '../services/posts.service';
@@ -17,26 +17,43 @@ export class PostDetailsComponent implements OnInit {
   post?: IPost;
   isAuthencticated = false;
   isOwner = false;
-
+  // isLiked
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private postsService: PostsService,
     private userService: UserService,
   ) { }
+ 
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
     
     this.postsService.getById(id)
-    .subscribe(post => {
-        this.post = post;
-        this.isAuthencticated = this.userService.isAuthenticated;
-      });
+      .subscribe(post => {
+          this.post = post;
+          this.isAuthencticated = this.userService.isAuthenticated;
 
-    this.userService.isPostOwner(id)
-      .subscribe(isOwner => {
-        this.isOwner = isOwner;
+          this.userService.isPostOwner(id)
+            .subscribe(isOwner => {
+              this.isOwner = isOwner;
+            });
+        });
+  }
+
+  deletePost() {
+    this.postsService
+      .deletePost("" + this.post?._id)
+      .subscribe(_ => {
+        this.router.navigateByUrl('home');
       });
   }
 
+  likePost() {
+    this.postsService
+      .likePost("" + this.post?._id)
+      .subscribe(_ => {
+        this.router.navigateByUrl(`post/details/${this.post?._id}`);
+      });
+  }
 }
