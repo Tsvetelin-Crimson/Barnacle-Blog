@@ -82,4 +82,31 @@ export class PostsService {
                 })
             );
     }
+
+    updatePost(
+        postId: string,
+        title: string,
+        preview: string | null,
+        content: string,
+        categoryId: string,
+        jwtToken: string
+        ): Observable<string> {
+        const body = {
+            postId,
+            title,
+            preview,
+            content,
+            categoryId,
+            jwtToken
+        }
+
+        return this.http
+            .post<string>(`${environment.apiUrlBase}${enpoints['updatePost']}`, body)
+            .pipe(
+                catchError(err => {
+                    console.log(err);
+                    return EMPTY;
+                })
+            );
+    }
 }

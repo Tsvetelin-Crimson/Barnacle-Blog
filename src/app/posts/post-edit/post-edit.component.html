@@ -1,0 +1,52 @@
+<form class="form" [formGroup]="postForm" (ngSubmit)="updatePost()">
+    <p style="align-self: center;">Create post!</p>
+    <p *ngIf="error != ''" class="error-text">{{error}}</p>
+
+    <label for="title" class="form-label">Title</label>
+    <div class="form-item ">
+        <input type="text" name="title" class="form-input" [value]="editedPost?.title" formControlName="title">
+    </div>
+    <div class="form-item" *ngIf="postForm.get('title')?.touched && !this.postForm.get('title')?.valid">
+        <span class="error-text">Title is required with a minimum length of 5 letters and a maximum of 30!</span>
+    </div>
+
+    <label for="preview" class="form-label">Preview</label>
+    <div class="hint">This will be shown to users when on the home and browse screens</div>
+    <div class="form-item">
+        <input type="text" name="preview" class="form-input" [value]="editedPost?.preview"  formControlName="preview">
+    </div>
+    <div class="form-item" *ngIf="postForm.get('preview')?.touched && !this.postForm.get('preview')?.valid">
+        <span class="error-text">Preview must be at most 30 letters long!</span>
+    </div>
+
+    <label for="category" class="form-label">Category</label>
+    <div class="hint">Don't see your category? <a href="catalog/create">Make one</a></div>
+    <div class="form-item ">
+        <select name="category" class="post-category"  formControlName="category">
+            <option class="post-select" [attr.selected]="category.selected" [ngValue]="category._id" *ngFor="let category of categories">{{category.value}}</option>
+        </select>
+    </div>
+    <div class="form-item"  *ngIf="postForm.get('category')?.touched && !this.postForm.get('category')?.valid">
+        <span class="error-text">Category is required!</span>
+    </div>
+
+
+    <label for="content" class="form-label">Content</label>
+    <div class="form-item ">
+        <textarea 
+            name="content"
+            rows="20"
+            cols="30"
+            class="form-input post-content" 
+            [value]="editedPost?.content"
+            formControlName="content"></textarea>
+    </div>
+    <div class="form-item" *ngIf="postForm.get('content')?.touched && !this.postForm.get('content')?.valid">
+        <span class="error-text">Content is required with a minimum length of 10 symbols!</span>
+    </div>
+
+
+    <div class="form-item">
+        <button class="button-item" [disabled]="!this.postForm.valid">Submit</button>
+    </div>
+</form>

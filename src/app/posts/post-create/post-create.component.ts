@@ -37,7 +37,7 @@ export class PostCreateComponent implements OnInit {
       preview: ['', [Validators.maxLength(50)]],
       //  && contentElement.value.length < 10
       content: ['', [Validators.required, Validators.minLength(10)]],
-      category: [this.categories , [Validators.required]],
+      category: ['' , [Validators.required]],
     });
 
   ngOnInit(): void {
@@ -49,12 +49,13 @@ export class PostCreateComponent implements OnInit {
     }
 
     // this is hacky maybe change
-    this.postService.createPost(
-      "" + this.postForm.get('title')?.value,
-      "" + this.postForm.get('preview')?.value,
-      "" + this.postForm.get('content')?.value,
-      "" + this.postForm.get('category')?.value,
-      "" + localStorage.getItem('jwt'))
+    this.postService
+      .createPost(
+        "" + this.postForm.get('title')?.value,
+        "" + this.postForm.get('preview')?.value,
+        "" + this.postForm.get('content')?.value,
+        "" + this.postForm.get('category')?.value,
+        "" + localStorage.getItem('jwt'))
       .subscribe(postId => {
         console.log(postId);
         this.router.navigateByUrl('home');

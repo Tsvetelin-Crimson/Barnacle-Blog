@@ -8,6 +8,7 @@ import { PostCreateComponent } from './post-create/post-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import { PostEditComponent } from './post-edit/post-edit.component';
 
 const routes: Routes = [
   {
@@ -16,15 +17,20 @@ const routes: Routes = [
     component: PostsCatalogComponent,
   },
   {
-    path: 'posts/details/:id',
-    component: PostDetailsComponent,
-  },
-  {
-    path: 'posts/create',
+    path: 'post/create',
     pathMatch: 'full',
     canActivate: [IsLoggedInGuard],
     component: PostCreateComponent,
   },
+  {
+    path: 'post/details/:id',
+    component: PostDetailsComponent,
+  },
+  {
+    path: 'post/edit/:id',
+    component: PostEditComponent,
+  },
+  
 ];
 
 @NgModule({
@@ -32,7 +38,8 @@ const routes: Routes = [
     PostsCardComponent,
     PostsCatalogComponent,
     PostCreateComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    PostEditComponent
   ],
   imports: [
     CommonModule,
