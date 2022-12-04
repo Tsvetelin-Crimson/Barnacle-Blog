@@ -119,6 +119,16 @@ async function updatePost(postId ,title, preview, content, categoryId, userId) {
     return postId;
 }
 
+async function likePost(postId, userId) {
+    const post = await Post.findById(postId);
+    if(!post) {
+        throw new Error('Post does not exist...');
+    }
+
+    post.likes++;
+    post.save();
+}
+
 async function deletePost(postId, userId) {
     const post = await Post.findById(postId);
     if(!post) {
@@ -139,11 +149,12 @@ async function isPostOwner(postId, userId) {
 
 module.exports = {
     getAllPosts,
-    getPostByID: getPostById,
+    getPostById,
     createPost,
     getRecentPosts,
     getPopularPosts,
     isPostOwner,
     updatePost,
     deletePost,
+    likePost,
 };
