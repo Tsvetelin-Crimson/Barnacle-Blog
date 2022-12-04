@@ -90,7 +90,7 @@ async function createPost(title, preview, content, categoryId, userId) {
     const post = await Post.create({
                 title,
                 preview,
-                description: content,
+                content,
                 category,
                 ownerId: userId,
                 ownerName: user.username

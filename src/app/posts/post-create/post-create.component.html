@@ -33,7 +33,7 @@
 
     <label for="content" class="form-label">Content</label>
     <div class="form-item ">
-        <textarea name="content" rows="20" cols="40" class="form-input" formControlName="content"></textarea>
+        <textarea name="content" rows="20" cols="30" class="form-input post-category" formControlName="content"></textarea>
     </div>
     <div class="form-item" *ngIf="postForm.get('content')?.touched && !this.postForm.get('content')?.valid">
         <span class="error-text">Content is required with a minimum length of 10 symbols!</span>

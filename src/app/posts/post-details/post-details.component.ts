@@ -36,7 +36,7 @@ export class PostDetailsComponent implements OnInit {
     this.userService.isPostOwner(id)
       .subscribe(isOwner => {
         this.isOwner = isOwner;
-      })
+      });
   }
 
 }
