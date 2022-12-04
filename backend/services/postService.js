@@ -98,7 +98,6 @@ async function createPost(title, preview, content, categoryId, userId) {
 }
 
 async function updatePost(postId ,title, preview, content, categoryId, userId) {
-    console.log(preview.length)
     testFor(title.length < 5 && title.length > 30, 'Title is not the correct length!');
     testFor(content.length < 10, 'Content is not the correct length!');
     testFor(preview.length > 30, 'Preview is not the correct length!');
@@ -120,6 +119,14 @@ async function updatePost(postId ,title, preview, content, categoryId, userId) {
     return postId;
 }
 
+async function deletePost(postId, userId) {
+    const post = await Post.findById(postId);
+    if(!post) {
+        throw new Error('Post does not exist...');
+    }
+
+    await post.delete();
+}
 
 async function isPostOwner(postId, userId) {
     const post = await Post.findById(postId);
@@ -138,4 +145,5 @@ module.exports = {
     getPopularPosts,
     isPostOwner,
     updatePost,
+    deletePost,
 };

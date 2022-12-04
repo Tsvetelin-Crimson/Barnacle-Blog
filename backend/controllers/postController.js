@@ -1,5 +1,5 @@
 const { verifyToken } = require('../services/auth/authService');
-const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostByID, isPostOwner, updatePost } = require('../services/postService');
+const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostByID, isPostOwner, updatePost, deletePost } = require('../services/postService');
 
 const postsController = require('express').Router();
 // TODO: add correct response status
@@ -72,7 +72,6 @@ postsController.post('/update', async (req, res) => {
     try {
         const { postId, title, preview, content, categoryId, jwtToken } = req.body;
         let userId = '';
-        console.log(preview)
         try {
             const decodedToken = verifyToken(jwtToken);
             userId = decodedToken._id; 
@@ -95,5 +94,34 @@ postsController.post('/update', async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 });
+
+postsController.post('/delete', async (req, res) => {
+    try {
+        const { postId, jwtToken } = req.body;
+        let userId = '';
+        try {
+            const decodedToken = verifyToken(jwtToken);
+            userId = decodedToken._id; 
+        } catch (error) {
+            res.status(401).json({error: 'You must be loggied in!'});
+            return;   
+        }
+
+        try {
+            isPostOwner(postId, userId);
+        } catch (error) {
+            res.status(403).json({ error: error.message })
+            return
+        }
+        await deletePost(postId , userId);
+        
+        res.status(200).json({ message: `Successfully deleted post with id ${postId}`}); 
+    } catch (error) {
+        // TODO: add back util for error handling
+        res.status(400).json({ error: error.message })
+    }
+});
+
+
 
 module.exports = postsController;
