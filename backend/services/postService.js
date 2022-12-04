@@ -81,9 +81,7 @@ async function createPost(title, preview, content, categoryId, userId) {
 
     const user = await User.findById(userId);
     testFor(!user, 'User does not exist!');
-    
-    console.log(user);
-    console.log(user.username);
+
     const category = await Category.findById(categoryId);
     testFor(!category, 'Category does not exist!');
 
@@ -99,11 +97,45 @@ async function createPost(title, preview, content, categoryId, userId) {
     return post.id;
 }
 
+async function updatePost(postId ,title, preview, content, categoryId, userId) {
+    console.log(preview.length)
+    testFor(title.length < 5 && title.length > 30, 'Title is not the correct length!');
+    testFor(content.length < 10, 'Content is not the correct length!');
+    testFor(preview.length > 30, 'Preview is not the correct length!');
+    
+    const user = await User.findById(userId);
+    testFor(!user, 'User does not exist!');
+    
+    const category = await Category.findById(categoryId);
+    testFor(!category, 'Category does not exist!');
+    const newPostProps = {
+        title,
+        preview,
+        content,
+        category,
+    };
+    
+    const post = await Post.findByIdAndUpdate({ _id: postId}, newPostProps);
+
+    return postId;
+}
+
+
+async function isPostOwner(postId, userId) {
+    const post = await Post.findById(postId);
+    if(!post) {
+        throw new Error('Post does not exist...');
+    }
+    
+    return post.ownerId.toString() == userId;
+}
+
 module.exports = {
     getAllPosts,
     getPostByID: getPostById,
     createPost,
     getRecentPosts,
     getPopularPosts,
-
+    isPostOwner,
+    updatePost,
 };

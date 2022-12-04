@@ -73,7 +73,7 @@ export class PostEditComponent implements OnInit {
         "" + this.postForm.get('category')?.value,
         "" + localStorage.getItem('jwt'))
       .subscribe(updatedPost => {
-        this.router.navigateByUrl(`/posts/details/${this.editedPost?._id}`)
+        this.router.navigateByUrl(`/post/details/${this.editedPost?._id}`)
       });
   }
 

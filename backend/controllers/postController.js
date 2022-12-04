@@ -1,5 +1,5 @@
 const { verifyToken } = require('../services/auth/authService');
-const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostByID } = require('../services/postService');
+const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostByID, isPostOwner, updatePost } = require('../services/postService');
 
 const postsController = require('express').Router();
 // TODO: add correct response status
@@ -52,13 +52,12 @@ postsController.get('/popular', async (req, res) => {
 postsController.post('/create', async (req, res) => {
     try {
         const { title, preview, content, categoryId, jwtToken } = req.body;
-        console.log(title, preview, content, categoryId, jwtToken);
         let _id = '';
         try {
             const decodedToken = verifyToken(jwtToken);
             _id = decodedToken._id; 
         } catch (error) {
-            res.status(403).json({error: 'You must be loggied in!'});            
+            res.status(401).json({error: 'You must be loggied in!'});            
         }
         const postId = await createPost(title, preview, content, categoryId, _id);
         
@@ -69,5 +68,32 @@ postsController.post('/create', async (req, res) => {
     }
 });
 
+postsController.post('/update', async (req, res) => {
+    try {
+        const { postId, title, preview, content, categoryId, jwtToken } = req.body;
+        let userId = '';
+        console.log(preview)
+        try {
+            const decodedToken = verifyToken(jwtToken);
+            userId = decodedToken._id; 
+        } catch (error) {
+            res.status(401).json({error: 'You must be loggied in!'});
+            return;   
+        }
+
+        try {
+            isPostOwner(postId, userId);
+        } catch (error) {
+            res.status(403).json({ error: error.message })
+            return
+        }
+        const updatedPostId = await updatePost(postId ,title, preview, content, categoryId, userId);
+        
+        res.json(updatedPostId); 
+    } catch (error) {
+        // TODO: add back util for error handling
+        res.status(400).json({ error: error.message })
+    }
+});
 
 module.exports = postsController;
