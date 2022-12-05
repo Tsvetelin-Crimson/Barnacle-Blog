@@ -1,0 +1,31 @@
+<table>
+    <tr>
+        <th>
+           № 
+        </th>
+        <th>
+            Username
+         </th>
+         <th>
+            Is Banned
+         </th>
+         <th>
+            (buttons)
+         </th>
+    </tr>
+    <tr *ngFor="let user of users; index as i">
+        <th>
+           {{i}} 
+        </th>
+        <th>
+            {{user.username}}
+         </th>
+         <th>
+            <!-- <a href="https://www.flaticon.com/free-icons/{{user.isBanned ? 'delete' : 'tick'}}" title="delete icons">Delete icons created by Pixel perfect - Flaticon</a> -->
+            {{user.isBanned ? 'Yup' : 'Nope'}}
+        </th>
+         <th>
+            (buttons)
+         </th>
+    </tr>
+</table>

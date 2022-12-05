@@ -2,6 +2,7 @@ export const enpoints = {
     login: 'auth/login',
     register: 'auth/register',
     validateToken: 'auth/validateToken',
+    validateAdmin: 'auth/validateAdmin',
     allPosts: 'posts',
     postById: 'posts/id',
     createPost: 'posts/create',

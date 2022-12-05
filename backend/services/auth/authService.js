@@ -44,11 +44,12 @@ async function register(username, email, password, repass) {
 }
 
 async function verifyAdmin(userId) {
-    const user = User.findById(userId);
+    const user = await User.findById(userId);
     if (!user) {
         throw new Error('User does not exist');
     }
-
+    console.log(user, user.roles)
+    console.log(user.roles.includes('admin'));
     return user.roles.includes('admin');
 }
 

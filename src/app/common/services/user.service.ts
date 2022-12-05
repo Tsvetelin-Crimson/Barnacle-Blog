@@ -28,8 +28,22 @@ export class UserService {
       return of(false);
     }
     return this.http
-      .post<boolean>(`${environment.apiUrlBase}${enpoints['validateToken']}`, {token})
+      .get<boolean>(`${environment.apiUrlBase}${enpoints['validateToken']}`,{
+        headers: { 'bearer':  token }
+      });
   }
+
+  checkIsAdmin(): Observable<boolean> {
+    const token = localStorage.getItem('jwt');
+    if (token === null) {
+      return of(false);
+    }
+    return this.http
+      .get<boolean>(`${environment.apiUrlBase}${enpoints['validateAdmin']}`, {
+        headers: { 'bearer':  token }
+      })
+  }
+
 
   isPostOwner(postId: string): Observable<boolean> {
     if(!this.isAuthenticated) {

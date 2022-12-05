@@ -9,6 +9,7 @@ import { PostsModule } from './posts/posts.module';
 import { RouterModule } from '@angular/router';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page
     AuthenticationModule,
     CoreModule,
     PostsModule,
+    AdminModule,
     RouterModule.forRoot([
       {
         path: 'home',

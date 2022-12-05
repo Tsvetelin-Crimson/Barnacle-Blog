@@ -1,4 +1,5 @@
-const { login, register, verifyToken } = require('../../services/auth/authService');
+const { login, register, verifyToken, verifyAdmin } = require('../../services/auth/authService');
+const { requireAuthentication, requireAdminPrivileges } = require('../../utils/middleware');
 
 const authController = require('express').Router();
 
@@ -27,9 +28,9 @@ authController.post('/login', async (req, res) => {
     }
 });
 
-authController.post('/validateToken', (req, res) => {
+authController.get('/validateToken',  (req, res) => {
     try {
-        const { token } = req.body;
+        const token = req.headers["bearer"];
         let isValid = false;
         if (!token) {
             res.json(isValid);
@@ -49,5 +50,19 @@ authController.post('/validateToken', (req, res) => {
     }
 });
 
+authController.get('/validateAdmin', requireAuthentication(), async(req, res) => {
+    try {
+        let isAdmin = false;
+        try {
+             isAdmin = await verifyAdmin(req.user._id);
+             res.json(isAdmin);
+        } catch (error) {
+            res.json(isAdmin);
+        }
+    } catch (error) {
+        // TODO: add back util for error handling
+        res.status(400).json({ error: error.message })
+    }
+});
 
 module.exports = authController;

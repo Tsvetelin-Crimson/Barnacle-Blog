@@ -5,6 +5,7 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true},
     hashedPassword: { type: String, required: true},
     roles: { type: [{ type: String, enum: ['user', 'admin'] }], default: ['user']},
+    isBanned: { type: Boolean, default: false }
 });
 
 userSchema.index({username: 1}, {

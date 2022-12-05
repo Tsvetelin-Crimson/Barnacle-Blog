@@ -1,4 +1,3 @@
-const { verifyToken } = require('../services/auth/authService');
 const { getAllCategories } = require('../services/categoryService');
 
 const categoriesController = require('express').Router();
