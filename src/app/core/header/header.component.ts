@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/common/services/user.service';
 
@@ -7,7 +7,7 @@ import { UserService } from 'src/app/common/services/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements AfterViewInit {
 
   @Input()
   isAuthenticated: boolean = false;
@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit {
     private userService: UserService,
     private router: Router) {
    }
-  ngOnInit(): void {
+
+  ngAfterViewInit(): void {
     this.username = this.userService.getUsername();
   }
 
