@@ -5,20 +5,23 @@
     <div class="form-item ">
         <input type="text" name="username" class="form-input" required ngModel #usernameElement="ngModel" >  <!-- [ngModel]="usernameComp" unneeded -->
     </div>
-    <div class="form-item" *ngIf="usernameElement.touched && usernameElement.value.length < 3">
-        <span class="error-text">Password is required with a minimum of length 3 symbols</span>
-    </div>
+    <app-input-error-tooltip 
+        [shouldShow]="usernameElement.touched && usernameElement.value.length < 3"
+        [error]="'Username is required with a minimum length of 3 symbols'"
+    ></app-input-error-tooltip>
 
     <label for="password" class="form-label">Password</label>
     <div class="form-item">
         <input type="password" name="password" class="form-input" ngModel required #passwordElement="ngModel">
     </div>
-    <div class="form-item" *ngIf="passwordElement.touched && passwordElement.value.length < 5">
-        <span class="error-text">Password is required with a minimum of length 5 symbols!</span>
-    </div>
+    <app-input-error-tooltip 
+        [shouldShow]="passwordElement.touched && passwordElement.value.length < 5"
+        [error]="'Password is required with a minimum of length 5 symbols!'"
+    ></app-input-error-tooltip>
+    
     <div class="form-item">
-    <button  class="button-item">Submit</button>
-</div>
+        <button  class="button-item">Submit</button>
+    </div>
 </form>
 <!-- Username: {{username}} 
 Password: {{password}} -->

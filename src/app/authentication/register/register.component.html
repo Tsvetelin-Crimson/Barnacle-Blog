@@ -7,33 +7,37 @@
     <div class="form-item ">
         <input type="text" name="username" class="form-input" required ngModel #usernameElement="ngModel" >
     </div>
-    <div class="form-item" *ngIf="usernameElement.touched && usernameElement.value.length < 3">
-        <span class="error-text">Username is required with a minimum of length 3 symbols</span>
-    </div>
+    <app-input-error-tooltip 
+        [shouldShow]="usernameElement.touched && usernameElement.value.length < 3"
+        [error]="'Username is required with a minimum of length 3 symbols'"
+    ></app-input-error-tooltip>
 
     <label for="email" class="form-label">Email</label>
     <div class="form-item ">
-        <input type="email" name="email" class="form-input" required ngModel #emailElement="ngModel">
+        <input type="email" name="email" class="form-input" email required ngModel #emailElement="ngModel">
     </div>
-    <div class="form-item" *ngIf="emailElement.touched && emailElement.value.length < 3">
-        <span class="error-text">Email is required and must be a valid email!</span>
-    </div>
+    <app-input-error-tooltip 
+        [shouldShow]="emailElement.touched && !emailElement.valid"
+        [error]="'Email is required and must be a valid email!'"
+    ></app-input-error-tooltip>
 
     <label for="password" class="form-label">Password</label>
     <div class="form-item">
         <input type="password" name="password" required ngModel #passwordElement="ngModel">
     </div>
-    <div class="form-item" *ngIf="passwordElement.touched && passwordElement.value.length < 5">
-        <span class="error-text">Password is required with a minimum of length 5 symbols!</span>
-    </div>
+    <app-input-error-tooltip 
+        [shouldShow]="passwordElement.touched && passwordElement.value.length < 5"
+        [error]="'Password is required with a minimum of length 5 symbols!'"
+    ></app-input-error-tooltip>
 
     <label for="repass" class="form-label">Repeat Password</label>
     <div class="form-item">
         <input type="password" name="repass" required ngModel #repassElement="ngModel">
     </div>
-    <div class="form-item" *ngIf="passwordElement.touched && repassElement.touched && passwordElement.value !== repassElement.value">
-        <span class="error-text">Passwords don't match!</span>
-    </div>
+    <app-input-error-tooltip 
+        [shouldShow]="passwordElement.touched && repassElement.touched && passwordElement.value !== repassElement.value"
+        [error]="'Passwords don\'t match!'"
+    ></app-input-error-tooltip>
 
     <div class="form-item">
         <button class="button-item">Submit</button>

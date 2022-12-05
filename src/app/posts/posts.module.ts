@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
 import { IsPostOwnerGuard } from './guards/is-post-owner.guard';
+import { LocalCommonModule } from '../common/common.module';
 
 const routes: Routes = [
   {
@@ -48,7 +49,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    LocalCommonModule,
   ],
   exports: [
     PostsCatalogComponent
