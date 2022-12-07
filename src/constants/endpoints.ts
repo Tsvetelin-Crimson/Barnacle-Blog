@@ -3,6 +3,9 @@ export const enpoints = {
     register: 'auth/register',
     validateToken: 'auth/validateToken',
     validateAdmin: 'auth/validateAdmin',
+    users: 'users',
+    banUser: 'users/ban',
+    unbanUser: 'users/unban',
     allPosts: 'posts',
     postById: 'posts/id',
     createPost: 'posts/create',
@@ -14,8 +17,3 @@ export const enpoints = {
     postOwnership: 'posts/validateOwnership',
     categories: 'categories',
 };
-
-interface IEndpoint {
-    endpointName: string,
-    value: string,
-}

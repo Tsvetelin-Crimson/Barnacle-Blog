@@ -48,8 +48,8 @@ async function verifyAdmin(userId) {
     if (!user) {
         throw new Error('User does not exist');
     }
-    console.log(user, user.roles)
-    console.log(user.roles.includes('admin'));
+    // console.log(user, user.roles)
+    // console.log(user.roles.includes('admin'));
     return user.roles.includes('admin');
 }
 

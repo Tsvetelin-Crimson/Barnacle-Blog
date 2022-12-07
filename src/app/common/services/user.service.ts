@@ -1,14 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
 import { enpoints } from 'src/constants/endpoints';
 import { environment } from 'src/environments/environment';
+import { IUser } from './models/IUser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  
+
+  private userChange = new BehaviorSubject<IUser | null>(null);
+  private userChange$ = this.userChange?.asObservable();
+
   isAuthenticated = false;
   constructor(private http: HttpClient) { }
 
@@ -16,7 +20,7 @@ export class UserService {
     const username = localStorage.getItem('username');
     return username;
   }
-  
+
   logOut(): void {
     localStorage.removeItem('jwt');
     localStorage.removeItem('username');
@@ -28,8 +32,8 @@ export class UserService {
       return of(false);
     }
     return this.http
-      .get<boolean>(`${environment.apiUrlBase}${enpoints['validateToken']}`,{
-        headers: { 'bearer':  token }
+      .get<boolean>(`${environment.apiUrlBase}${enpoints['validateToken']}`, {
+        headers: { 'bearer': token }
       });
   }
 
@@ -40,22 +44,88 @@ export class UserService {
     }
     return this.http
       .get<boolean>(`${environment.apiUrlBase}${enpoints['validateAdmin']}`, {
-        headers: { 'bearer':  token }
+        headers: { 'bearer': token }
       })
   }
 
-
   isPostOwner(postId: string): Observable<boolean> {
-    if(!this.isAuthenticated) {
+    const token = localStorage.getItem('jwt');
+    if (token == null) {
       return of(false);
     }
-    const jwtToken = localStorage.getItem('jwt');
 
     const body = {
-      jwtToken,
       postId
     };
     return this.http
-      .post<boolean>(`${environment.apiUrlBase}${enpoints['postOwnership']}`, body);
+      .post<boolean>(`${environment.apiUrlBase}${enpoints['postOwnership']}`, body, {
+        headers: { 'bearer': token }
+      });
+  }
+
+  getAllUsers(): Observable<IUser[]> {
+    const token = localStorage.getItem('jwt');
+    if (token == null) {
+      const emtpyArray: IUser[] = [];
+      return of(emtpyArray);
+    }
+
+    return combineLatest([
+      this.httpGet<IUser[]>(enpoints['users'], token),
+      this.userChange$])
+      .pipe(
+        map(([users, changedUser]) => {
+          if (changedUser !== null) {
+            users.map(u => {
+              if (changedUser?._id == u._id) {
+                u.isBanned = changedUser.isBanned;
+              }
+              return users;
+            });
+          }
+
+          return users;
+        }),
+      );
+    // return this.http
+    //   .get<IUser[]>(`${environment.apiUrlBase}${enpoints['postOwnership']}`, {
+    //     headers: { 'bearer': token }
+    //   });
+  }
+
+  banUser(userToBanId: string): Observable<IUser | null> {
+    const token = localStorage.getItem('jwt');
+    if (token == null) {
+      return of(null);
+    }
+
+    return this.httpPost<IUser>(enpoints['banUser'], { userId: userToBanId }, token);
+  }
+
+  unbanUser(userToUnbanId: string): Observable<IUser | null> {
+    const token = localStorage.getItem('jwt');
+    if (token == null) {
+      return of(null);
+    }
+
+    return this.httpPost<IUser>(enpoints['unbanUser'], { userId: userToUnbanId }, token);
+  }
+
+  userChanged(user: IUser) {
+    this.userChange.next(user);
+  }
+
+  private httpGet<T>(endpoint: string, bearerToken?: string): Observable<T> {
+    return this.http
+      .get<T>(`${environment.apiUrlBase}${endpoint}`, {
+        headers: { 'bearer': bearerToken ?? '' }
+      });
+  }
+
+  private httpPost<T>(endpoint: string, body: any, bearerToken?: string): Observable<T> {
+    return this.http
+      .post<T>(`${environment.apiUrlBase}${endpoint}`, body, {
+        headers: { 'bearer': bearerToken ?? '' }
+      });
   }
 }

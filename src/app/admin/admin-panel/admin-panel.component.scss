@@ -1,0 +1,64 @@
+.content {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-text {
+    margin-top: 1%;
+    color: rgb(255, 0, 0);
+    font-size: 30px;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 1%;
+}
+
+table td,
+table th {
+    border: 1px solid rgb(0, 0, 0);
+    padding: 8px;
+}
+
+table tr:nth-child(even) {
+    background-color: #414141;
+}
+
+table tr:hover {
+    background-color: rgb(0, 0, 0);
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.table-number {
+    width: 5%;
+}
+
+.table-username {
+    max-width: 30%;
+    width: 30%;
+}
+
+.table-banned {
+    width: 10%;
+}
+
+//doesnt work, if i can find a fix ill fix it
+// .table-username-row {
+    
+//     max-width: 30%;
+//     width: 30%;
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: hidden;
+// }
