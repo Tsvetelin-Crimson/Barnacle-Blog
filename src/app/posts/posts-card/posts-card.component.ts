@@ -8,15 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PostsCardComponent implements OnInit {
 
   @Input()
-  username!: string;
+  username?: string | null;
   @Input()
-  postLink: string = '/';
+  postLink?: string | null = '/';
   @Input()
-  title!: string;
+  title?: string | null;
   @Input()
-  category: string = 'Unknown category';
+  category?: string | null = 'Unknown category';
   @Input()
-  preview: string = '...';
+  preview?: string | null = '...';
   @Input()
   likes: number = 0;
 

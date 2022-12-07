@@ -16,6 +16,10 @@ export class UserService {
   isAuthenticated = false;
   constructor(private http: HttpClient) { }
 
+  getJWTTokenString(): string | null {
+    return localStorage.getItem('jwt');
+  }
+
   getUsername(): string | null {
     const username = localStorage.getItem('username');
     return username;

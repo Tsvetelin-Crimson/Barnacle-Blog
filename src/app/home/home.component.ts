@@ -22,11 +22,14 @@ export class HomeComponent implements OnInit {
   ) {
     this.postService.getPopular()
       .subscribe(posts => {
+        console.log(posts);
+        
         this.popularPosts = posts;        
       })
 
     this.postService.getRecent()
       .subscribe(posts => {
+        console.log(posts);
         this.recentPosts = posts;
       })
   }

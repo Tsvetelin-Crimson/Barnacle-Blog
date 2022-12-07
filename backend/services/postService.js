@@ -6,46 +6,38 @@ const { testFor } = require("../utils/validation");
 
 
 async function getAllPosts() {
-    let posts = await Post.find({}).populate('category');
-     
-    //TODO: remove when i have posts
-    if(posts.length == 0) {
-        posts = [
-            {
-                title: 'Title',
-                category: 'Category',
-                preview: 'Some preview Content',
-                likes: 1,
-                ownerName: 'User Peter'
-            },
-            {
-                title: 'Title1',
-                category: 'Category1',
-                preview: 'Some preview Content1',
-                likes: 2,
-                ownerName: 'User Peter1'
-            },
-            {
-                title: 'Title2',
-                category: 'Category2',
-                preview: 'Some preview Content2',
-                likes: 3,
-                ownerName: 'User Peter2'
-            },
-            {
-                title: 'Title4',
-                category: 'Category4',
-                preview: 'Some preview Content4',
-                likes: 5,
-                ownerName: 'User Peter4'
-            },
-        ];
-    }
+    let posts = await Post.find({}).populate('category userLikes').lean()
+
+    posts = posts
+        .map(p => {
+            p.likes = p.userLikes.length
+            return p;
+        });
+    
     return posts;
 }
 
-async function getPostById(id) {
-    return await Post.findById(id).populate('category');
+async function getPostById(id, curUserId) {
+    const post = await Post.findById(id).populate('category');
+    testFor(!post, 'Post doesn\'t exist');
+    console.log(curUserId);
+    let hasLiked = false;
+    if (curUserId) {
+        const user = await User.findById(curUserId);
+        testFor(!user, 'User does not exist!');
+        
+        hasLiked = post.userLikes.includes(user._id);
+    }
+    
+    return {
+        _id: post._id,
+        title: post.title,
+        category: post.category,
+        content: post.content,
+        createdOn: post.createdOn,
+        ownerName: post.ownerName,
+        hasLiked
+    };
 }
 
 async function getRecentPosts(take) {
@@ -55,7 +47,14 @@ async function getRecentPosts(take) {
     let posts = await Post.find({})
         .populate('category')
         .limit(take)
-        .sort({ createdOn: 'desc' });
+        .sort({ createdOn: 'desc' })
+        .lean();
+
+    posts = posts
+    .map(p => {
+        p.likes = p.userLikes.length
+        return p;
+    });
 
     return posts;
 }
@@ -68,8 +67,15 @@ async function getPopularPosts(take) {
     let posts = await Post.find({})
         .populate('category')
         .limit(take)
-        .sort({ createdOn: 'desc' });
+        .sort({ createdOn: 'desc' })
+        .lean();
 
+    posts = posts
+    .map(p => {
+        p.likes = p.userLikes.length
+        return p;
+    });
+    
     return posts;
 }
 
@@ -126,9 +132,10 @@ async function likePost(postId, userId) {
 
     const user = await User.findById(userId);
     testFor(!user, 'User does not exist!');
-    testFor(user.isBanned, 'Banned users cannot delete their posts!')
+    testFor(user.isBanned, 'Banned users cannot like posts!')
+    testFor(post.userLikes.includes(user._id), 'User has already liked the post!')
 
-    post.likes++;
+    post.userLikes.push(user);
     post.save();
 }
 

@@ -1,3 +1,4 @@
+const { verifyToken } = require('../services/auth/authService');
 const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostById, isPostOwner, updatePost, deletePost, likePost } = require('../services/postService');
 const { requireAuthentication } = require('../utils/middleware');
 
@@ -6,10 +7,10 @@ const postsController = require('express').Router();
 postsController.get('/', async (req, res) => {
     try {
         const posts = await getAllPosts();
-        
         res.json(posts); 
     } catch (error) {
         // TODO: add back util for error handling
+        console.log(error);
         res.status(400).json({ error: error.message })
     }
 });
@@ -17,11 +18,15 @@ postsController.get('/', async (req, res) => {
 postsController.get('/id', async (req, res) => {
     try {
         const { id } = req.query;
-        const post = await getPostById(id);
-        
+        // this is really bad but w/e
+        checkForAndAddUser(req);
+
+        const post = await getPostById(id, req.user?._id);
+        // console.log(post)
         res.json(post); 
     } catch (error) {
         // TODO: add back util for error handling
+        console.log(error);
         res.status(400).json({ error: error.message })
     }
 });
@@ -103,7 +108,7 @@ postsController.post('/delete', requireAuthentication(), async (req, res) => {
 
 postsController.post('/like', requireAuthentication(), async (req, res) => {
     try {
-        const { postId, } = req.body;
+        const { postId } = req.body;
 
         const isOwner = await checkIsOwner(postId, req.user._id);
         if (isOwner) {
@@ -115,6 +120,7 @@ postsController.post('/like', requireAuthentication(), async (req, res) => {
         res.status(200).json({ message: `Successfully liked post with id ${postId}`}); 
     } catch (error) {
         // TODO: add back util for error handling
+        console.log(error);
         res.status(400).json({ error: error.message })
     }
 });
@@ -138,6 +144,17 @@ async function checkIsOwner(postId, userId) {
         return isOwner;
     } catch (error) {
         return false;
+    }
+}
+
+function checkForAndAddUser(req) {
+    const jwtToken = req.headers["bearer"]
+    if (jwtToken) {
+        try {
+            const decodedToken = verifyToken(jwtToken);
+            req.user = decodedToken;
+        } catch (error) {
+        }
     }
 }
 

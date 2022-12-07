@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, EMPTY, Observable, tap } from "rxjs";
+import { UserService } from "src/app/common/services/user.service";
 import { enpoints } from "src/constants/endpoints";
 import { environment } from "src/environments/environment";
 import { IPost } from "../models/post";
@@ -13,13 +14,14 @@ export class PostsService {
 
     constructor(
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private userService: UserService
         ) { }
 
     getAll(): Observable<IPost[]> {
-        return this.http
-            .get<IPost[]>(`${environment.apiUrlBase}${enpoints['allPosts']}`)
+        return this.httpGet<IPost[]>(enpoints['allPosts'])
             .pipe(
+                tap(posts => console.log(posts)),
                 catchError(err => {
                     console.log(err);
                     return EMPTY;
@@ -28,8 +30,10 @@ export class PostsService {
     }
 
     getById(id: string): Observable<IPost> {
-        return this.http
-            .get<IPost>(`${environment.apiUrlBase}${enpoints['postById']}?id=${id}`)
+        const token = this.userService.getJWTTokenString();
+
+
+        return this.httpGet<IPost>(`${enpoints['postById']}?id=${id}`, token)
             .pipe(
                 catchError(err => {
                     console.log(err);
@@ -39,10 +43,8 @@ export class PostsService {
     }
 
     getRecent(take: number = 10): Observable<IPost[]> {
-        return this.http
-            .get<IPost[]>(`${environment.apiUrlBase}${enpoints['recentPosts']}?take=${take}`)
+        return this.httpGet<IPost[]>(`${enpoints['recentPosts']}?take=${take}`)
             .pipe(
-                // tap(posts => console.log(posts)),
                 catchError(err => {
                     console.log(err);
                     return EMPTY;
@@ -51,10 +53,8 @@ export class PostsService {
     }
 
     getPopular(take: number = 10): Observable<IPost[]> {
-        return this.http
-            .get<IPost[]>(`${environment.apiUrlBase}${enpoints['popularPosts']}?take=${take}`)
+        return this.httpGet<IPost[]>(`${enpoints['popularPosts']}?take=${take}`)
             .pipe(
-                // tap(posts => console.log(posts)),
                 catchError(err => {
                     if(err.status == 401) {
                         this.router.navigateByUrl('login')
@@ -69,19 +69,20 @@ export class PostsService {
         title: string,
         preview: string | null,
         content: string,
-        categoryId: string,
-        jwtToken: string
+        categoryId: string
     ): Observable<string> {
+        const token = this.userService.getJWTTokenString();
+        if (token == null) {
+            this.router.navigateByUrl('login');
+        }
         const body = {
             title,
             preview,
             content,
             categoryId,
-            jwtToken
         }
 
-        return this.http
-            .post<string>(`${environment.apiUrlBase}${enpoints['createPost']}`, body)
+        return this.httpPost<string>(enpoints['createPost'], body, token)
             .pipe(
                 catchError(err => {
                     if (err.status == 401) {
@@ -99,20 +100,22 @@ export class PostsService {
         title: string,
         preview: string | null,
         content: string,
-        categoryId: string,
-        jwtToken: string
+        categoryId: string
     ): Observable<string> {
+        const token = this.userService.getJWTTokenString();
+        if (token == null) {
+            this.router.navigateByUrl('login');
+        }
+
         const body = {
             postId,
             title,
             preview,
             content,
-            categoryId,
-            jwtToken
+            categoryId
         }
 
-        return this.http
-            .post<string>(`${environment.apiUrlBase}${enpoints['updatePost']}`, body)
+        return this.httpPost<string>(enpoints['updatePost'], body, token)
             .pipe(
                 catchError(err => {
                     this.router.navigateByUrl(err.status);
@@ -122,14 +125,16 @@ export class PostsService {
     }
 
     deletePost(postId: string) {
-        const jwtToken = localStorage.getItem('jwt');
+        const token = this.userService.getJWTTokenString();
+        if (token == null) {
+            this.router.navigateByUrl('login');
+        }
+
 
         const body = {
-            jwtToken,
             postId
         };
-        return this.http
-            .post<boolean>(`${environment.apiUrlBase}${enpoints['deletePost']}`, body)
+        return this.httpPost<boolean>(enpoints['deletePost'], body, token)
             .pipe(
                 catchError(err => {
                     this.router.navigateByUrl(err.status);
@@ -139,19 +144,29 @@ export class PostsService {
     }
 
     likePost(postId: string) {
-        const jwtToken = localStorage.getItem('jwt');
+        const token = this.userService.getJWTTokenString();
+        if (token == null) {
+            this.router.navigateByUrl('login');
+        }
 
         const body = {
-            jwtToken,
             postId
         };
-        return this.http
-            .post<boolean>(`${environment.apiUrlBase}${enpoints['likePost']}`, body)
-            .pipe(
-                catchError(err => {
-                    this.router.navigateByUrl(err.status);
-                    return EMPTY;
-                })
-            );
+        return this.httpPost<boolean>(enpoints['likePost'], body, token);
     }
+
+    // maybe put these as static methods... idk in a static subfolder in common/services
+    private httpGet<T>(endpoint: string, bearerToken?: string | null): Observable<T> {
+        return this.http
+          .get<T>(`${environment.apiUrlBase}${endpoint}`, {
+            headers: { 'bearer': bearerToken ?? '' }
+          });
+      }
+    
+      private httpPost<T>(endpoint: string, body: any, bearerToken: string | null): Observable<T> {
+        return this.http
+          .post<T>(`${environment.apiUrlBase}${endpoint}`, body, {
+            headers: { 'bearer': bearerToken ?? '' }
+          });
+      }
 }

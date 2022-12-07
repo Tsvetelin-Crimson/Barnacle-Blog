@@ -5,6 +5,7 @@
 </div>
 
 <div class="content">
+    <div>{{error}}</div>
     <div class="post-header">
         <h1 class="title">{{post?.title}}</h1>
         <div class="category">{{post?.category?.value}}  Created by{{post?.ownerName}}</div>
@@ -15,7 +16,7 @@
 
     
     <div *ngIf="isAuthencticated" class="controls">
-        <a (click)="likePost()" *ngIf="!isOwner" class="button-item like-button">Like</a>
+        <a (click)="likePost()" *ngIf="!isOwner && !post?.hasLiked" class="button-item like-button">Like</a>
     </div>
 
 </div>

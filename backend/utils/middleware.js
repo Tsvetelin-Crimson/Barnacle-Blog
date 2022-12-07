@@ -3,7 +3,6 @@ const { verifyToken, verifyAdmin } = require('../services/auth/authService')
 function requireAuthentication() {
     return (req, res, next) => {
         const jwtToken = req.headers["bearer"]
-        req.headers
         try {
             const decodedToken = verifyToken(jwtToken);
             req.user = decodedToken;

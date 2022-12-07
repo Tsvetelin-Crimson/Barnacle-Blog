@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, EMPTY, pipe } from 'rxjs';
 import { UserService } from 'src/app/common/services/user.service';
 import { IPost } from '../models/post';
 import { PostsService } from '../services/posts.service';
@@ -13,7 +14,7 @@ import { PostsService } from '../services/posts.service';
   }
 })
 export class PostDetailsComponent implements OnInit {
-
+  error = '';
   post?: IPost;
   isAuthencticated = false;
   isOwner = false;
@@ -50,10 +51,21 @@ export class PostDetailsComponent implements OnInit {
   }
 
   likePost() {
+    console.log(this.post?._id)
+
     this.postsService
       .likePost("" + this.post?._id)
-      .subscribe(_ => {
-        this.router.navigateByUrl(`post/details/${this.post?._id}`);
+      .pipe(
+        catchError(err => {
+          console.log(err);
+          this.error = err.error.error;
+          return EMPTY;
+        })
+      )
+      .subscribe(hasSucceded => {
+        if (hasSucceded) {
+          this.router.navigateByUrl(`post/details/${this.post?._id}`);
+        }
       });
   }
 }

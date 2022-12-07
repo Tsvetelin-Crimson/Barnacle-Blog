@@ -3,11 +3,12 @@
 
     <div *ngFor="let post of posts" class="card">
         <app-posts-card 
-            username="{{post.ownerName}}"
-            postLink="/post/details/{{post._id}}"
-            category="{{post.category.value}}"
-            title="{{post.title}}"
-            preview="{{post.preview}}"
+            [username]="post.ownerName"
+            [postLink]="'/post/details/' + post._id"
+            [category]="post.category.value"
+            [title]="post.title"
+            [preview]="post.preview"
+            [likes]="post.likes"
             ></app-posts-card>
         <br/>
         <div class="separator"></div>
