@@ -80,6 +80,7 @@ async function createPost(title, preview, content, categoryId, userId) {
 
     const user = await User.findById(userId);
     testFor(!user, 'User does not exist!');
+    testFor(user.isBanned, 'Banned users cannot create posts!')
 
     const category = await Category.findById(categoryId);
     testFor(!category, 'Category does not exist!');
@@ -103,6 +104,7 @@ async function updatePost(postId ,title, preview, content, categoryId, userId) {
     
     const user = await User.findById(userId);
     testFor(!user, 'User does not exist!');
+    testFor(user.isBanned, 'Banned users cannot edit their posts!')
     
     const category = await Category.findById(categoryId);
     testFor(!category, 'Category does not exist!');
@@ -120,9 +122,11 @@ async function updatePost(postId ,title, preview, content, categoryId, userId) {
 
 async function likePost(postId, userId) {
     const post = await Post.findById(postId);
-    if(!post) {
-        throw new Error('Post does not exist...');
-    }
+    testFor(!post, 'Post does not exist...');
+
+    const user = await User.findById(userId);
+    testFor(!user, 'User does not exist!');
+    testFor(user.isBanned, 'Banned users cannot delete their posts!')
 
     post.likes++;
     post.save();
@@ -130,19 +134,23 @@ async function likePost(postId, userId) {
 
 async function deletePost(postId, userId) {
     const post = await Post.findById(postId);
-    if(!post) {
-        throw new Error('Post does not exist...');
-    }
+    testFor(!post, 'Post does not exist...');
+
+    const user = await User.findById(userId);
+    testFor(!user, 'User does not exist!');
+    testFor(user.isBanned, 'Banned users cannot delete their posts!')
 
     await post.delete();
 }
 
 async function isPostOwner(postId, userId) {
     const post = await Post.findById(postId);
-    if(!post) {
-        throw new Error('Post does not exist...');
-    }
-    // console.log(post.ownerId.toString() == userId)
+    testFor(!post, 'Post does not exist...');
+
+    const user = await User.findById(userId);
+    //TODO: add decorator so this can be repeated less
+    testFor(!user, 'User does not exist!');
+
     return post.ownerId.toString() == userId;
 }
 
