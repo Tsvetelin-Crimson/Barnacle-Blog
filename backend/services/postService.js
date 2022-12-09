@@ -65,15 +65,8 @@ async function getUserPosts(userId) {
     const user = await User.findById(userId);
     testFor(!user, "User does not exist.");
     
-    let posts = await Post.find({ ownerId: { $eq: user._id }})
-        .populate('category')
-        .lean();
-
-    posts = posts
-    .map(p => {
-        p.likes = p.userLikes.length
-        return p;
-    });
+    const posts = await Post.find({ ownerId: { $eq: user._id }})
+        .populate('category');
     
     return posts;
 }

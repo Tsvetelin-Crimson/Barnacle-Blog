@@ -9,10 +9,13 @@
                     </h5>
                     <div class="post-content"> {{post.preview}}</div>
                     <div class="post-footer">
+                        <div class="post-time">
+                            {{post.createdOn | date : 'd/M/yy, h:mm a'}}
+                        </div>
                         <div class="post-category">
                             {{post.category.value}}
                         </div>
-                        <div>
+                        <div class="post-likes">
                             Likes: {{post.likes}}
                         </div>
                     </div>
@@ -31,10 +34,13 @@
                     </h5>
                     <div class="post-content"> {{post.preview}}</div>
                     <div class="post-footer">
+                        <div class="post-time">
+                            {{post.createdOn | date : 'd/M/yy, h:mm a'}}
+                        </div>
                         <div class="post-category">
                             <i>{{post.category.value}}</i>
                         </div>
-                        <div>
+                        <div class="post-likes">
                             Likes: {{post.likes}}
                         </div>
                     </div>

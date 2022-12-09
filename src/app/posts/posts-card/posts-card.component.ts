@@ -19,11 +19,15 @@ export class PostsCardComponent implements OnInit {
   preview?: string | null = '...';
   @Input()
   likes: number = 0;
-
+  @Input()
+  createdOn: Date | null = null;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.createdOn);
+    console.log(this.title);
+    
   }
 
 }

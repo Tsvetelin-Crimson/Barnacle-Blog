@@ -8,7 +8,8 @@
     <div>{{error}}</div>
     <div class="post-header">
         <h1 class="title">{{post?.title}}</h1>
-        <div class="category">{{post?.category?.value}}  Created by{{post?.ownerName}}</div>
+        <div class="category">Created by{{post?.ownerName}} on {{post?.createdOn | date : 'd/M/yy, h:mm a'}}</div>
+        <div class="category">{{post?.category?.value}}  </div>
     </div>
     <div class="post-content">
         {{post?.content}}

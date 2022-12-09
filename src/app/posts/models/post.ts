@@ -7,6 +7,7 @@ export interface IPost {
     category: ICategory,
     preview: string | null,
     likes: number,
+    createdOn: Date,
     ownerName: string,
     hasLiked: boolean,
 }

@@ -23,8 +23,11 @@ export class ProfileComponent implements OnInit {
     this.username = this.userService.getUsername();
     this.postService.getCurrentUsersPosts()
       .subscribe(posts => {
-          this.posts = posts;
-      })    
+        console.log(posts);
+
+        this.posts = posts;
+        console.log(this.posts);
+      })
   }
 
 }

@@ -11,7 +11,7 @@
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore minus voluptatum eius, at exercitationem maiores perspiciatis libero culpa architecto odio. -->
         </div>
         <footer class="card-footer">
-            <div class="user-details" *ngIf="username != null">Created by: {{username}}</div>
+            <div class="user-details"> <span *ngIf="username != null">Created by: {{username}}, on </span> {{createdOn | date : 'd/M/yy, h:mm a'}}</div>
             <div class="likes">Likes: {{likes}}</div>
         </footer>
     </div>
