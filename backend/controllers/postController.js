@@ -1,5 +1,5 @@
 const { verifyToken } = require('../services/auth/authService');
-const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostById, isPostOwner, updatePost, deletePost, likePost } = require('../services/postService');
+const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostById, isPostOwner, updatePost, deletePost, likePost, getUserPosts, unLikePost } = require('../services/postService');
 const { requireAuthentication } = require('../utils/middleware');
 
 const postsController = require('express').Router();
@@ -10,7 +10,6 @@ postsController.get('/', async (req, res) => {
         res.json(posts); 
     } catch (error) {
         // TODO: add back util for error handling
-        console.log(error);
         res.status(400).json({ error: error.message })
     }
 });
@@ -22,11 +21,9 @@ postsController.get('/id', async (req, res) => {
         checkForAndAddUser(req);
 
         const post = await getPostById(id, req.user?._id);
-        // console.log(post)
         res.json(post); 
     } catch (error) {
         // TODO: add back util for error handling
-        console.log(error);
         res.status(400).json({ error: error.message })
     }
 });
@@ -47,6 +44,17 @@ postsController.get('/popular', async (req, res) => {
     try {
         const { take } = req.query;
         const posts = await getPopularPosts(take);
+        
+        res.json(posts); 
+    } catch (error) {
+        // TODO: add back util for error handling
+        res.status(400).json({ error: error.message })
+    }
+});
+
+postsController.get('/user', requireAuthentication(), async (req, res) => {
+    try {
+        const posts = await getUserPosts(req.user._id);
         
         res.json(posts); 
     } catch (error) {
@@ -109,7 +117,6 @@ postsController.post('/delete', requireAuthentication(), async (req, res) => {
 postsController.post('/like', requireAuthentication(), async (req, res) => {
     try {
         const { postId } = req.body;
-
         const isOwner = await checkIsOwner(postId, req.user._id);
         if (isOwner) {
             res.status(403).json({ error: 'You are the owner.' })
@@ -117,10 +124,26 @@ postsController.post('/like', requireAuthentication(), async (req, res) => {
         }
         await likePost(postId , req.user._id);
         
-        res.status(200).json({ message: `Successfully liked post with id ${postId}`}); 
+        res.status(200).json(true); 
     } catch (error) {
         // TODO: add back util for error handling
-        console.log(error);
+        res.status(400).json({ error: error.message })
+    }
+});
+
+postsController.post('/unlike', requireAuthentication(), async (req, res) => {
+    try {
+        const { postId } = req.body;
+        const isOwner = await checkIsOwner(postId, req.user._id);
+        if (isOwner) {
+            res.status(403).json({ error: 'You are the owner.' })
+            return;
+        }
+        await unLikePost(postId , req.user._id);
+        
+        res.status(200).json(true); 
+    } catch (error) {
+        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -137,6 +160,8 @@ postsController.post('/validateOwnership', requireAuthentication(), async (req, 
         res.status(400).json({ error: error.message })
     }
 });
+
+
 
 async function checkIsOwner(postId, userId) {
     try {

@@ -34,7 +34,6 @@ usersController.post('/unban', requireAuthentication(), requireAdminPrivileges()
         res.json(unbanned); 
     } catch (error) {
         // TODO: add back util for error handling
-        console.log(error);
         res.status(400).json({ error: error.message })
     }
 });

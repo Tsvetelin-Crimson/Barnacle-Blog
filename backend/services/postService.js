@@ -6,13 +6,7 @@ const { testFor } = require("../utils/validation");
 
 
 async function getAllPosts() {
-    let posts = await Post.find({}).populate('category userLikes').lean()
-
-    posts = posts
-        .map(p => {
-            p.likes = p.userLikes.length
-            return p;
-        });
+    const posts = await Post.find({}).populate('category userLikes').lean()
     
     return posts;
 }
@@ -20,7 +14,6 @@ async function getAllPosts() {
 async function getPostById(id, curUserId) {
     const post = await Post.findById(id).populate('category');
     testFor(!post, 'Post doesn\'t exist');
-    console.log(curUserId);
     let hasLiked = false;
     if (curUserId) {
         const user = await User.findById(curUserId);
@@ -44,17 +37,11 @@ async function getRecentPosts(take) {
     if(!take || typeof take !== 'number') {
         take = 10;
     }
-    let posts = await Post.find({})
+    const posts = await Post.find({})
         .populate('category')
         .limit(take)
         .sort({ createdOn: 'desc' })
         .lean();
-
-    posts = posts
-    .map(p => {
-        p.likes = p.userLikes.length
-        return p;
-    });
 
     return posts;
 }
@@ -64,10 +51,21 @@ async function getPopularPosts(take) {
         take = 10;
     }
 
-    let posts = await Post.find({})
+    const posts = await Post.find({})
         .populate('category')
+        .sort({ likes: 'desc'})
         .limit(take)
-        .sort({ createdOn: 'desc' })
+        .lean();
+    
+    return posts;
+}
+
+async function getUserPosts(userId) {
+    const user = await User.findById(userId);
+    testFor(!user, "User does not exist.");
+    
+    let posts = await Post.find({ ownerId: { $eq: user._id }})
+        .populate('category')
         .lean();
 
     posts = posts
@@ -136,6 +134,24 @@ async function likePost(postId, userId) {
     testFor(post.userLikes.includes(user._id), 'User has already liked the post!')
 
     post.userLikes.push(user);
+    post.likes++;
+    post.save();
+}
+
+async function unLikePost(postId, userId) {
+    const post = await Post.findById(postId);
+    testFor(!post, 'Post does not exist...');
+
+    const user = await User.findById(userId);
+    testFor(!user, 'User does not exist!');
+    testFor(user.isBanned, 'Banned users cannot like posts!')
+
+    testFor(!post.userLikes.includes(user._id), 'User has not even liked the post!')
+
+    const userLikesWithoutCurrentUser = post.userLikes.filter(u => u.toString() !== user._id.toString());
+
+    post.userLikes = userLikesWithoutCurrentUser;
+    post.likes--;
     post.save();
 }
 
@@ -164,11 +180,13 @@ async function isPostOwner(postId, userId) {
 module.exports = {
     getAllPosts,
     getPostById,
-    createPost,
     getRecentPosts,
     getPopularPosts,
-    isPostOwner,
+    getUserPosts,
+    createPost,
     updatePost,
     deletePost,
     likePost,
+    unLikePost,
+    isPostOwner,
 };

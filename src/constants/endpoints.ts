@@ -11,9 +11,11 @@ export const enpoints = {
     createPost: 'posts/create',
     recentPosts: 'posts/recent',
     popularPosts: 'posts/popular',
+    userPosts: 'posts/user',
     updatePost: 'posts/update',
     deletePost: 'posts/delete',
     likePost: 'posts/like',
+    unlikePost: 'posts/unlike',
     postOwnership: 'posts/validateOwnership',
     categories: 'categories',
 };

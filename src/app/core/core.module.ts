@@ -5,6 +5,8 @@ import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ProfileComponent } from './profile/profile.component';
+import { PostsModule } from '../posts/posts.module';
 
 const routes: Routes = [
   {
@@ -15,6 +17,10 @@ const routes: Routes = [
     path: 'contact',
     component: ContactUsComponent,
   },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
 ];
 
 @NgModule({
@@ -23,10 +29,12 @@ const routes: Routes = [
     FooterComponent,
     AboutComponent,
     ContactUsComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    PostsModule
   ],
   exports: [
     HeaderComponent,

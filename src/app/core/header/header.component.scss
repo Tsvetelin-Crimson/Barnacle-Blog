@@ -1,14 +1,13 @@
-
 .navigation {
     background: rgb(17,156,252);
     background: linear-gradient(180deg, rgba(17,156,252,1) 0%, rgba(4,54,168,1) 21%, rgba(8,52,174,1) 75%, rgba(57,31,254,1) 100%);    min-height: 10%;
     display: flex;
     align-items: center;
+    min-height: 12%;
 }
 
 .username {
     margin-left: 8px;
-    font-size: 25px;
 }
 
 .nav-container {
@@ -25,6 +24,14 @@
 
 .nav-item {
     margin-right: 4px;
+    margin-bottom: 6px;
+}
+
+.logged-group {
+    display: flex;
+    flex-direction: column;
+
+    margin-right: 2%;
 }
 
 .nav-home {
@@ -38,7 +45,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 560px) {
     .nav-container {
         flex-direction: column;
         margin-left: 5%;

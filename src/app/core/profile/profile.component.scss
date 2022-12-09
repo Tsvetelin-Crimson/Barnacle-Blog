@@ -1,0 +1,52 @@
+.content { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 1%;
+    margin-bottom: 3%;
+    color: rgb(255, 214, 160);
+}
+
+.username {
+    color: deeppink;
+}
+
+.posts-count {
+    margin-top: 2%;
+}
+
+// .posts-count-content {
+//     color: rgb(255, 214, 160);
+// }
+
+.posts-count-number {
+    font-size: 40px;
+    color: rgb(0, 255, 89);
+}
+
+.posts {
+    margin-top: 3%;
+    width: 80%;
+    height: 100%;
+    padding-left: 1%;
+    padding-right: 1%;
+    color: rgb(118, 118, 118);
+    border-left: 2px solid;
+    border-right: 2px solid;
+}
+
+.posts-header {
+    width: 100%;
+    color: rgb(255, 214, 160);
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.separator {
+    width: 100%;
+    border: 1px;
+    background-color: rgb(118, 118, 118);
+    border-style: solid;
+    border-color: rgb(118, 118, 118);
+}

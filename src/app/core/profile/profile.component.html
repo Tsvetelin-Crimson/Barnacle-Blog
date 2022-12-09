@@ -1,0 +1,25 @@
+<div class="content">
+    <div class="username">
+        Hello {{username}}
+    </div>
+
+    <div class="posts-count">
+        <div class="posts-count-content">You have made <b class="posts-count-number">{{posts.length}}</b> posts.</div>
+    </div>
+
+    <div class="posts">
+        <div class="posts-header">Your Posts:</div>
+        <div class="separator"></div>
+        <div *ngFor="let post of posts">
+            <app-posts-card 
+            [postLink]="'/post/details/' + post._id"
+            [title]="post.title"
+            [preview]="post.preview"
+            [category]="post.category.value"
+            [likes]="post.likes"
+            ></app-posts-card>
+            <div class="separator"></div>
+        </div>
+
+    </div>
+</div>

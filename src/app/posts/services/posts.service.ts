@@ -56,13 +56,20 @@ export class PostsService {
         return this.httpGet<IPost[]>(`${enpoints['popularPosts']}?take=${take}`)
             .pipe(
                 catchError(err => {
-                    if(err.status == 401) {
-                        this.router.navigateByUrl('login')
-                    }
                     console.log(err);
                     return EMPTY;
                 })
-            );
+            )
+            ;
+    }
+
+    getCurrentUsersPosts(): Observable<IPost[]> {
+        const token = this.userService.getJWTTokenString();
+        if (token == null) {
+            this.router.navigateByUrl('login');
+        }
+
+        return this.httpGet<IPost[]>(enpoints['userPosts'], token);
     }
 
     createPost(
@@ -153,6 +160,18 @@ export class PostsService {
             postId
         };
         return this.httpPost<boolean>(enpoints['likePost'], body, token);
+    }
+
+    unLikePost(postId: string) {
+        const token = this.userService.getJWTTokenString();
+        if (token == null) {
+            this.router.navigateByUrl('login');
+        }
+
+        const body = {
+            postId
+        };
+        return this.httpPost<boolean>(enpoints['unlikePost'], body, token);
     }
 
     // maybe put these as static methods... idk in a static subfolder in common/services

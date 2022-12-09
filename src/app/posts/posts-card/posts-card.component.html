@@ -11,8 +11,8 @@
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore minus voluptatum eius, at exercitationem maiores perspiciatis libero culpa architecto odio. -->
         </div>
         <footer class="card-footer">
-            <div class="user-details">Created by: {{username}}</div>
-            <div class="likes">(thumbs up) {{likes}}</div>
+            <div class="user-details" *ngIf="username != null">Created by: {{username}}</div>
+            <div class="likes">Likes: {{likes}}</div>
         </footer>
     </div>
 </a>

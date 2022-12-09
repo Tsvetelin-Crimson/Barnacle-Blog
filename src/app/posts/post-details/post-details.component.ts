@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, EMPTY, pipe } from 'rxjs';
+import { catchError, EMPTY, of, pipe } from 'rxjs';
 import { UserService } from 'src/app/common/services/user.service';
 import { IPost } from '../models/post';
 import { PostsService } from '../services/posts.service';
@@ -18,7 +18,8 @@ export class PostDetailsComponent implements OnInit {
   post?: IPost;
   isAuthencticated = false;
   isOwner = false;
-  // isLiked
+  // easier solution than making an action stream TODO: should be changed to action stream
+  hideLikeButton = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -59,12 +60,33 @@ export class PostDetailsComponent implements OnInit {
         catchError(err => {
           console.log(err);
           this.error = err.error.error;
-          return EMPTY;
+          return of(false);
         })
       )
       .subscribe(hasSucceded => {
-        if (hasSucceded) {
-          this.router.navigateByUrl(`post/details/${this.post?._id}`);
+        console.log(hasSucceded)
+        if (hasSucceded && this.post !== undefined) {
+            this.post.hasLiked = true;
+        }
+      });
+  }
+
+  unLikePost() {
+    console.log(this.post?._id)
+
+    this.postsService
+      .unLikePost("" + this.post?._id)
+      .pipe(
+        catchError(err => {
+          console.log(err);
+          this.error = err.error.error;
+          return of(false);
+        })
+      )
+      .subscribe(hasSucceded => {
+        console.log(hasSucceded)
+        if (hasSucceded && this.post !== undefined) {
+            this.post.hasLiked = false;
         }
       });
   }

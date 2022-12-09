@@ -15,7 +15,6 @@ import { LocalCommonModule } from '../common/common.module';
 const routes: Routes = [
   {
     path: 'catalog',
-    canActivate: [IsLoggedInGuard],
     component: PostsCatalogComponent,
   },
   {
@@ -53,7 +52,8 @@ const routes: Routes = [
     LocalCommonModule,
   ],
   exports: [
-    PostsCatalogComponent
+    PostsCatalogComponent,
+    PostsCardComponent
   ]
 })
 export class PostsModule { }
