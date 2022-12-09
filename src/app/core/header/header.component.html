@@ -14,7 +14,7 @@
             <a class="nav-item button-item" routerLink="/post/create">Post New Blog</a>
           </li>
           <li class="nav-li-item logged-group" *ngIf="isAuthenticated">
-              <a class="nav-item button-item username" routerLink="/profile">View Profile</a>
+              <a class="nav-item button-item username" routerLink="/profile" title="{{username}}">View Profile</a>
               <a class="nav-item button-item logout" (click)="logOut()">Logout</a>
           </li>
         </ul>

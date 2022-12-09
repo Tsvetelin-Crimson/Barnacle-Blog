@@ -16,10 +16,10 @@
 
     
     <div *ngIf="isAuthencticated && !isOwner && !post?.hasLiked" class="controls">
-        <a (click)="likePost()" class="button-item like-button">Like</a>
+        <a (click)="likePost()" class="button-item like-button">Like ({{post?.likes}})</a>
     </div>
     <div *ngIf="isAuthencticated && !isOwner && post?.hasLiked" class="controls">
-        <a (click)="unLikePost()" class="button-item unLike-button">Unlike</a>
+        <a (click)="unLikePost()" class="button-item unLike-button">Unlike ({{post?.likes}})</a>
     </div>
 
 </div>

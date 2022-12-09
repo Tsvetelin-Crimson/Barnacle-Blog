@@ -67,6 +67,7 @@ export class PostDetailsComponent implements OnInit {
         console.log(hasSucceded)
         if (hasSucceded && this.post !== undefined) {
             this.post.hasLiked = true;
+            this.post.likes++;
         }
       });
   }
@@ -87,6 +88,7 @@ export class PostDetailsComponent implements OnInit {
         console.log(hasSucceded)
         if (hasSucceded && this.post !== undefined) {
             this.post.hasLiked = false;
+            this.post.likes--;
         }
       });
   }

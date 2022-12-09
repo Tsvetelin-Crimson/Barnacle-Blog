@@ -29,6 +29,7 @@ async function getPostById(id, curUserId) {
         content: post.content,
         createdOn: post.createdOn,
         ownerName: post.ownerName,
+        likes: post.likes,
         hasLiked
     };
 }
