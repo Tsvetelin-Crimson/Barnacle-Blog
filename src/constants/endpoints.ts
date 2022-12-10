@@ -1,4 +1,4 @@
-export const enpoints = {
+export const endpoints = {
     login: 'auth/login',
     register: 'auth/register',
     validateToken: 'auth/validateToken',
@@ -18,4 +18,5 @@ export const enpoints = {
     unlikePost: 'posts/unlike',
     postOwnership: 'posts/validateOwnership',
     categories: 'categories',
+    categoriesCreate: 'categories/create',
 };

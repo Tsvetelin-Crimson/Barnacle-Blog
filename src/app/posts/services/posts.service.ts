@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, EMPTY, Observable, tap } from "rxjs";
 import { UserService } from "src/app/common/services/user.service";
-import { enpoints } from "src/constants/endpoints";
+import { endpoints } from "src/constants/endpoints";
 import { environment } from "src/environments/environment";
 import { IPost } from "../models/post";
 
@@ -29,7 +29,7 @@ export class PostsService {
             categoryId,
         }
 
-        return this.httpPost<IPost[]>(enpoints['allPosts'], body)
+        return this.httpPost<IPost[]>(endpoints['allPosts'], body)
             .pipe(
                 catchError(err => {
                     console.log(err);
@@ -42,7 +42,7 @@ export class PostsService {
         const token = this.userService.getJWTTokenString();
 
 
-        return this.httpGet<IPost>(`${enpoints['postById']}?id=${id}`, token)
+        return this.httpGet<IPost>(`${endpoints['postById']}?id=${id}`, token)
             .pipe(
                 catchError(err => {
                     console.log(err);
@@ -52,7 +52,7 @@ export class PostsService {
     }
 
     getRecent(take: number = 10): Observable<IPost[]> {
-        return this.httpGet<IPost[]>(`${enpoints['recentPosts']}?take=${take}`)
+        return this.httpGet<IPost[]>(`${endpoints['recentPosts']}?take=${take}`)
             .pipe(
                 catchError(err => {
                     console.log(err);
@@ -62,7 +62,7 @@ export class PostsService {
     }
 
     getPopular(take: number = 10): Observable<IPost[]> {
-        return this.httpGet<IPost[]>(`${enpoints['popularPosts']}?take=${take}`)
+        return this.httpGet<IPost[]>(`${endpoints['popularPosts']}?take=${take}`)
             .pipe(
                 catchError(err => {
                     console.log(err);
@@ -78,7 +78,7 @@ export class PostsService {
             this.router.navigateByUrl('login');
         }
 
-        return this.httpGet<IPost[]>(enpoints['userPosts'], token);
+        return this.httpGet<IPost[]>(endpoints['userPosts'], token);
     }
 
     createPost(
@@ -98,7 +98,7 @@ export class PostsService {
             categoryId,
         }
 
-        return this.httpPost<string>(enpoints['createPost'], body, token)
+        return this.httpPost<string>(endpoints['createPost'], body, token)
             .pipe(
                 catchError(err => {
                     if (err.status == 401) {
@@ -131,7 +131,7 @@ export class PostsService {
             categoryId
         }
 
-        return this.httpPost<string>(enpoints['updatePost'], body, token)
+        return this.httpPost<string>(endpoints['updatePost'], body, token)
             .pipe(
                 catchError(err => {
                     this.router.navigateByUrl(err.status);
@@ -150,7 +150,7 @@ export class PostsService {
         const body = {
             postId
         };
-        return this.httpPost<boolean>(enpoints['deletePost'], body, token)
+        return this.httpPost<boolean>(endpoints['deletePost'], body, token)
             .pipe(
                 catchError(err => {
                     this.router.navigateByUrl(err.status);
@@ -168,7 +168,7 @@ export class PostsService {
         const body = {
             postId
         };
-        return this.httpPost<boolean>(enpoints['likePost'], body, token);
+        return this.httpPost<boolean>(endpoints['likePost'], body, token);
     }
 
     unLikePost(postId: string) {
@@ -180,7 +180,7 @@ export class PostsService {
         const body = {
             postId
         };
-        return this.httpPost<boolean>(enpoints['unlikePost'], body, token);
+        return this.httpPost<boolean>(endpoints['unlikePost'], body, token);
     }
 
     // maybe put these as static methods... idk in a static subfolder in common/services

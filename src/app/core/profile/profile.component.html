@@ -2,6 +2,10 @@
     <div class="username-header">
         Hello <b class="username">{{username}}</b>
     </div>
+    
+    <div class="username-header" *ngIf="isAdmin" >
+        <a routerLink="/category/create" class="button-item">Create a new Category</a>
+    </div>
 
     <div class="posts-count">
         <div class="posts-count-content">You have made <b class="posts-count-number">{{posts.length}}</b> posts.</div>

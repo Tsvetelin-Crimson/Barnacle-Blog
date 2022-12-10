@@ -3,7 +3,7 @@ import { Token } from '../models/Token';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { enpoints } from 'src/constants/endpoints';
+import { endpoints } from 'src/constants/endpoints';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class AuthService {
     }
     // TODO: make api endpoints file
     // TODO: add error handling (pipe() with catch error)
-    return this.http.post<Token>(`${environment.apiUrlBase}${enpoints['login']}`, body);
+    return this.http.post<Token>(`${environment.apiUrlBase}${endpoints['login']}`, body);
   }
 
   register(username: string | null, email: string | null, password: string | null, repass: string | null): Observable<Token>{
@@ -31,7 +31,7 @@ export class AuthService {
     }
     // TODO: make api endpoints file
     // TODO: add error handling (pipe() with catch error)
-    return this.http.post<Token>(`${environment.apiUrlBase}${enpoints['register']}`, body);
+    return this.http.post<Token>(`${environment.apiUrlBase}${endpoints['register']}`, body);
   }
 
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
-import { enpoints } from 'src/constants/endpoints';
+import { endpoints } from 'src/constants/endpoints';
 import { environment } from 'src/environments/environment';
 import { IUser } from './models/IUser';
 
@@ -36,7 +36,7 @@ export class UserService {
       return of(false);
     }
     return this.http
-      .get<boolean>(`${environment.apiUrlBase}${enpoints['validateToken']}`, {
+      .get<boolean>(`${environment.apiUrlBase}${endpoints['validateToken']}`, {
         headers: { 'bearer': token }
       });
   }
@@ -47,7 +47,7 @@ export class UserService {
       return of(false);
     }
     return this.http
-      .get<boolean>(`${environment.apiUrlBase}${enpoints['validateAdmin']}`, {
+      .get<boolean>(`${environment.apiUrlBase}${endpoints['validateAdmin']}`, {
         headers: { 'bearer': token }
       })
   }
@@ -62,7 +62,7 @@ export class UserService {
       postId
     };
     return this.http
-      .post<boolean>(`${environment.apiUrlBase}${enpoints['postOwnership']}`, body, {
+      .post<boolean>(`${environment.apiUrlBase}${endpoints['postOwnership']}`, body, {
         headers: { 'bearer': token }
       });
   }
@@ -75,7 +75,7 @@ export class UserService {
     }
 
     return combineLatest([
-      this.httpGet<IUser[]>(enpoints['users'], token),
+      this.httpGet<IUser[]>(endpoints['users'], token),
       this.userChange$])
       .pipe(
         map(([users, changedUser]) => {
@@ -103,7 +103,7 @@ export class UserService {
       return of(null);
     }
 
-    return this.httpPost<IUser>(enpoints['banUser'], { userId: userToBanId }, token);
+    return this.httpPost<IUser>(endpoints['banUser'], { userId: userToBanId }, token);
   }
 
   unbanUser(userToUnbanId: string): Observable<IUser | null> {
@@ -112,7 +112,7 @@ export class UserService {
       return of(null);
     }
 
-    return this.httpPost<IUser>(enpoints['unbanUser'], { userId: userToUnbanId }, token);
+    return this.httpPost<IUser>(endpoints['unbanUser'], { userId: userToUnbanId }, token);
   }
 
   userChanged(user: IUser) {

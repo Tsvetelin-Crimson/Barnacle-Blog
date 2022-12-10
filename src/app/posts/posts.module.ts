@@ -11,6 +11,8 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
 import { IsPostOwnerGuard } from './guards/is-post-owner.guard';
 import { LocalCommonModule } from '../common/common.module';
+import { PostCategoryCreateComponent } from './post-category-create/post-category-create.component';
+import { IsAdminGuard } from '../globalGuards/is-admin.guard';
 
 const routes: Routes = [
   {
@@ -32,7 +34,11 @@ const routes: Routes = [
     canActivate: [IsLoggedInGuard, IsPostOwnerGuard],
     component: PostEditComponent,
   },
-  
+  {
+    path: 'category/create',
+    canActivate: [IsLoggedInGuard],
+    component: PostCategoryCreateComponent,
+  },
 ];
 
 @NgModule({
@@ -41,7 +47,8 @@ const routes: Routes = [
     PostsCatalogComponent,
     PostCreateComponent,
     PostDetailsComponent,
-    PostEditComponent
+    PostEditComponent,
+    PostCategoryCreateComponent
   ],
   imports: [
     CommonModule,
