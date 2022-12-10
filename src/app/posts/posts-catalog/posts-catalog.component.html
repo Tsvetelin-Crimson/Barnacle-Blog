@@ -1,7 +1,38 @@
 <div class="content">
     <div class="title">Recent Posts</div>
+    <div class="search">
+        <form action="" method="get" class="search-form" [formGroup]="searchForm" (ngSubmit)="updateFilter()">
+            <div class="form-item">
+                <label for="search" class="search-text">Search Term</label>
+                <input type="text" name="search" placeholder="search..." size="40" formControlName="search">
+            </div>
+            
+            <div class="form-item">
+                <label for="category" class="search-text">Category</label>
+                <select name="category" class="search-category" formControlName="category">
+                    <option selected="true" class="search-select" value="">All</option>
+                    <option class="search-select" [value]="category._id" *ngFor="let category of categories | async">{{category.value}}</option>
+                </select>
+            </div>
 
-    <div *ngFor="let post of posts" class="card">
+            <div class="form-item">
+                <div class="radio-label">Sort Order</div>
+                <div class="radio-set">
+                    <input type="radio" id="ascending" name="searchOrder" formControlName="searchOrder" value="asc">
+                    <label for="ascending" class="radio-text">Ascending</label>
+                </div>
+                <div class="radio-set">
+                    <input type="radio" id="descending" name="searchOrder" formControlName="searchOrder" value="desc">
+                    <label for="descending" class="radio-text">Descending</label>
+                </div>
+            </div>
+            
+            <div class="form-item submit-item">
+                <button class="button-item">Search</button>
+            </div>
+        </form>
+    </div>
+    <div *ngFor="let post of posts | async" class="card">
         <app-posts-card 
             [username]="post.ownerName"
             [postLink]="'/post/details/' + post._id"

@@ -5,9 +5,27 @@ const { testFor } = require("../utils/validation");
 
 
 
-async function getAllPosts() {
-    const posts = await Post.find({}).populate('category userLikes').lean()
-    
+async function getAllPosts(search, order, categoryId) {
+    let filter = {};
+    // filtering
+    if(typeof search === 'string'  && search !== undefined && search !== '') {
+        const regex = new RegExp(search.toLowerCase(), 'i');
+        filter =  {...filter, $or: [{ title: regex }, { preview: regex }, { content: regex}] }
+    }
+
+    if (typeof categoryId === 'string'  && categoryId !== undefined && categoryId !== '') {
+        const curCategory = await Category.findById(categoryId);
+        if (curCategory) {
+            filter = {...filter, category: curCategory }
+        }
+    }
+
+    //sort
+    if (!(typeof order === 'string' && order !== undefined && (order === 'asc' || order === 'desc'))) {
+        order = 'asc';
+    }
+    const posts = await Post.find(filter).sort({ createdOn: order }).populate('category').lean();
+
     return posts;
 }
 

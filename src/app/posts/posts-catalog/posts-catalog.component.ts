@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { ICategory } from '../models/category';
 import { IPost } from '../models/post';
+import { CategoryService } from '../services/category.service';
 import { PostsService } from '../services/posts.service';
 
 @Component({
@@ -11,19 +15,32 @@ import { PostsService } from '../services/posts.service';
   }
 })
 export class PostsCatalogComponent implements OnInit {
+  searchForm = this.fb.group({
+    search: [''],
+    searchOrder: ['asc'],
+    category: [''],
+  });
 
-  posts: IPost[] | null = null; // TODO: replace with Observable<IPost[]>
+  posts: Observable<IPost[]>;
+  categories: Observable<ICategory[]>;
 
-  constructor(private postsService: PostsService) {
-    this.postsService.getAll()
-      .subscribe(posts => {
-        console.log(posts)
-
-        this.posts = posts;
-      });
-   }
+  constructor(
+    private postsService: PostsService,
+    private categoryService: CategoryService,
+    private fb: FormBuilder
+    ) {
+    this.posts = this.postsService.getAll('', '', '');
+    this.categories = this.categoryService.getAllCategories();
+  }
 
   ngOnInit(): void {
   }
 
+  updateFilter(): void {
+    const search = this.searchForm.value.search;
+    const searchOrder = this.searchForm.value.searchOrder;
+    const categoryId = this.searchForm.value.category;
+
+    this.posts = this.postsService.getAll(search, searchOrder, categoryId)
+  }
 }

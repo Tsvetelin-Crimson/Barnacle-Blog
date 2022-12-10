@@ -52,8 +52,6 @@ export class PostDetailsComponent implements OnInit {
   }
 
   likePost() {
-    console.log(this.post?._id)
-
     this.postsService
       .likePost("" + this.post?._id)
       .pipe(
@@ -64,7 +62,6 @@ export class PostDetailsComponent implements OnInit {
         })
       )
       .subscribe(hasSucceded => {
-        console.log(hasSucceded)
         if (hasSucceded && this.post !== undefined) {
             this.post.hasLiked = true;
             this.post.likes++;
@@ -73,19 +70,15 @@ export class PostDetailsComponent implements OnInit {
   }
 
   unLikePost() {
-    console.log(this.post?._id)
-
     this.postsService
       .unLikePost("" + this.post?._id)
       .pipe(
         catchError(err => {
-          console.log(err);
           this.error = err.error.error;
           return of(false);
         })
       )
       .subscribe(hasSucceded => {
-        console.log(hasSucceded)
         if (hasSucceded && this.post !== undefined) {
             this.post.hasLiked = false;
             this.post.likes--;

@@ -16,12 +16,21 @@ export class PostsService {
         private http: HttpClient,
         private router: Router,
         private userService: UserService
-        ) { }
+    ) { }
 
-    getAll(): Observable<IPost[]> {
-        return this.httpGet<IPost[]>(enpoints['allPosts'])
+    getAll(
+        search: string | null | undefined,
+        searchOrder: string | null | undefined,
+        categoryId: string | null | undefined
+    ): Observable<IPost[]> {
+        const body = {
+            search,
+            searchOrder,
+            categoryId,
+        }
+
+        return this.httpPost<IPost[]>(enpoints['allPosts'], body)
             .pipe(
-                tap(posts => console.log(posts)),
                 catchError(err => {
                     console.log(err);
                     return EMPTY;
@@ -177,15 +186,15 @@ export class PostsService {
     // maybe put these as static methods... idk in a static subfolder in common/services
     private httpGet<T>(endpoint: string, bearerToken?: string | null): Observable<T> {
         return this.http
-          .get<T>(`${environment.apiUrlBase}${endpoint}`, {
-            headers: { 'bearer': bearerToken ?? '' }
-          });
-      }
-    
-      private httpPost<T>(endpoint: string, body: any, bearerToken: string | null): Observable<T> {
+            .get<T>(`${environment.apiUrlBase}${endpoint}`, {
+                headers: { 'bearer': bearerToken ?? '' }
+            });
+    }
+
+    private httpPost<T>(endpoint: string, body: any, bearerToken?: string | null): Observable<T> {
         return this.http
-          .post<T>(`${environment.apiUrlBase}${endpoint}`, body, {
-            headers: { 'bearer': bearerToken ?? '' }
-          });
-      }
+            .post<T>(`${environment.apiUrlBase}${endpoint}`, body, {
+                headers: { 'bearer': bearerToken ?? '' }
+            });
+    }
 }

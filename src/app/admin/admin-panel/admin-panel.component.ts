@@ -48,6 +48,7 @@ export class AdminPanelComponent implements OnInit {
         catchError(err => {
           this.error = err.error.error;
           console.log(err);
+          
           return of(null);
         })
       )

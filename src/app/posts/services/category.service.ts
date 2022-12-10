@@ -16,7 +16,6 @@ export class CategoryService {
     return this.http
       .get<ICategory[]>(`${environment.apiUrlBase}${enpoints['categories']}`)
       .pipe(
-        tap(categories => console.log(categories)),
         catchError(err => {
             console.log(err);
             return EMPTY;

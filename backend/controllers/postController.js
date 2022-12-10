@@ -3,10 +3,11 @@ const { getAllPosts, createPost, getRecentPosts, getPopularPosts, getPostById, i
 const { requireAuthentication } = require('../utils/middleware');
 
 const postsController = require('express').Router();
-// TODO: add correct response status
-postsController.get('/', async (req, res) => {
+
+postsController.post('/', async (req, res) => {
     try {
-        const posts = await getAllPosts();
+        const { search, order, categoryId } = req.body;
+        const posts = await getAllPosts(search , order, categoryId);
         res.json(posts); 
     } catch (error) {
         // TODO: add back util for error handling

@@ -31,11 +31,8 @@ export class PostCreateComponent implements OnInit {
      }
 
     postForm = this.fb.group({
-      //  && postForm.get('title')?.value?.length < 5 min && titleElement.value.length > 50 max
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-      //  && previewElement.value.length > 50 max
       preview: ['', [Validators.maxLength(50)]],
-      //  && contentElement.value.length < 10
       content: ['', [Validators.required, Validators.minLength(10)]],
       category: ['' , [Validators.required]],
     });

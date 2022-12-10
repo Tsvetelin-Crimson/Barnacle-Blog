@@ -24,10 +24,6 @@ export class PostsCardComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.createdOn);
-    console.log(this.title);
-    
-  }
+  ngOnInit(): void {  }
 
 }
