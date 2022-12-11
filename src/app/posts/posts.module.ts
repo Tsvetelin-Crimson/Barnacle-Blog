@@ -12,7 +12,6 @@ import { PostEditComponent } from './post-edit/post-edit.component';
 import { IsPostOwnerGuard } from './guards/is-post-owner.guard';
 import { LocalCommonModule } from '../common/common.module';
 import { PostCategoryCreateComponent } from './post-category-create/post-category-create.component';
-import { IsAdminGuard } from '../globalGuards/is-admin.guard';
 
 const routes: Routes = [
   {
@@ -48,7 +47,7 @@ const routes: Routes = [
     PostCreateComponent,
     PostDetailsComponent,
     PostEditComponent,
-    PostCategoryCreateComponent
+    PostCategoryCreateComponent,
   ],
   imports: [
     CommonModule,
@@ -60,7 +59,7 @@ const routes: Routes = [
   ],
   exports: [
     PostsCatalogComponent,
-    PostsCardComponent
+    PostsCardComponent,
   ]
 })
 export class PostsModule { }

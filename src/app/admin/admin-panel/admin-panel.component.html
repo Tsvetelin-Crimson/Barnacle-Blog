@@ -23,13 +23,13 @@
               {{user.username}}
            </td>
            <td>
-              <!-- <a href="https://www.flaticon.com/free-icons/{{user.isBanned ? 'delete' : 'tick'}}" title="delete icons">Delete icons created by Pixel perfect - Flaticon</a> -->
-              {{user.isBanned ? 'Yup' : 'Nope'}}
+            <div class="{{user.isBanned ? 'banned' : 'not-banned' }}">
+               {{user.isBanned ? 'Yup' : 'Nope'}}
+            </div>
           </td>
            <td>
               <a (click)="banUser(user._id)" *ngIf="!user.isBanned" class="button-item delete-button">Ban</a>
               <a (click)="unbanUser(user._id)" *ngIf="user.isBanned" class="button-item delete-button">Unban</a>
-              <!-- <a (click)="deletePost()" *ngIf="isOwner" class="button-item delete-button">Delete</a> -->
            </td>
       </tr>
   </table>

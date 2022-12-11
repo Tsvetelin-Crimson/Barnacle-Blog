@@ -5,10 +5,10 @@
 </div>
 
 <div class="content">
-    <div>{{error}}</div>
+    <div class="error-text">{{error}}</div>
     <div class="post-header">
         <h1 class="title">{{post?.title}}</h1>
-        <div class="category">Created by{{post?.ownerName}} on {{post?.createdOn | date : 'd/M/yy, h:mm a'}}</div>
+        <div class="category">Created by: <b>{{post?.ownerName}}</b> on {{post?.createdOn | date : 'd/M/yy, h:mm a'}}</div>
         <div class="category">{{post?.category?.value}}  </div>
     </div>
     <div class="post-content">

@@ -34,12 +34,12 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    PostsModule
+    PostsModule,
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
-    AboutComponent
+    AboutComponent,
   ]
 })
 export class CoreModule { }

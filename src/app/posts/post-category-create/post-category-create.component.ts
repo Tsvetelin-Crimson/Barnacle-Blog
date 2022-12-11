@@ -9,15 +9,14 @@ import { CategoryService } from '../services/category.service';
   templateUrl: './post-category-create.component.html',
   styleUrls: ['./post-category-create.component.scss']
 })
-export class PostCategoryCreateComponent implements OnInit {
+export class PostCategoryCreateComponent {
+
   error = '';
+
   constructor(
     private categoryService: CategoryService,
     private router: Router
   ) { }
-
-  ngOnInit(): void {
-  }
 
   create(form: NgForm){
     const values: { categoryName: string } = form.value;

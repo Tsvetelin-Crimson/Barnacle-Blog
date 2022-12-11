@@ -16,41 +16,42 @@ export class CategoryService {
     private http: HttpClient,
     private userService: UserService,
     private router: Router
-    ) { }
+  ) { }
 
   getAllCategories(): Observable<ICategory[]> {
     return this.httpGet<ICategory[]>(endpoints['categories'])
       .pipe(
         catchError(err => {
-            console.log(err);
-            return EMPTY;
+          console.log(err);
+          return EMPTY;
         })
-  );
+      );
   }
 
   create(value: string): Observable<boolean> {
     const token = this.userService.getJWTTokenString();
     if (token == null) {
-        this.router.navigateByUrl('login');
+      this.router.navigateByUrl('login');
     }
+
     const body = {
       value
     }
-    
+
     return this.httpPost<boolean>(endpoints['categoriesCreate'], body, token);
   }
 
   private httpGet<T>(endpoint: string, bearerToken?: string | null): Observable<T> {
     return this.http
-        .get<T>(`${environment.apiUrlBase}${endpoint}`, {
-            headers: { 'bearer': bearerToken ?? '' }
-        });
-}
+      .get<T>(`${environment.apiUrlBase}${endpoint}`, {
+        headers: { 'bearer': bearerToken ?? '' }
+      });
+  }
 
-private httpPost<T>(endpoint: string, body: any, bearerToken?: string | null): Observable<T> {
+  private httpPost<T>(endpoint: string, body: any, bearerToken?: string | null): Observable<T> {
     return this.http
-        .post<T>(`${environment.apiUrlBase}${endpoint}`, body, {
-            headers: { 'bearer': bearerToken ?? '' }
-        });
-}
+      .post<T>(`${environment.apiUrlBase}${endpoint}`, body, {
+        headers: { 'bearer': bearerToken ?? '' }
+      });
+  }
 }

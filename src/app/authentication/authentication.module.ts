@@ -10,12 +10,10 @@ import { LocalCommonModule } from '../common/common.module';
 const routes: Routes = [
   {
     path: 'login',
-    //canActivate: // TODO: add eventually 
     component: LoginComponent,
   },
   {
     path: 'register',
-    //canActivate: // TODO: add eventually 
     component: RegisterComponent,
   },
 ]

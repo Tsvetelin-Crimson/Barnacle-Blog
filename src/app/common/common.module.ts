@@ -6,10 +6,10 @@ import { InputErrorTooltipComponent } from './input-error-tooltip/input-error-to
 
 @NgModule({
   declarations: [
-    InputErrorTooltipComponent
+    InputErrorTooltipComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     InputErrorTooltipComponent,

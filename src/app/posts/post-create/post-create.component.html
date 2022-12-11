@@ -36,7 +36,12 @@
 
     <label for="content" class="form-label">Content</label>
     <div class="form-item ">
-        <textarea name="content" rows="20" cols="30" class="form-input post-category" formControlName="content"></textarea>
+        <textarea 
+            name="content"
+            rows="15"
+            cols="50"
+            class="form-input post-category"
+            formControlName="content"></textarea>
     </div>
     <app-input-error-tooltip 
         [shouldShow]="postForm.get('content')?.touched && !this.postForm.get('content')?.valid"

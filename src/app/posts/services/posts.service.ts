@@ -41,7 +41,6 @@ export class PostsService {
     getById(id: string): Observable<IPost> {
         const token = this.userService.getJWTTokenString();
 
-
         return this.httpGet<IPost>(`${endpoints['postById']}?id=${id}`, token)
             .pipe(
                 catchError(err => {
@@ -68,8 +67,7 @@ export class PostsService {
                     console.log(err);
                     return EMPTY;
                 })
-            )
-            ;
+            );
     }
 
     getCurrentUsersPosts(): Observable<IPost[]> {
@@ -146,10 +144,10 @@ export class PostsService {
             this.router.navigateByUrl('login');
         }
 
-
         const body = {
             postId
         };
+
         return this.httpPost<boolean>(endpoints['deletePost'], body, token)
             .pipe(
                 catchError(err => {
@@ -168,6 +166,7 @@ export class PostsService {
         const body = {
             postId
         };
+
         return this.httpPost<boolean>(endpoints['likePost'], body, token);
     }
 
@@ -180,10 +179,11 @@ export class PostsService {
         const body = {
             postId
         };
+
         return this.httpPost<boolean>(endpoints['unlikePost'], body, token);
     }
 
-    // maybe put these as static methods... idk in a static subfolder in common/services
+    // maybe put these as helper functions in... idk a subfolder in common/services
     private httpGet<T>(endpoint: string, bearerToken?: string | null): Observable<T> {
         return this.http
             .get<T>(`${environment.apiUrlBase}${endpoint}`, {

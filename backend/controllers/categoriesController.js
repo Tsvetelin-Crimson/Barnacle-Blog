@@ -9,7 +9,6 @@ categoriesController.get('/', async (req, res) => {
         
         res.json(categories); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -21,7 +20,7 @@ categoriesController.post('/create', requireAuthentication(), requireAdminPrivil
         
         res.json(categories); 
     } catch (error) {
-        // TODO: add back util for error handling
+        // TODO: add back util for error handling to all catches eventually
         res.status(400).json({ error: error.message })
     }
 });

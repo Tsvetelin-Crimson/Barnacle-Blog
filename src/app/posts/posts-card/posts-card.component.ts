@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-posts-card',
   templateUrl: './posts-card.component.html',
   styleUrls: ['./posts-card.component.scss']
 })
-export class PostsCardComponent implements OnInit {
+export class PostsCardComponent {
 
   @Input()
   username?: string | null;
@@ -21,9 +21,4 @@ export class PostsCardComponent implements OnInit {
   likes: number = 0;
   @Input()
   createdOn: Date | null = null;
-
-  constructor() { }
-
-  ngOnInit(): void {  }
-
 }

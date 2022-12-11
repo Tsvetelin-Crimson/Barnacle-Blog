@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { ICategory } from '../models/category';
 import { CategoryService } from '../services/category.service';
 import { PostsService } from '../services/posts.service';
@@ -14,7 +13,8 @@ import { PostsService } from '../services/posts.service';
     class: 'host-element'
   }
 })
-export class PostCreateComponent implements OnInit {
+export class PostCreateComponent {
+
   error = '';
   categories?: ICategory[];
 
@@ -23,22 +23,19 @@ export class PostCreateComponent implements OnInit {
     private categoryService: CategoryService,
     private fb: FormBuilder,
     private router: Router
-    ) {
-       this.categoryService.getAllCategories()
-        .subscribe(categories => {
-          this.categories = categories;
-        });
-     }
-
-    postForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-      preview: ['', [Validators.maxLength(50)]],
-      content: ['', [Validators.required, Validators.minLength(10)]],
-      category: ['' , [Validators.required]],
-    });
-
-  ngOnInit(): void {
+  ) {
+    this.categoryService.getAllCategories()
+      .subscribe(categories => {
+        this.categories = categories;
+      });
   }
+
+  postForm = this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+    preview: ['', [Validators.maxLength(50)]],
+    content: ['', [Validators.required, Validators.minLength(10)]],
+    category: ['', [Validators.required]],
+  });
 
   createPost(): void {
     if (!this.postForm.valid) {
@@ -54,7 +51,7 @@ export class PostCreateComponent implements OnInit {
         "" + this.postForm.get('category')?.value)
       .subscribe(postId => {
         if (postId) {
-        this.router.navigateByUrl('home');
+          this.router.navigateByUrl('home');
         }
       });
   }

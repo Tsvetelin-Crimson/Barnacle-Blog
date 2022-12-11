@@ -20,7 +20,6 @@
     </div>
 
     <label for="category" class="form-label">Category</label>
-    <div class="hint">Don't see your category? <a href="catalog/create">Make one</a></div>
     <div class="form-item ">
         <select name="category" class="post-category"  formControlName="category">
             <option class="post-select" [attr.selected]="category.selected" [ngValue]="category._id" *ngFor="let category of categories">{{category.value}}</option>

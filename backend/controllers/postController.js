@@ -6,11 +6,10 @@ const postsController = require('express').Router();
 
 postsController.post('/', async (req, res) => {
     try {
-        const { search, order, categoryId } = req.body;
-        const posts = await getAllPosts(search , order, categoryId);
+        const { search, searchOrder, categoryId } = req.body;
+        const posts = await getAllPosts(search , searchOrder, categoryId);
         res.json(posts); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -24,7 +23,6 @@ postsController.get('/id', async (req, res) => {
         const post = await getPostById(id, req.user?._id);
         res.json(post); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -36,7 +34,6 @@ postsController.get('/recent', async (req, res) => {
         
         res.json(posts); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -48,7 +45,6 @@ postsController.get('/popular', async (req, res) => {
         
         res.json(posts); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -59,7 +55,6 @@ postsController.get('/user', requireAuthentication(), async (req, res) => {
         
         res.json(posts); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -72,7 +67,6 @@ postsController.post('/create', requireAuthentication(), async (req, res) => {
         
         res.status(201).json(postId); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -91,7 +85,6 @@ postsController.post('/update', requireAuthentication(), async (req, res) => {
         
         res.json(updatedPostId); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -110,7 +103,6 @@ postsController.post('/delete', requireAuthentication(), async (req, res) => {
         
         res.status(200).json({ message: `Successfully deleted post with id ${postId}`}); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -127,7 +119,6 @@ postsController.post('/like', requireAuthentication(), async (req, res) => {
         
         res.status(200).json(true); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -144,7 +135,6 @@ postsController.post('/unlike', requireAuthentication(), async (req, res) => {
         
         res.status(200).json(true); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -157,7 +147,6 @@ postsController.post('/validateOwnership', requireAuthentication(), async (req, 
         
         res.json(isOwner); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });

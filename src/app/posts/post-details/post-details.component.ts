@@ -14,19 +14,20 @@ import { PostsService } from '../services/posts.service';
   }
 })
 export class PostDetailsComponent implements OnInit {
+
   error = '';
   post?: IPost;
   isAuthencticated = false;
   isOwner = false;
   // easier solution than making an action stream TODO: should be changed to action stream
   hideLikeButton = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private postsService: PostsService,
     private userService: UserService,
   ) { }
- 
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];

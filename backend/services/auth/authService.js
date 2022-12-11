@@ -13,7 +13,6 @@ async function login(username, password) {
     testFor(!user, 'Username or password is incorrect!');
 
     const passwordsAreSame = await bcrypt.compare(password, user.hashedPassword);
-
     testFor(!passwordsAreSame, 'Username or password is incorrect!');
 
     const token = createToken(user);
@@ -27,8 +26,11 @@ async function register(username, email, password, repass) {
     var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     testFor(!emailRegex.test(email), `${email} is not an email!`);
 
-    const exists = await User.findOne({ username: username });
-    testFor(exists, 'Username is taken!')
+    const usernameExists = await User.findOne({ username: username });
+    testFor(usernameExists, 'Username is taken!')
+
+    const emailExists = await User.findOne({ email: email });
+    testFor(emailExists, 'Email is taken!')
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -45,9 +47,8 @@ async function register(username, email, password, repass) {
 
 async function verifyAdmin(userId) {
     const user = await User.findById(userId);
-    if (!user) {
-        throw new Error('User does not exist');
-    }
+    testFor(!user, 'User does not exist')
+
     return user.roles.includes('admin');
 }
 

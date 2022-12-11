@@ -9,4 +9,4 @@ You will need 2 consoles open on the base of the project (where this file is).
 The route for he front end is http://localhost:4200/.
 For the backend is http://localhost:3000/.
 
-You can check the file under [the endpoints](src/constants/endpoints.ts) for the endpoints if you need them.
+You can check this file [endpoints](src/constants/endpoints.ts) for the endpoints if you need them.

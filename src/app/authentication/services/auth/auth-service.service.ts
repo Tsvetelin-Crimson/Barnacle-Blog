@@ -17,8 +17,7 @@ export class AuthService {
       username,
       password
     }
-    // TODO: make api endpoints file
-    // TODO: add error handling (pipe() with catch error)
+
     return this.http.post<Token>(`${environment.apiUrlBase}${endpoints['login']}`, body);
   }
 
@@ -29,8 +28,7 @@ export class AuthService {
       password,
       repass
     }
-    // TODO: make api endpoints file
-    // TODO: add error handling (pipe() with catch error)
+    
     return this.http.post<Token>(`${environment.apiUrlBase}${endpoints['register']}`, body);
   }
 

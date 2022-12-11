@@ -1,12 +1,12 @@
 <form class="form" #categoryForm="ngForm" (ngSubmit)="create(categoryForm)">
-    <h2 style="align-self: center;">Login</h2>
+    <h2 style="align-self: center;">Create Category</h2>
     <h5 *ngIf="error != ''" class="error-text">{{error}}</h5>
     <label for="categoryName" class="form-label">Category label</label>
-    <div class="form-item ">
+    <div class="form-item">
         <input type="text" name="categoryName" class="form-input" required ngModel #categoryName="ngModel" >
     </div>
     <app-input-error-tooltip 
-        [shouldShow]="categoryName.touched && categoryName.value.length < 3 && categoryName.value.length > 30"
+        [shouldShow]="categoryName.touched && (categoryName.value.length < 3 || categoryName.value.length > 30)"
         [error]="'Category name is required with a value of between 3 and 30 symbols'"
     ></app-input-error-tooltip>
     

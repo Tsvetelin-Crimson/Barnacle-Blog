@@ -12,8 +12,10 @@ import { IUser } from '../../common/services/models/IUser';
   }
 })
 export class AdminPanelComponent implements OnInit {
+  
   users$?: Observable<IUser[]>;
   error = '';
+
   constructor(
     private userService: UserService
   ) { }
@@ -24,14 +26,10 @@ export class AdminPanelComponent implements OnInit {
   }
 
   banUser(userId: string) {
-    // this.userService.banUserI(userId)
-    //   .pipe()
     this.userService.banUser(userId)
       .pipe(
         catchError(err => {
           this.error = err.error.error;
-          console.log(err);
-          
           return of(null);
         })
       )
@@ -47,8 +45,6 @@ export class AdminPanelComponent implements OnInit {
       .pipe(
         catchError(err => {
           this.error = err.error.error;
-          console.log(err);
-          
           return of(null);
         })
       )

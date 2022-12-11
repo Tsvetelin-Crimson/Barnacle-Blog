@@ -11,7 +11,9 @@ export class HeaderComponent implements AfterViewInit {
 
   @Input()
   isAuthenticated: boolean = false;
+  
   username: string | null = null;
+
   constructor(
     private userService: UserService,
     private router: Router) {

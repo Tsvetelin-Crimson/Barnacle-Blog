@@ -21,8 +21,11 @@ export class UserService {
   }
 
   getUsername(): string | null {
-    const username = localStorage.getItem('username');
-    return username;
+    return localStorage.getItem('username');;
+  }
+
+  setLocalValue(name: string ,value: string): void {
+    localStorage.setItem(name, value);
   }
 
   logOut(): void {
@@ -35,10 +38,8 @@ export class UserService {
     if (token === null) {
       return of(false);
     }
-    return this.http
-      .get<boolean>(`${environment.apiUrlBase}${endpoints['validateToken']}`, {
-        headers: { 'bearer': token }
-      });
+
+    return this.httpGet<boolean>(endpoints['validateToken'], token);
   }
 
   checkIsAdmin(): Observable<boolean> {
@@ -46,10 +47,8 @@ export class UserService {
     if (token === null) {
       return of(false);
     }
-    return this.http
-      .get<boolean>(`${environment.apiUrlBase}${endpoints['validateAdmin']}`, {
-        headers: { 'bearer': token }
-      })
+
+    return this.httpGet<boolean>(endpoints['validateAdmin'], token)
   }
 
   isPostOwner(postId: string): Observable<boolean> {
@@ -61,10 +60,8 @@ export class UserService {
     const body = {
       postId
     };
-    return this.http
-      .post<boolean>(`${environment.apiUrlBase}${endpoints['postOwnership']}`, body, {
-        headers: { 'bearer': token }
-      });
+
+    return this.httpPost<boolean>(endpoints['postOwnership'], body, token);
   }
 
   getAllUsers(): Observable<IUser[]> {
@@ -84,6 +81,7 @@ export class UserService {
               if (changedUser?._id == u._id) {
                 u.isBanned = changedUser.isBanned;
               }
+
               return users;
             });
           }
@@ -91,10 +89,6 @@ export class UserService {
           return users;
         }),
       );
-    // return this.http
-    //   .get<IUser[]>(`${environment.apiUrlBase}${enpoints['postOwnership']}`, {
-    //     headers: { 'bearer': token }
-    //   });
   }
 
   banUser(userToBanId: string): Observable<IUser | null> {
@@ -103,7 +97,11 @@ export class UserService {
       return of(null);
     }
 
-    return this.httpPost<IUser>(endpoints['banUser'], { userId: userToBanId }, token);
+    const body = { 
+      userId: userToBanId 
+    };
+
+    return this.httpPost<IUser>(endpoints['banUser'], body, token);
   }
 
   unbanUser(userToUnbanId: string): Observable<IUser | null> {

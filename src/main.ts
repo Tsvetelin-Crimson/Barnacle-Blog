@@ -17,15 +17,17 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 //   ...
 // }
 
-window.onscroll = function() {myFunction()};
-var header = document.getElementById("header");
+if (window) {
+  window.onscroll = function() {myFunction()};
+  var header = document.getElementById("header");
 
-var sticky = header?.offsetTop;
+  var sticky = header?.offsetTop;
 
-function myFunction() {
-  if (sticky != undefined && window.pageYOffset > sticky) {
-    header?.classList.add("sticky");
-  } else {
-    header?.classList.remove("sticky");
+  function myFunction() {
+    if (sticky != undefined && window.pageYOffset > sticky) {
+      header?.classList.add("sticky");
+    } else {
+      header?.classList.remove("sticky");
+    }
   }
 }

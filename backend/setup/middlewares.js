@@ -1,11 +1,9 @@
 const express = require('express');
 var cors = require('cors')
-// const { addSession } = require('../utils/userManagement');
-// const { trimBody } = require('../utils/requestBodyUtils');
 
-// TODO: Add eventually
+// TODO: Add eventually, also figure it out
 // var corsOptions = {
-//     origin: 'http://example.com',
+//     origin: 'http://localhost:4200/', // should be added via constant/ env variable
 //     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 //   }
 
@@ -14,5 +12,6 @@ module.exports = (app) => {
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     app.use(cors());
+    // could re-add this
     // app.use(trimBody('password'));
 };

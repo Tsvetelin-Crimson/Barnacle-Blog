@@ -9,7 +9,6 @@ usersController.get('/', requireAuthentication(), requireAdminPrivileges(), asyn
         
         res.json(users); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -21,7 +20,6 @@ usersController.post('/ban', requireAuthentication(), requireAdminPrivileges(), 
         
         res.json(banned); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -33,12 +31,9 @@ usersController.post('/unban', requireAuthentication(), requireAdminPrivileges()
         
         res.json(unbanned); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
-
-
 
 
 module.exports = usersController;

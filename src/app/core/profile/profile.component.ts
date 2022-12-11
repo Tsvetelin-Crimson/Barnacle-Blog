@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = this.userService.getUsername();
-    this.postService.getCurrentUsersPosts() // could be done with reactive
+    this.postService.getCurrentUsersPosts() // could be done with reactive aproach, works as is so no need to touch
       .subscribe(posts => {
         this.posts = posts;
       });

@@ -41,6 +41,7 @@ export class PostEditComponent implements OnInit {
       .getById(postId)
       .subscribe(post => {
         this.editedPost = post;
+        
         this.setPostFormProperties(post);
         if (this.categories !== undefined) {
           this.findSelectedCategory(post);

@@ -1,21 +1,21 @@
-    <nav class="navigation" id="header">
-        <ul class="nav-container">
-          <li class="nav-home nav-li-item">
-            <a class="nav-item" routerLink="/">Barnacle Blog</a>
-          </li>
-          <li class="nav-li-item"*ngIf="!isAuthenticated">
-              <a class="nav-item button-item" routerLink="/catalog">Browse Blogs</a>
-              <a class="nav-item button-item" routerLink="/login">Login</a>
-              <a class="nav-item button-item" routerLink="/register">Register</a>
-          </li>
-          
-          <li class="nav-li-item logged-group" *ngIf="isAuthenticated">
-            <a class="nav-item button-item" routerLink="/catalog">Browse Blogs</a>
-            <a class="nav-item button-item" routerLink="/post/create">Post New Blog</a>
-          </li>
-          <li class="nav-li-item logged-group" *ngIf="isAuthenticated">
-              <a class="nav-item button-item username" routerLink="/profile" title="{{username}}">View Profile</a>
-              <a class="nav-item button-item logout" (click)="logOut()">Logout</a>
-          </li>
-        </ul>
-      </nav>
+<nav class="navigation" id="header">
+  <ul class="nav-container">
+    <li class="nav-home nav-li-item">
+      <a class="nav-item" routerLink="/">Barnacle Blog</a>
+    </li>
+    <li class="nav-li-item" *ngIf="!isAuthenticated">
+      <a class="nav-item button-item" routerLink="/catalog">Browse Blogs</a>
+      <a class="nav-item button-item" routerLink="/login">Login</a>
+      <a class="nav-item button-item" routerLink="/register">Register</a>
+    </li>
+
+    <li class="nav-li-item logged-group" *ngIf="isAuthenticated">
+      <a class="nav-item button-item" routerLink="/catalog">Browse Blogs</a>
+      <a class="nav-item button-item" routerLink="/post/create">Post New Blog</a>
+    </li>
+    <li class="nav-li-item logged-group" *ngIf="isAuthenticated">
+      <a class="nav-item button-item username" routerLink="/profile" title="{{username}}">View Profile</a>
+      <a class="nav-item button-item logout" (click)="logOut()">Logout</a>
+    </li>
+  </ul>
+</nav>

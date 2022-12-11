@@ -15,7 +15,7 @@ import { AdminModule } from './admin/admin.module';
   declarations: [
     AppComponent,
     HomeComponent,
-    UnauthorizedPageComponent
+    UnauthorizedPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +39,9 @@ import { AdminModule } from './admin/admin.module';
       },
       {
         path: '**',
-        component: NotFoundPageComponent // TODO: add 404 page, maybe to core
+        component: NotFoundPageComponent
       },
-    ])
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]

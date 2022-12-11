@@ -43,6 +43,7 @@ async function getPostById(id, curUserId) {
     return {
         _id: post._id,
         title: post.title,
+        preview: post.preview,
         category: post.category,
         content: post.content,
         createdOn: post.createdOn,

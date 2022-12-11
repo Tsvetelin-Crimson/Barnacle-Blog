@@ -25,7 +25,16 @@
     background-color: rgb(1, 62, 86);
     color: antiquewhite;
     height: auto;
-    width: 30%;
+    width: auto;
+}
+
+.post-select {
+    background-color: rgb(1, 62, 86);
+    color: antiquewhite;
+    height: auto;
+    width: auto;
+    line-height: 40px;
+    font-size: 30px;
 }
 
 .post-content {
@@ -34,14 +43,4 @@
     color: antiquewhite;
     height: auto;
     width: 50%;
-}
-
-.post-select {
-
-    background-color: rgb(1, 62, 86);
-    color: antiquewhite;
-    height: auto;
-    width: auto;
-    line-height: 40px;
-        font-size: 30px;
 }

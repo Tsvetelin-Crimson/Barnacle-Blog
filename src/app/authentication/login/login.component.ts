@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
+import { UserService } from 'src/app/common/services/user.service';
 import { AuthService } from '../services/auth/auth-service.service';
 
 @Component({
@@ -12,17 +13,18 @@ import { AuthService } from '../services/auth/auth-service.service';
     class: 'host-element'
   }
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  
   error = '';
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userSevice: UserService
     ) {
    }
 
   login(form: NgForm): void {
-
     const values: { username:string, password: string } = form.value;
     
     this.authService.login(values.username, values.password)
@@ -33,14 +35,13 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe((token) => {
-        localStorage.setItem('jwt', token.token);
-        localStorage.setItem('username', values.username ?? '');
-        this.router.navigateByUrl('home');
-        return;
+        if (token != null && token.token != '') {
+          this.userSevice.setLocalValue('jwt', token.token);
+          this.userSevice.setLocalValue('username', values.username ?? '');
+          this.router.navigateByUrl('home');
+          return;
+        }
+        this.error == 'An unexpected error occured please try again';
       })
   }
-
-  ngOnInit(): void {
-  }
-
 }

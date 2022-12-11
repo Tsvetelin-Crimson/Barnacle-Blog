@@ -23,7 +23,6 @@ authController.post('/login', async (req, res) => {
         
         res.json({token}); 
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -45,7 +44,6 @@ authController.get('/validateToken',  (req, res) => {
         }
         
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
@@ -60,9 +58,9 @@ authController.get('/validateAdmin', requireAuthentication(), async(req, res) =>
             res.json(isAdmin);
         }
     } catch (error) {
-        // TODO: add back util for error handling
         res.status(400).json({ error: error.message })
     }
 });
+
 
 module.exports = authController;

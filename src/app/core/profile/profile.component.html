@@ -3,8 +3,9 @@
         Hello <b class="username">{{username}}</b>
     </div>
     
-    <div class="username-header" *ngIf="isAdmin" >
-        <a routerLink="/category/create" class="button-item">Create a new Category</a>
+    <div class="admin-options" *ngIf="isAdmin" >
+        <a routerLink="/category/create" class="button-item admin-button">Create a new Category</a>
+        <a routerLink="/admin/panel" class="button-item admin-button">Admin panel</a>
     </div>
 
     <div class="posts-count">

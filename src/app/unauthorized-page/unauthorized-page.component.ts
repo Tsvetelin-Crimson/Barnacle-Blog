@@ -8,11 +8,4 @@ import { Component, OnInit } from '@angular/core';
     class: 'host-element'
   }
 })
-export class UnauthorizedPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class UnauthorizedPageComponent { }

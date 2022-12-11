@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ICategory } from '../models/category';
@@ -14,7 +14,8 @@ import { PostsService } from '../services/posts.service';
     class: 'host-element'
   }
 })
-export class PostsCatalogComponent implements OnInit {
+export class PostsCatalogComponent {
+
   searchForm = this.fb.group({
     search: [''],
     searchOrder: ['asc'],
@@ -31,9 +32,6 @@ export class PostsCatalogComponent implements OnInit {
     ) {
     this.posts = this.postsService.getAll('', '', '');
     this.categories = this.categoryService.getAllCategories();
-  }
-
-  ngOnInit(): void {
   }
 
   updateFilter(): void {

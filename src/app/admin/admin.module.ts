@@ -16,7 +16,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AdminPanelComponent
+    AdminPanelComponent,
   ],
   imports: [
     CommonModule,

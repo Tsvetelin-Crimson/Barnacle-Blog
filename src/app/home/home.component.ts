@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../common/services/user.service';
 import { IPost } from '../posts/models/post';
 import { PostsService } from '../posts/services/posts.service';
@@ -11,14 +11,13 @@ import { PostsService } from '../posts/services/posts.service';
     class: 'host-element'
   }
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   recentPosts: IPost[] = [];
   popularPosts: IPost[] = [];
 
   constructor(
     private postService: PostsService,
-    private userService: UserService,
   ) {
     this.postService.getPopular()
       .subscribe(posts => {
@@ -30,8 +29,4 @@ export class HomeComponent implements OnInit {
         this.recentPosts = posts;
       })
   }
-
-  ngOnInit(): void {
-  }
-
 }

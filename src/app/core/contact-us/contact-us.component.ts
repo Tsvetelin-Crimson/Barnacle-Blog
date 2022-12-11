@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-contact-us',
@@ -8,11 +8,4 @@ import { Component, OnInit } from '@angular/core';
     class: 'host-element'
   }
 })
-export class ContactUsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class ContactUsComponent { }

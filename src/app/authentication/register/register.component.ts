@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
+import { UserService } from 'src/app/common/services/user.service';
 import { AuthService } from '../services/auth/auth-service.service';
 
 @Component({
@@ -12,31 +13,15 @@ import { AuthService } from '../services/auth/auth-service.service';
     class: 'host-element'
   }
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
+  
   error = '';
-  // EXAMPLE
-  // form = this.fb.group({
-  //   username: ['', Validators.required],
-  //   email: ['', Validators.required, Validators.email],
-  //   password: ['', Validators.required],
-  //   repass: ['', Validators.required],
-  // });
-  // registerForm = this.fb.group({
-  //   username: ['', Validators.required],
-  //   email: ['', Validators.required, Validators.email],
-  //   password: ['', Validators.required],
-  //   repass: ['', Validators.required],
-  // });
-  // // @ViewChild('registerForm', { static: true })
-  // // registerForm!: NgForm;
+
   constructor(
     private authService: AuthService,
     private router: Router,
+    private userService: UserService
     ) { }
-
-  ngOnInit(): void {
-  }
-
   register(form: NgForm) {
     const values: { username:string, email: string, password:string, repass: string } = form.value;
 
@@ -49,12 +34,12 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe(token => {
         if (token != null && token.token != '') {
-        localStorage.setItem('jwt', token.token);
-        // TODO: make control fields consistent
-        localStorage.setItem('username', values.username ?? '');
-        this.router.navigateByUrl('home');
-        return;
+          this.userService.setLocalValue('jwt', token.token);
+          this.userService.setLocalValue('username', values.username ?? '');
+          this.router.navigateByUrl('home');
+          return;
         }
+
         this.error == 'An unexpected error occured please try again';
       })
   }

@@ -7,6 +7,7 @@ import { UserService } from '../common/services/user.service';
   providedIn: 'root'
 })
 export class IsAdminGuard implements CanActivate {
+  
   constructor(
     private userService: UserService,
     private router: Router,

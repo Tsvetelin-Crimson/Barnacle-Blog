@@ -17,14 +17,9 @@
     font-size: 40px;
 }
 
-
 .posts-count {
     margin-top: 2%;
 }
-
-// .posts-count-content {
-//     color: rgb(255, 214, 160);
-// }
 
 .posts-count-number {
     font-size: 40px;
@@ -55,4 +50,15 @@
     background-color: rgb(118, 118, 118);
     border-style: solid;
     border-color: rgb(118, 118, 118);
+}
+
+.admin-options {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 2%;
+}
+
+.admin-button {
+    margin-bottom: 1%;
 }
